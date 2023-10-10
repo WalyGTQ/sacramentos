@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.sacramentos.PrimeraComunionController">
+    <!-- Encabezado -->
+    <top>
+        <HBox alignment="CENTER" spacing="10">
+         <AnchorPane prefHeight="14.0" prefWidth="790.0" style="-fx-background-color: linear-gradient(to bottom, #FFDC61, #ffffff);">
+            <children>
+               <Button fx:id="btnRegresar" alignment="CENTER_RIGHT" layoutX="677.0" layoutY="17.0" mnemonicParsing="false" onAction="#_regresar" prefHeight="40.0" prefWidth="99.0" text="Regresar" textAlignment="RIGHT">
+                  <font>
+                     <Font name="System Bold" size="12.0" />
+                  </font></Button>
+                  <Label layoutX="233.0" layoutY="17.0" style="-fx-font-size: 24;" />
+               <Label layoutX="225.0" layoutY="11.0" text="Primeras Comuniones ">
+                  <font>
+                     <Font name="Microsoft Himalaya" size="48.0" />
+                  </font>
+               </Label>
+               <ImageView fitHeight="30.0" fitWidth="29.0" layoutX="685.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../../../img/deshacer.png" />
+                  </image>
+               </ImageView>
+               <ImageView fitHeight="74.0" fitWidth="80.0" layoutX="56.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../../../img/bautismo.png" />
+                  </image>
+               </ImageView>
+            </children>
+         </AnchorPane>
+        </HBox>
+    </top>
+
+    <!-- Contenido principal, este espacio cambia según la opción seleccionada en el menú -->
+    <center>
+        <StackPane prefHeight="337.0" prefWidth="493.0">
+         <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+           <tabs>
+             <Tab style="-fx-font-weight: bold;" text="Inscripciones">
+                  <content>
+                     <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: linear-gradient(to bottom, #FFDC61, #ffffff);">
+                        <children>
+                           <TextField fx:id="txtLibroPc" alignment="TOP_CENTER" layoutX="55.0" layoutY="16.0" prefHeight="25.0" prefWidth="43.0" promptText="#" />
+                           <TextField fx:id="txtFolioPc" alignment="TOP_CENTER" layoutX="160.0" layoutY="16.0" prefHeight="25.0" prefWidth="40.0" promptText="#" />
+                           <TextField fx:id="txtPartidaPc" alignment="TOP_CENTER" layoutX="264.0" layoutY="16.0" prefHeight="25.0" prefWidth="40.0" promptText="#" />
+                           <TextField fx:id="txtApellidoPc" layoutX="264.0" layoutY="153.0" prefHeight="25.0" prefWidth="239.0" promptText="Apellidos de la Persona" />
+                           <TextField fx:id="txtNombrePc" layoutX="35.0" layoutY="153.0" prefHeight="25.0" prefWidth="223.0" promptText="Nombres de la Persona" />
+                           <TextArea fx:id="txtAreaObPc" layoutX="521.0" layoutY="95.0" prefHeight="296.0" prefWidth="271.0" promptText="Observaciones si Hubiese" text="Ninguna" />
+                           <Label layoutX="14.0" layoutY="17.0" prefHeight="23.0" prefWidth="41.0" text="Libro">
+                              <font>
+                                 <Font name="Arial Bold" size="12.0" />
+                              </font>
+                           </Label>
+                           <Label layoutX="214.0" layoutY="17.0" prefHeight="23.0" prefWidth="41.0" text="Partida">
+                              <font>
+                                 <Font name="Arial Bold" size="12.0" />
+                              </font>
+                           </Label>
+                           <Label layoutX="112.0" layoutY="17.0" prefHeight="23.0" prefWidth="41.0" text="Folio">
+                              <font>
+                                 <Font name="Arial Bold" size="12.0" />
+                              </font>
+                           </Label>
+                           <Label layoutX="135.0" layoutY="105.0" prefHeight="23.0" prefWidth="114.0" text="Fecha Realizado">
+                              <font>
+                                 <Font name="Arial Bold" size="12.0" />
+                              </font>
+                           </Label>
+                           <DatePicker fx:id="dpFechaRealizadoPc" layoutX="268.0" layoutY="103.0" prefHeight="25.0" prefWidth="231.0" promptText="Fecha en que se Realizó" />
+                           <Label layoutX="35.0" layoutY="130.0" prefHeight="23.0" prefWidth="114.0" text="Nombre">
+                              <font>
+                                 <Font name="Arial Bold" size="12.0" />
+                              </font>
+                           </Label>
+                           <Label layoutX="264.0" layoutY="130.0" prefHeight="23.0" prefWidth="114.0" text="Apellido">
+                              <font>
+                                 <Font name="Arial Bold" size="12.0" />
+                              </font>
+                           </Label>
+                           <Label layoutX="35.0" layoutY="196.0" prefHeight="23.0" prefWidth="129.0" text="Fecha de Nacimiento">
+                              <font>
+                                 <Font name="Arial Bold" size="12.0" />
+                              </font>
+                           </Label>
+                           <DatePicker fx:id="dpFechaNacPc" layoutX="167.0" layoutY="195.0" prefHeight="25.0" prefWidth="258.0" promptText="Ingrese Fecha de Nacimiento" />
+                           <Label layoutX="580.0" layoutY="68.0" prefHeight="23.0" prefWidth="114.0" text="Observaciones">
+                              <font>
+                                 <Font name="Arial Bold" size="12.0" />
+                              </font>
+                           </Label>
+                           <TextField fx:id="txtLugarBauPc" layoutX="167.0" layoutY="237.0" prefHeight="25.0" prefWidth="333.0" promptText="Lugar en que se Realizo el Sacramento" text="SEDE - Parroquia Santo Hermano Pedro" />
+                           <Label layoutX="35.0" layoutY="238.0" prefHeight="23.0" prefWidth="114.0" text="Lugar Bautismo">
+                              <font>
+                                 <Font name="Arial Bold" size="12.0" />
+                              </font>
+                           </Label>
+                           <CheckBox fx:id="boxInscritoPc" layoutX="14.0" layoutY="60.0" mnemonicParsing="false" text="Inscrito al Libro">
+                              <font>
+                                 <Font name="System Bold Italic" size="12.0" />
+                              </font>
+                           </CheckBox>
+                           <Accordion layoutX="536.0" layoutY="233.0" />
+                           <AnchorPane layoutX="175.0" layoutY="318.0" prefHeight="110.0" prefWidth="318.0">
+                              <children>
+                                 <Button layoutX="5.0" layoutY="6.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="39.0" text="&lt;&lt;" />
+                                 <Button layoutX="52.0" layoutY="6.0" mnemonicParsing="false" text="&lt;" />
+                                 <Button layoutX="84.0" layoutY="6.0" mnemonicParsing="false" text="&gt;" />
+                                 <Button layoutX="116.0" layoutY="6.0" mnemonicParsing="false" text="&gt;&gt;" />
+                                 <Button layoutX="167.0" layoutY="43.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="99.0" text="Actualizar" />
+                                 <Button layoutX="93.0" layoutY="73.0" mnemonicParsing="false" text="Limpiar" />
+                                 <Button layoutX="23.0" layoutY="43.0" mnemonicParsing="false" onAction="#_guardarPc" prefHeight="25.0" prefWidth="109.0" text="Guardar" />
+                                 <Button layoutX="178.0" layoutY="73.0" mnemonicParsing="false" text="Borrar" />
+                                 <Button layoutX="216.0" layoutY="6.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="54.0" text="Clonar" />
+                                 <Button layoutX="158.0" layoutY="6.0" mnemonicParsing="false" text="Nuevo" />
+                              </children>
+                           </AnchorPane>
+                           <AnchorPane layoutX="18.0" layoutY="340.0" prefHeight="51.0" prefWidth="149.0">
+                              <children>
+                                 <Button layoutX="22.0" layoutY="13.0" mnemonicParsing="false" text="IMPRIMIR FICHA" />
+                              </children>
+                           </AnchorPane>
+                           <TextField fx:id="txtCelebrantePc" layoutX="168.0" layoutY="284.0" prefHeight="25.0" prefWidth="333.0" promptText="Sacerdote o delegado que Celebro" text="P. José Rolando Cúmez Tuyuc" />
+                           <Label layoutX="36.0" layoutY="285.0" prefHeight="23.0" prefWidth="114.0" text="Celebrante">
+                              <font>
+                                 <Font name="Arial Bold" size="12.0" />
+                              </font>
+                           </Label>
+                        </children>
+                     </AnchorPane>
+                  </content></Tab>
+               <Tab style="-fx-font-weight: bold;" text="Buscar">
+                  <content>
+                     <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                        <children>
+                           <TextField layoutX="62.0" layoutY="41.0" prefHeight="23.0" prefWidth="230.0" />
+                           <TableView layoutX="23.0" layoutY="76.0" prefHeight="200.0" prefWidth="768.0">
+                             <columns>
+                               <TableColumn prefWidth="36.0" text="Libro" />
+                               <TableColumn prefWidth="39.0" text="Folio" />
+                                 <TableColumn prefWidth="47.0" text="Partida" />
+                                 <TableColumn prefWidth="121.0" text="Nombre" />
+                                 <TableColumn prefWidth="149.0" text="Apellido" />
+                                 <TableColumn prefWidth="120.0" text="Fecha " />
+                                 <TableColumn prefWidth="127.0" text="Padre" />
+                                 <TableColumn minWidth="0.0" prefWidth="128.0" text="Madre" />
+                             </columns>
+                           </TableView>
+                           <Button layoutX="315.0" layoutY="41.0" mnemonicParsing="false" text="Buscar" />
+                        </children>
+                     </AnchorPane>
+                  </content></Tab>
+               <Tab style="-fx-font-weight: bold;" text="Requisitos">
+                  <content>
+                     <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                        <children>
+                           <TextArea layoutX="14.0" layoutY="14.0" prefHeight="412.0" prefWidth="328.0" promptText="GUATEMALA" text="Si necesitas mostrar registros de una base de datos, que probablemente contienen múltiples campos (por ejemplo, ID, nombre, fecha), el TableView es definitivamente la opción más adecuada. Esto se debe a que permite representar cada registro en filas y cada campo de datos en columnas, proporcionando así una representación tabular completa de tus registros. Esto es especialmente útil si tienes datos que deseas mostrar en columnas separadas y potencialmente ofrecer ordenación y otras funciones avanzadas.&#10;&#10;Por otro lado, si solo necesitas mostrar una lista simple de ítems, sin detalles adicionales, el ListView podría ser suficiente.&#10;&#10;Dado tu escenario (mostrar registros de una base de datos después de pulsar un botón para buscar), te recomendaría usar TableView." />
+                        </children>
+                     </AnchorPane>
+                  </content></Tab>
+               <Tab style="-fx-font-weight: bold;" text="Constancias" />
+               <Tab style="-fx-font-weight: bold;" text="Estadisticas">
+                  <content>
+                     <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                        <children>
+                           <BarChart layoutX="101.0" layoutY="17.0" prefHeight="402.0" prefWidth="511.0">
+                             <xAxis>
+                               <CategoryAxis side="BOTTOM" />
+                             </xAxis>
+                             <yAxis>
+                               <NumberAxis side="LEFT" />
+                             </yAxis>
+                           </BarChart>
+                        </children>
+                     </AnchorPane>
+                  </content></Tab>
+           </tabs>
+         </TabPane>
+        </StackPane>
+    </center>
+
+    <!-- Pie de página -->
+    <bottom>
+        <HBox alignment="CENTER" prefHeight="46.0" prefWidth="696.0" spacing="10" style="-fx-background-color: linear-gradient(to bottom, #FFDC61, #ffffff);">
+            <Label text="© 2023 Iglesia Católica - Sistema de Gestión de Sacramentos" />
+        </HBox>
+    </bottom>
+</BorderPane>
