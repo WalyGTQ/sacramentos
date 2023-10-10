@@ -251,7 +251,7 @@ public class BautismosVistaController implements Initializable {
         datePikerFechaNacimientoB.setValue(null);
     }
     
-//    
+//    Pendiente el COdigo
 //    private void _consultaBautismo() throws IOException {
 //        libroColumn.setCellValueFactory(new PropertyValueFactory<FeligresDetalle, Integer>("libro"));
 //        folioColumn.setCellValueFactory(new PropertyValueFactory<FeligresDetalle, Integer>("folio"));
