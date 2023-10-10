@@ -57,7 +57,7 @@
     <!-- Contenido principal, este espacio cambia según la opción seleccionada en el menú -->
     <center>
         <StackPane prefHeight="337.0" prefWidth="493.0">
-            <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+            <TabPane fx:id="miTabPaneB" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
                 <tabs>
                     <Tab style="-fx-font-weight: bold;" text="Inscripciones">
                         <content>
@@ -176,11 +176,11 @@
                             </AnchorPane>
                         </content>
                     </Tab>
-                    <Tab style="-fx-font-weight: bold;" text="Buscar">
+                    <Tab onSelectionChanged="#_mostraDatos" style="-fx-font-weight: bold;" text="Buscar">
                         <content>
                             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                                 <children>
-                           <TableView fx:id="tablaFeligreses" layoutX="14.0" layoutY="77.0" prefHeight="342.0" prefWidth="734.0">
+                           <TableView fx:id="tablaFeligreses" layoutX="14.0" layoutY="77.0" prefHeight="361.0" prefWidth="978.0">
                               <columns>
                                  <TableColumn fx:id="libroColumn" minWidth="40.0" prefWidth="40.0" style="-fx-alignment: CENTER;" text="Libro" />
                                  <TableColumn fx:id="folioColumn" minWidth="40.0" prefWidth="40.0" style="-fx-alignment: CENTER;" text="Folio" />
@@ -200,8 +200,8 @@
                                  <TableColumn fx:id="registradoColumn" prefWidth="168.0" text="¿Registrado?" />
                               </columns>
                            </TableView>
-                                    <TextField layoutX="133.0" layoutY="24.0" prefHeight="23.0" prefWidth="230.0" />
-                                    <Button layoutX="386.0" layoutY="24.0" mnemonicParsing="false" text="Buscar" />
+                                    <TextField fx:id="txtBusquedaB" layoutX="133.0" layoutY="24.0" prefHeight="23.0" prefWidth="230.0" />
+                                    <Button layoutX="386.0" layoutY="24.0" mnemonicParsing="false" onAction="#_consultaBautismoBusqueda" text="Buscar" />
                                 </children>
                             </AnchorPane>
                         </content>
