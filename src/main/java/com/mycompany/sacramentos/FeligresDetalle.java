@@ -22,14 +22,14 @@ public class FeligresDetalle {
     private final SimpleObjectProperty<LocalDate> nacimiento;
     private final IntegerProperty edad;
     private final SimpleStringProperty lugarNacimiento;
-    private final SimpleStringProperty fechaSacramento;
+    private final SimpleObjectProperty<LocalDate> fechaSacramento;
     private final SimpleStringProperty lugarSacramento;
     private final SimpleStringProperty padrino;
     private final SimpleStringProperty madrina;
     private final SimpleStringProperty observacion;
     private final SimpleStringProperty registrado;
 
-    public FeligresDetalle(Integer libro, Integer folio, Integer partida, String nombre, String apellido, String padre, String madre, LocalDate nacimiento, Integer edad, String lugarNacimiento, String fechaSacramento, String lugarSacramento, String padrino, String madrina, String observacion, String registrado) {
+    public FeligresDetalle(Integer libro, Integer folio, Integer partida, String nombre, String apellido, String padre, String madre, LocalDate nacimiento, Integer edad, String lugarNacimiento, LocalDate fechaSacramento, String lugarSacramento, String padrino, String madrina, String observacion, String registrado) {
 
         this.libro = new SimpleIntegerProperty(libro);
         this.folio = new SimpleIntegerProperty(folio);
@@ -41,7 +41,7 @@ public class FeligresDetalle {
         this.nacimiento = new SimpleObjectProperty<>(nacimiento);
         this.edad = new SimpleIntegerProperty(edad);
         this.lugarNacimiento = new SimpleStringProperty(lugarNacimiento);
-        this.fechaSacramento = new SimpleStringProperty(fechaSacramento);
+        this.fechaSacramento = new SimpleObjectProperty<>(fechaSacramento);
         this.lugarSacramento = new SimpleStringProperty(lugarSacramento);
         this.padrino = new SimpleStringProperty(padrino);
         this.madrina = new SimpleStringProperty(madrina);
@@ -90,7 +90,7 @@ public class FeligresDetalle {
         return lugarNacimiento.get();
     }
 
-    public String getFechaSacramento() {
+    public LocalDate getFechaSacramento() {
         return fechaSacramento.get();
     }
 
