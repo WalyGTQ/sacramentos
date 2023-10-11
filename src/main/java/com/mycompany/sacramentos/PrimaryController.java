@@ -308,7 +308,7 @@ public class PrimaryController {
                         rs.getDate("nacimiento").toLocalDate(),
                         rs.getInt("edadFeligres"),
                         rs.getString("lugarNacimiento"),
-                        rs.getString("fechaSacramento"),
+                        rs.getDate("fechaSacramento").toLocalDate(),
                         rs.getString("lugarSacramento"),
                         rs.getString("padrino"),
                         rs.getString("madrina"),
