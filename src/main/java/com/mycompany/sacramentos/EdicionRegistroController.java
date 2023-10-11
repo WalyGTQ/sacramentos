@@ -26,6 +26,8 @@ public class EdicionRegistroController implements Initializable {
     }    
     @FXML
         public void _regresar() throws IOException {
+            FeligresDetalle feligres = SingletonData1.getInstance().getFeligresDetalle();
+            System.out.println(feligres.getLibro());
          App.setRoot("bautismosVista");
     }    
     

@@ -16,6 +16,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Control;
 import static javafx.scene.control.PopupControl.USE_COMPUTED_SIZE;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -223,6 +224,21 @@ public class PrimaryController {
 
     @FXML
     private void _buscar() throws IOException {
+                tablaFeligreses.setRowFactory(tv -> {
+            TableRow<FeligresDetalle> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!row.isEmpty())) {
+                    FeligresDetalle rowData = row.getItem();
+                    SingletonData1.getInstance().setFeligresDetalle(rowData); // Guarda los datos en el Singleton
+                    try {
+                        App.setRoot("edicionRegistro");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            return row;
+        });
         // Validación para verificar si el TextField está vacío
         busqueda = txtBusquedaRapida.getText();
         if (busqueda.trim().isEmpty()) {

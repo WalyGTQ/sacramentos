@@ -311,6 +311,7 @@ public class BautismosVistaController implements Initializable {
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (!row.isEmpty())) {
                     FeligresDetalle rowData = row.getItem();
+                    SingletonData1.getInstance().setFeligresDetalle(rowData); // Guarda los datos en el Singleton
                     try {
                         App.setRoot("edicionRegistro");
                     } catch (IOException e) {
@@ -405,6 +406,7 @@ public class BautismosVistaController implements Initializable {
 
     @FXML
     private void _consultaBautismoBusqueda() throws IOException {
+        
         // Validación para verificar si el TextField está vacío
         busqueda = txtBusquedaB.getText();
         if (busqueda.trim().isEmpty()) {
