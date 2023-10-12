@@ -87,7 +87,7 @@ public class BautismosVistaController implements Initializable {
     //Definicion de la variable de Busqueda
     @FXML
     private TextField txtBusquedaB;
-    
+
     private TabPane miTabPaneB;
 
     /**
@@ -212,7 +212,7 @@ public class BautismosVistaController implements Initializable {
                 //Insertado a la tabla de Reistrodel Sacramento
                 String sql3 = "INSERT INTO bautismo (fechaSacramento, lugarSacramento, padrino, madrina, idFeligres, fechaInscripcion) VALUES ( ?, ?, ?, ?, ?, NOW())";
                 // Preparando la consulta SQL
-                pstmt3 = conn.prepareStatement(sql3);
+                pstmt3 = conn.prepareStatement(sql3, Statement.RETURN_GENERATED_KEYS);
                 pstmt3.setDate(1, Date.valueOf(fechaBautismo));
                 pstmt3.setString(2, lugarBautismo);
                 pstmt3.setString(3, padrino);
@@ -221,26 +221,32 @@ public class BautismosVistaController implements Initializable {
                 // Ejecutando la consulta SQL
                 pstmt3.executeUpdate();
 
-                //Insertado a la tabla de Reistrodel Sacramento
-                String sql2 = "INSERT INTO registrolibro (libro, folio, partida, inscritoLibro, bautismo_idBautismo) VALUES (?, ?, ?, ?, ?)";
-                // Preparando la consulta SQL
-                pstmt2 = conn.prepareStatement(sql2);
-                pstmt2.setInt(1, libro);
-                pstmt2.setInt(2, folio);
-                pstmt2.setInt(3, partida);
-                pstmt2.setString(4, check);
-                pstmt2.setInt(5, idGenerado);
-                // Ejecutando la consulta SQL
-                pstmt2.executeUpdate();
+                // Obtener el ID generado
+                rs = pstmt3.getGeneratedKeys();
+                if (rs.next()) {
+                    int idGenerado1 = rs.getInt(1);
+                    //Insertado a la tabla de Reistrodel Sacramento
+                    String sql2 = "INSERT INTO registrolibro (libro, folio, partida, inscritoLibro, bautismo_idBautismo) VALUES (?, ?, ?, ?, ?)";
+                    // Preparando la consulta SQL
+                    pstmt2 = conn.prepareStatement(sql2, Statement.RETURN_GENERATED_KEYS);
+                    pstmt2.setInt(1, libro);
+                    pstmt2.setInt(2, folio);
+                    pstmt2.setInt(3, partida);
+                    pstmt2.setString(4, check);
+                    pstmt2.setInt(5, idGenerado1);
+                    // Ejecutando la consulta SQL
+                    pstmt2.executeUpdate();
 
-                //Insertado a la tabla de Reistrodel Sacramento
-                String sql4 = "INSERT INTO observacion (observacion, bautismo_idBautismo) VALUES (?,?)";
-                // Preparando la consulta SQL
-                pstmt4 = conn.prepareStatement(sql4);
-                pstmt4.setString(1, observaciones);
-                pstmt4.setInt(2, idGenerado);
-                // Ejecutando la consulta SQL
-                pstmt4.executeUpdate();
+                    //Insertado a la tabla de Reistrodel Sacramento
+                    String sql4 = "INSERT INTO observacion (observacion, bautismo_idBautismo) VALUES (?,?)";
+                    // Preparando la consulta SQL
+                    pstmt4 = conn.prepareStatement(sql4);
+                    pstmt4.setString(1, observaciones);
+                    pstmt4.setInt(2, idGenerado1);
+                    // Ejecutando la consulta SQL
+                    pstmt4.executeUpdate();
+
+                }
 
             }
             limpiarCampos();
@@ -346,9 +352,9 @@ public class BautismosVistaController implements Initializable {
                     + "b.fechaSacramento, b.lugarSacramento, b.padrino, b.madrina, "
                     + "o.observacion, r.inscritoLibro  "
                     + "FROM feligres f "
-                    + "JOIN registrolibro r ON f.idFeligres = r.bautismo_idBautismo "
                     + "JOIN bautismo b ON f.idFeligres = b.idFeligres "
-                    + "JOIN observacion o ON f.idFeligres = o.bautismo_idBautismo ";
+                    + "JOIN registrolibro r ON b.idBautismo = r.bautismo_idBautismo "
+                    + "JOIN observacion o ON b.idBautismo = o.bautismo_idBautismo ";
             PreparedStatement stmt = connection.prepareStatement(query);
             ResultSet rs = stmt.executeQuery();
 
@@ -406,7 +412,7 @@ public class BautismosVistaController implements Initializable {
 
     @FXML
     private void _consultaBautismoBusqueda() throws IOException {
-        
+
         // Validación para verificar si el TextField está vacío
         busqueda = txtBusquedaB.getText();
         if (busqueda.trim().isEmpty()) {
@@ -438,9 +444,9 @@ public class BautismosVistaController implements Initializable {
                     + "b.fechaSacramento, b.lugarSacramento, b.padrino, b.madrina, "
                     + "o.observacion, r.inscritoLibro  "
                     + "FROM feligres f "
-                    + "JOIN registrolibro r ON f.idFeligres = r.bautismo_idBautismo "
                     + "JOIN bautismo b ON f.idFeligres = b.idFeligres "
-                    + "JOIN observacion o ON f.idFeligres = o.bautismo_idBautismo "
+                    + "JOIN registrolibro r ON b.idBautismo = r.bautismo_idBautismo "
+                    + "JOIN observacion o ON b.idBautismo = o.bautismo_idBautismo "
                     + "WHERE nombre LIKE ? OR apellido LIKE ?";
             PreparedStatement stmt = connection.prepareStatement(query);
             stmt.setString(1, "%" + busqueda + "%");
