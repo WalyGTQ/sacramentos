@@ -41,6 +41,9 @@ public class EdicionRegistroController implements Initializable {
     @FXML
     private DatePicker dpFechaB, dpNacimientoB;
 
+    //Para validar el Check
+    private String inscrito;
+
     /**
      * Initializes the controller class.
      */
@@ -72,11 +75,13 @@ public class EdicionRegistroController implements Initializable {
 
     }
 //Unicamente retorna a la vista Principal
+
     @FXML
     public void _regresar() throws IOException {
         App.setRoot("bautismosVista");
     }
 //Funcion para eliminar un regitro
+
     @FXML
     public void _eliminarRegistroB() throws IOException, SQLException {
         // Crear ventana de diálogo de confirmación
@@ -150,17 +155,94 @@ public class EdicionRegistroController implements Initializable {
             showAlert("Información", "El Usuario a Cancelado la Operacion.", "Ninguna Modificaion Realizada", Alert.AlertType.INFORMATION);
         }
     }
+
     //Funcionalidad para actualizar un registro en especifico
     @FXML
     public void _actualizarB() throws IOException, SQLException {
-        
-        
+        if (comparacionB()) {
+            // Actualiza la base de datos
+            System.out.println("Cambios detectados");
+                
+        } else {
+            // No hagas nada, ya que no hubo cambios
+            System.out.println("Ningun cambio xD");
+        }
+
     }
-    
-    
-    
-    
+
     //------------------------------------------Miselaneos
+    //Intento de devolver un boleano al comparar los datos
+    private boolean comparacionB() {
+        // Validacion que sea numero los valores ingresados
+        Integer libroAsInteger = null;
+        Integer folioAsInteger = null;
+        Integer partidaAsInteger = null;
+
+        try {
+            libroAsInteger = Integer.parseInt(txtLibroB.getText());
+            folioAsInteger = Integer.parseInt(txtFolioB.getText());
+            partidaAsInteger = Integer.parseInt(txtPartidaB.getText());
+        } catch (NumberFormatException e) {
+            // Registro no encontrado
+            showAlert("Advertencia", "Algun Valor Ingresado es Invalido", "Revisa que sean Numeros", Alert.AlertType.ERROR);
+        }
+        //Manejo del ChecBox :.(
+        boolean check = cbInscritoB.isSelected();
+        if (check) {
+            inscrito = "Si";
+        } else {
+            inscrito = "No";
+        }
+
+        // Compara cada campo con los datos originales
+        if (!datosFeligres.getLibro().equals(libroAsInteger)) {
+            return true;
+        }
+        if (!datosFeligres.getFolio().equals(folioAsInteger)) {
+            return true;
+        }
+        if (!datosFeligres.getPartida().equals(partidaAsInteger)) {
+            return true;
+        }
+        if (!datosFeligres.getFechaSacramento().equals(dpFechaB.getValue())) {
+            return true;
+        }
+        if (!datosFeligres.getNacimiento().equals(dpNacimientoB.getValue())) {
+            return true;
+        }
+        if (!datosFeligres.getLugarSacramento().equals(txtLugarB.getText())) {
+            return true;
+        }
+        if (!datosFeligres.getNombre().equals(txtNombreB.getText())) {
+            return true;
+        }
+        if (!datosFeligres.getApellido().equals(txtApellidoB.getText())) {
+            return true;
+        }
+        if (!datosFeligres.getLugarNacimiento().equals(txtLugarNacimientoB.getText())) {
+            return true;
+        }
+        if (!datosFeligres.getPadre().equals(txtPadreB.getText())) {
+            return true;
+        }
+        if (!datosFeligres.getMadre().equals(txtMadreB.getText())) {
+            return true;
+        }
+        if (!datosFeligres.getPadrino().equals(txtPadrinoB.getText())) {
+            return true;
+        }
+        if (!datosFeligres.getMadrina().equals(txtMadrinaB.getText())) {
+            return true;
+        }
+        if (!datosFeligres.getObservacion().equals(taObservacionesB.getText())) {
+            return true;
+        }
+        if (!datosFeligres.getRegistrado().equals(inscrito)) {
+            return true;
+        }
+        return false;
+    }
+
     //Para mostrar alertas mas facilmente
     private void showAlert(String title, String header, String content, Alert.AlertType type) {
         Alert alert = new Alert(type);
