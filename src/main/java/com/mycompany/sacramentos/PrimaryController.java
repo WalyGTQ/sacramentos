@@ -224,7 +224,7 @@ public class PrimaryController {
 
     @FXML
     private void _buscar() throws IOException {
-                tablaFeligreses.setRowFactory(tv -> {
+        tablaFeligreses.setRowFactory(tv -> {
             TableRow<FeligresDetalle> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (!row.isEmpty())) {
@@ -287,9 +287,9 @@ public class PrimaryController {
                     + "b.fechaSacramento, b.lugarSacramento, b.padrino, b.madrina, "
                     + "o.observacion, r.inscritoLibro  "
                     + "FROM feligres f "
-                    + "JOIN registrolibro r ON f.idFeligres = r.bautismo_idBautismo "
                     + "JOIN bautismo b ON f.idFeligres = b.idFeligres "
-                    + "JOIN observacion o ON f.idFeligres = o.bautismo_idBautismo "
+                    + "JOIN registrolibro r ON b.idBautismo = r.bautismo_idBautismo "
+                    + "JOIN observacion o ON b.idBautismo = o.bautismo_idBautismo "
                     + "WHERE nombre LIKE ? OR apellido LIKE ?";
             PreparedStatement stmt = connection.prepareStatement(query);
             stmt.setString(1, "%" + busqueda + "%");
