@@ -14,13 +14,18 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
  * FXML Controller class
@@ -29,6 +34,40 @@ import javafx.scene.control.TextField;
  */
 public class PrimeraComunionController implements Initializable {
 
+    //Para La Busqueda
+    private String busqueda;
+    @FXML
+    private TextField txtBusquedaPc;
+    //Inicio Campor Para Consulta de Primera Comunion
+    @FXML
+    private TableView<ConsultaPrimeraComunion> tvComunion;
+    @FXML
+    private TableColumn<ConsultaPrimeraComunion, Integer> tcLibroC;
+    @FXML
+    private TableColumn<ConsultaPrimeraComunion, Integer> tcFolioC;
+    @FXML
+    private TableColumn<ConsultaPrimeraComunion, Integer> tcPartidaC;
+    @FXML
+    private TableColumn<ConsultaPrimeraComunion, Integer> tcEdadC;
+    @FXML
+    private TableColumn<ConsultaPrimeraComunion, LocalDate> tcFechaC;
+    @FXML
+    private TableColumn<ConsultaPrimeraComunion, LocalDate> tcNacimientoC;
+    @FXML
+    private TableColumn<ConsultaPrimeraComunion, LocalDate> tcRegistroC;
+    @FXML
+    private TableColumn<ConsultaPrimeraComunion, String> tcNombreC;
+    @FXML
+    private TableColumn<ConsultaPrimeraComunion, String> tcApellidoC;
+    @FXML
+    private TableColumn<ConsultaPrimeraComunion, String> tcLugarC;
+    @FXML
+    private TableColumn<ConsultaPrimeraComunion, String> tcCelebranteC;
+    @FXML
+    private TableColumn<ConsultaPrimeraComunion, String> tcAnotadoC;
+    @FXML
+    private TableColumn<ConsultaPrimeraComunion, String> tcObservacionC;
+    //Fin Campos Para Consulta de Primera Comunion
     @FXML
     private TextField txtLibroPc, txtFolioPc, txtPartidaPc, txtNombrePc, txtApellidoPc, txtLugarBauPc, txtCelebrantePc;
     @FXML
@@ -206,7 +245,7 @@ public class PrimeraComunionController implements Initializable {
 
             }
             limpiarCampos();
-         //Semi Finaliza la QUERY
+            //Semi Finaliza la QUERY
         } catch (SQLException e) {
             e.printStackTrace();
             // manejo de errores según necesite
@@ -241,7 +280,168 @@ public class PrimeraComunionController implements Initializable {
 
         //Aca Finaliza _guardarPc
     }
+    
+    @FXML
+    private void _busquedaAutomatica() throws IOException {
+        // Configuración de las columnas usando PropertyValueFactory
+        tcLibroC.setCellValueFactory(new PropertyValueFactory<ConsultaPrimeraComunion, Integer>("libroC"));
+        tcFolioC.setCellValueFactory(new PropertyValueFactory<ConsultaPrimeraComunion, Integer>("folioC"));
+        tcPartidaC.setCellValueFactory(new PropertyValueFactory<ConsultaPrimeraComunion, Integer>("partidaC"));
+        tcEdadC.setCellValueFactory(new PropertyValueFactory<ConsultaPrimeraComunion, Integer>("edadC"));
+        tcFechaC.setCellValueFactory(new PropertyValueFactory<ConsultaPrimeraComunion, LocalDate>("fechaRealizadoPc"));
+        tcNacimientoC.setCellValueFactory(new PropertyValueFactory<ConsultaPrimeraComunion, LocalDate>("fechaNacPc"));
+        tcRegistroC.setCellValueFactory(new PropertyValueFactory<ConsultaPrimeraComunion, LocalDate>("registroC"));
+        tcNombreC.setCellValueFactory(new PropertyValueFactory<ConsultaPrimeraComunion, String>("nombreC"));
+        tcApellidoC.setCellValueFactory(new PropertyValueFactory<ConsultaPrimeraComunion, String>("apellidoC"));
+        tcLugarC.setCellValueFactory(new PropertyValueFactory<ConsultaPrimeraComunion, String>("lugarC"));
+        tcCelebranteC.setCellValueFactory(new PropertyValueFactory<ConsultaPrimeraComunion, String>("celebranteC"));
+        tcAnotadoC.setCellValueFactory(new PropertyValueFactory<ConsultaPrimeraComunion, String>("anotadoC"));
+        tcObservacionC.setCellValueFactory(new PropertyValueFactory<ConsultaPrimeraComunion, String>("observacionC"));
+                ObservableList<ConsultaPrimeraComunion> data2 = FXCollections.observableArrayList();
+        Connection connection = ConexionDB.getConexion();
+        try {
+            String query = "SELECT r.libro, r.folio, r.partida, r.inscritoLibro, "
+                    + "f.nombre, f.apellido, f.nacimiento, f.edadFeligres, "
+                    + "p.fechaInscripcion, p.fechaSacramento, p.lugarSacramento, "
+                    + "c.nombreCelebrante,  "
+                    + "o.observacion  "
+                    + "FROM feligres f "
+                    + "JOIN comunion p ON f.idFeligres = p.idFeligres "
+                    + "JOIN celebrante c ON p.celebrante_idCelebrante = c.idCelebrante "
+                    + "JOIN registrolibro r ON p.idComunion = r.idRegistroLibro "
+                    + "JOIN observacion o ON p.idComunion = o.comunion_idComunion ";
+            PreparedStatement stmt = connection.prepareStatement(query);
+            ResultSet rs = stmt.executeQuery();
 
+            while (rs.next()) {
+                data2.add(new ConsultaPrimeraComunion(
+                        rs.getInt("libro"),
+                        rs.getInt("folio"),
+                        rs.getInt("partida"),
+                        rs.getInt("edadFeligres"),
+                        rs.getDate("fechaSacramento").toLocalDate(),
+                        rs.getDate("nacimiento").toLocalDate(),
+                        rs.getDate("fechaInscripcion").toLocalDate(),
+                        rs.getString("nombre"),
+                        rs.getString("apellido"),
+                        rs.getString("lugarSacramento"),
+                        rs.getString("nombreCelebrante"),
+                        rs.getString("inscritoLibro"),
+                        rs.getString("observacion")
+                ));
+            }
+
+            // Validación para verificar si no se encontraron resultados
+            if (data2.isEmpty()) {
+                showAlert("Información", "Primera Comunion, No se encontraron resultados: ", Alert.AlertType.INFORMATION);
+                tvComunion.setItems(FXCollections.observableArrayList()); // Limpia la tabla
+                return;
+            }
+
+            tvComunion.setItems(data2);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            showAlert("Error", "Hubo un error al realizar la búsqueda.", Alert.AlertType.ERROR);
+        } finally {
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    
+    @FXML
+    private void _busquedaEspecifica() throws IOException{//Realiza una busqueda mediante entradas de Texto
+                // Validación para verificar si el TextField está vacío
+        busqueda = txtBusquedaPc.getText();
+        if (busqueda.trim().isEmpty()) {
+            showAlert("Error", "El campo de búsqueda no puede estar vacío.", Alert.AlertType.ERROR);
+            return;
+        }
+                // Configuración de las columnas usando PropertyValueFactory
+        tcLibroC.setCellValueFactory(new PropertyValueFactory<ConsultaPrimeraComunion, Integer>("libroC"));
+        tcFolioC.setCellValueFactory(new PropertyValueFactory<ConsultaPrimeraComunion, Integer>("folioC"));
+        tcPartidaC.setCellValueFactory(new PropertyValueFactory<ConsultaPrimeraComunion, Integer>("partidaC"));
+        tcEdadC.setCellValueFactory(new PropertyValueFactory<ConsultaPrimeraComunion, Integer>("edadC"));
+        tcFechaC.setCellValueFactory(new PropertyValueFactory<ConsultaPrimeraComunion, LocalDate>("fechaRealizadoPc"));
+        tcNacimientoC.setCellValueFactory(new PropertyValueFactory<ConsultaPrimeraComunion, LocalDate>("fechaNacPc"));
+        tcRegistroC.setCellValueFactory(new PropertyValueFactory<ConsultaPrimeraComunion, LocalDate>("registroC"));
+        tcNombreC.setCellValueFactory(new PropertyValueFactory<ConsultaPrimeraComunion, String>("nombreC"));
+        tcApellidoC.setCellValueFactory(new PropertyValueFactory<ConsultaPrimeraComunion, String>("apellidoC"));
+        tcLugarC.setCellValueFactory(new PropertyValueFactory<ConsultaPrimeraComunion, String>("lugarC"));
+        tcCelebranteC.setCellValueFactory(new PropertyValueFactory<ConsultaPrimeraComunion, String>("celebranteC"));
+        tcAnotadoC.setCellValueFactory(new PropertyValueFactory<ConsultaPrimeraComunion, String>("anotadoC"));
+        tcObservacionC.setCellValueFactory(new PropertyValueFactory<ConsultaPrimeraComunion, String>("observacionC"));
+        ObservableList<ConsultaPrimeraComunion> data2 = FXCollections.observableArrayList();
+        Connection connection = ConexionDB.getConexion();
+        try {
+            String query = "SELECT r.libro, r.folio, r.partida, r.inscritoLibro, "
+                    + "f.nombre, f.apellido, f.nacimiento, f.edadFeligres, "
+                    + "p.fechaInscripcion, p.fechaSacramento, p.lugarSacramento, "
+                    + "c.nombreCelebrante,  "
+                    + "o.observacion  "
+                    + "FROM feligres f "
+                    + "JOIN comunion p ON f.idFeligres = p.idFeligres "
+                    + "JOIN celebrante c ON p.celebrante_idCelebrante = c.idCelebrante "
+                    + "JOIN registrolibro r ON p.idComunion = r.idRegistroLibro "
+                    + "JOIN observacion o ON p.idComunion = o.comunion_idComunion "
+                    + "WHERE nombre LIKE ? OR apellido LIKE ?";
+            PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setString(1, "%" + busqueda + "%");
+            stmt.setString(2, "%" + busqueda + "%");
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                data2.add(new ConsultaPrimeraComunion(
+                        rs.getInt("libro"),
+                        rs.getInt("folio"),
+                        rs.getInt("partida"),
+                        rs.getInt("edadFeligres"),
+                        rs.getDate("fechaSacramento").toLocalDate(),
+                        rs.getDate("nacimiento").toLocalDate(),
+                        rs.getDate("fechaInscripcion").toLocalDate(),
+                        rs.getString("nombre"),
+                        rs.getString("apellido"),
+                        rs.getString("lugarSacramento"),
+                        rs.getString("nombreCelebrante"),
+                        rs.getString("inscritoLibro"),
+                        rs.getString("observacion")
+                ));
+            }
+
+            // Validación para verificar si no se encontraron resultados
+            if (data2.isEmpty()) {
+                showAlert("Información", "Primera Comunion, No se encontraron resultados para: " + busqueda, Alert.AlertType.INFORMATION);
+                tvComunion.setItems(FXCollections.observableArrayList()); // Limpia la tabla
+                _busquedaAutomatica();
+                return;
+            }
+
+            tvComunion.setItems(data2);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            showAlert("Error", "Hubo un error al realizar la búsqueda.", Alert.AlertType.ERROR);
+        } finally {
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        
+        
+        
+        
+        
+        
+    }
+
+    //Codigo Miselaneo
     public void limpiarCampos() {
 //    this.txtLibroB.clear();
 //    this.txtFolioB.clear();
@@ -263,6 +463,14 @@ public class PrimeraComunionController implements Initializable {
         // Limpieza de los DatePicker
         dpFechaRealizadoPc.setValue(null);
         dpFechaNacPc.setValue(null);
+    }
+    
+    // Función para mostrar alertas fácilmente
+    private void showAlert(String title, String content, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 
 }
