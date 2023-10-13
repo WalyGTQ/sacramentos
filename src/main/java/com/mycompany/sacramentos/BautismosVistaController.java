@@ -282,34 +282,6 @@ public class BautismosVistaController implements Initializable {
 
     }
 
-    public void limpiarCampos() {
-//    this.txtLibroB.clear();
-//    this.txtFolioB.clear();
-        // Limpiar todos los otros campos
-        // Limpieza de los TextField
-        txtLibroB.clear();
-        txtFolioB.clear();
-        txtPartidaB.clear();
-        txtNombreB.clear();
-        txtApellidoB.clear();
-        txtPadreB.clear();
-        txtMadreB.clear();
-        txtPadrinoB.clear();
-        txtMadrinaB.clear();
-        txtLugarBautismo.clear();
-        txtLugarNacimientoB.clear();
-
-        // Limpieza del TextArea
-        txtAreaObservaciones.clear();
-
-        // Limpieza del CheckBox
-        boxInscritoB.setSelected(false);
-
-        // Limpieza de los DatePicker
-        datePikerFechaB.setValue(null);
-        datePikerFechaNacimientoB.setValue(null);
-    }
-
 //   Nueva Consulta para Bautismo dentro de La Gestion
     private void _consultaBautismo() throws IOException {
         tablaFeligreses.setRowFactory(tv -> {
@@ -403,13 +375,6 @@ public class BautismosVistaController implements Initializable {
     }//Fin Consulta Bautismo
     // Función para mostrar alertas fácilmente
 
-    private void showAlert(String title, String content, Alert.AlertType alertType) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setContentText(content);
-        alert.showAndWait();
-    }
-
     @FXML
     private void _consultaBautismoBusqueda() throws IOException {
 
@@ -496,6 +461,40 @@ public class BautismosVistaController implements Initializable {
             }
         }
 
+    }
+
+    //Campos Miselaneos
+    public void limpiarCampos() {
+        // Limpiar todos los otros campos
+        // Limpieza de los TextField
+        txtLibroB.clear();
+        txtFolioB.clear();
+        txtPartidaB.clear();
+        txtNombreB.clear();
+        txtApellidoB.clear();
+        txtPadreB.clear();
+        txtMadreB.clear();
+        txtPadrinoB.clear();
+        txtMadrinaB.clear();
+        txtLugarBautismo.clear();
+        txtLugarNacimientoB.clear();
+
+        // Limpieza del TextArea
+        txtAreaObservaciones.clear();
+
+        // Limpieza del CheckBox
+        boxInscritoB.setSelected(false);
+
+        // Limpieza de los DatePicker
+        datePikerFechaB.setValue(null);
+        datePikerFechaNacimientoB.setValue(null);
+    }
+
+    private void showAlert(String title, String content, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 
 }
