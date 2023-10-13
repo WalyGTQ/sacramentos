@@ -252,14 +252,6 @@ public class PrimaryController {
         _consultaMatrimonios();
 
     }
-    // Función para mostrar alertas fácilmente
-
-    private void showAlert(String title, String content, Alert.AlertType alertType) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setContentText(content);
-        alert.showAndWait();
-    }
 
     private void _consultaBautismo() throws IOException {
         libroColumn.setCellValueFactory(new PropertyValueFactory<FeligresDetalle, Integer>("libro"));
@@ -342,7 +334,6 @@ public class PrimaryController {
 
     private void _consultaComunion() throws IOException {
         // Configuración de las columnas usando PropertyValueFactory
-
         tcLibroC.setCellValueFactory(new PropertyValueFactory<ConsultaPrimeraComunion, Integer>("libroC"));
         tcFolioC.setCellValueFactory(new PropertyValueFactory<ConsultaPrimeraComunion, Integer>("folioC"));
         tcPartidaC.setCellValueFactory(new PropertyValueFactory<ConsultaPrimeraComunion, Integer>("partidaC"));
@@ -598,4 +589,12 @@ public class PrimaryController {
 
     }// Finaliza _consultaMatrimonios
 
+    //Codigo Miselaneo
+    // Función para mostrar alertas fácilmente
+    private void showAlert(String title, String content, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
 }
