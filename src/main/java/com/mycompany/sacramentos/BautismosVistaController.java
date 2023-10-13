@@ -284,6 +284,7 @@ public class BautismosVistaController implements Initializable {
 
 //   Nueva Consulta para Bautismo dentro de La Gestion
     private void _consultaBautismo() throws IOException {
+        //Escucha el evento del doble Clic
         tablaFeligreses.setRowFactory(tv -> {
             TableRow<FeligresDetalle> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
@@ -377,7 +378,6 @@ public class BautismosVistaController implements Initializable {
 
     @FXML
     private void _consultaBautismoBusqueda() throws IOException {
-
         // Validación para verificar si el TextField está vacío
         busqueda = txtBusquedaB.getText();
         if (busqueda.trim().isEmpty()) {
