@@ -22,6 +22,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -212,6 +213,7 @@ public class PrimeraComunionController implements Initializable {
                     pstmt3.setInt(4, idGeneradoC);
                     // Ejecutando la consulta SQL
                     pstmt3.executeUpdate();
+                    System.out.println(idGeneradoF + idGeneradoC);
 
                     // Obtener el ID generado Celebrante
                     rs = pstmt3.getGeneratedKeys();
@@ -229,7 +231,7 @@ public class PrimeraComunionController implements Initializable {
                         pstmt2.setInt(5, idGeneradoS);
                         // Ejecutando la consulta SQL
                         pstmt2.executeUpdate();
-
+                        System.out.println(libro + " " + folio + "  " + partida );
                         //Insertado a la tabla de Reistrodel Sacramento
                         String sql4 = "INSERT INTO observacion (observacion, comunion_idComunion) VALUES (?,?)";
                         // Preparando la consulta SQL
@@ -283,6 +285,23 @@ public class PrimeraComunionController implements Initializable {
     
     @FXML
     private void _busquedaAutomatica() throws IOException {
+                //Escucha el evento del doble Clic
+        tvComunion.setRowFactory(tv -> {
+            TableRow<ConsultaPrimeraComunion> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!row.isEmpty())) {
+                    ConsultaPrimeraComunion rowData = row.getItem();
+                    SingletonPrimeraComunion.getInstance().setFeligresDetalle(rowData); // Guarda los datos en el Singleton
+                    try {
+                        App.setRoot("edicionRegistroPc");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            return row;
+        });
+        
         // Configuración de las columnas usando PropertyValueFactory
         tcLibroC.setCellValueFactory(new PropertyValueFactory<ConsultaPrimeraComunion, Integer>("libroC"));
         tcFolioC.setCellValueFactory(new PropertyValueFactory<ConsultaPrimeraComunion, Integer>("folioC"));
@@ -308,7 +327,7 @@ public class PrimeraComunionController implements Initializable {
                     + "FROM feligres f "
                     + "JOIN comunion p ON f.idFeligres = p.idFeligres "
                     + "JOIN celebrante c ON p.celebrante_idCelebrante = c.idCelebrante "
-                    + "JOIN registrolibro r ON p.idComunion = r.idRegistroLibro "
+                    + "JOIN registrolibro r ON p.idComunion = r.comunion_idComunion "
                     + "JOIN observacion o ON p.idComunion = o.comunion_idComunion ";
             PreparedStatement stmt = connection.prepareStatement(query);
             ResultSet rs = stmt.executeQuery();
@@ -386,7 +405,7 @@ public class PrimeraComunionController implements Initializable {
                     + "FROM feligres f "
                     + "JOIN comunion p ON f.idFeligres = p.idFeligres "
                     + "JOIN celebrante c ON p.celebrante_idCelebrante = c.idCelebrante "
-                    + "JOIN registrolibro r ON p.idComunion = r.idRegistroLibro "
+                    + "JOIN registrolibro r ON p.idComunion = r.comunion_idComunion "
                     + "JOIN observacion o ON p.idComunion = o.comunion_idComunion "
                     + "WHERE nombre LIKE ? OR apellido LIKE ?";
             PreparedStatement stmt = connection.prepareStatement(query);
