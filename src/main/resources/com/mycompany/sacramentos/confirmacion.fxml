@@ -8,6 +8,7 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -22,13 +23,13 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.sacramentos.ConfirmacionController">
+<BorderPane minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.sacramentos.ConfirmacionController">
     <!-- Encabezado -->
     <top>
         <HBox alignment="CENTER" spacing="10">
-         <AnchorPane prefHeight="14.0" prefWidth="790.0" style="-fx-background-color: linear-gradient(to bottom, #FF8E69, #ffffff);">
+         <AnchorPane prefHeight="79.0" prefWidth="1002.0" style="-fx-background-color: linear-gradient(to bottom, #FF8E69, #ffffff);">
             <children>
-               <Button fx:id="btnRegresar" alignment="CENTER_RIGHT" layoutX="677.0" layoutY="17.0" mnemonicParsing="false" onAction="#_regresar" prefHeight="40.0" prefWidth="99.0" text="Regresar" textAlignment="RIGHT">
+               <Button fx:id="btnRegresar" alignment="CENTER_RIGHT" layoutX="871.0" layoutY="15.0" mnemonicParsing="false" onAction="#_regresar" prefHeight="40.0" prefWidth="99.0" text="Regresar" textAlignment="RIGHT">
                   <font>
                      <Font name="System Bold" size="12.0" />
                   </font></Button>
@@ -38,7 +39,7 @@
                      <Font name="Microsoft Himalaya" size="48.0" />
                   </font>
                </Label>
-               <ImageView fitHeight="30.0" fitWidth="29.0" layoutX="685.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+               <ImageView fitHeight="30.0" fitWidth="29.0" layoutX="871.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
                   <image>
                      <Image url="@../../../img/deshacer.png" />
                   </image>
@@ -168,24 +169,33 @@
                         </children>
                      </AnchorPane>
                   </content></Tab>
-               <Tab style="-fx-font-weight: bold;" text="Buscar">
+               <Tab onSelectionChanged="#_busquedaAutomatica" style="-fx-font-weight: bold;" text="Buscar">
                   <content>
-                     <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: linear-gradient(to bottom, #FF8E69, #ffffff);">
                         <children>
-                           <TextField layoutX="62.0" layoutY="41.0" prefHeight="23.0" prefWidth="230.0" />
-                           <TableView layoutX="23.0" layoutY="76.0" prefHeight="200.0" prefWidth="768.0">
-                             <columns>
-                               <TableColumn prefWidth="36.0" text="Libro" />
-                               <TableColumn prefWidth="39.0" text="Folio" />
-                                 <TableColumn prefWidth="47.0" text="Partida" />
-                                 <TableColumn prefWidth="121.0" text="Nombre" />
-                                 <TableColumn prefWidth="149.0" text="Apellido" />
-                                 <TableColumn prefWidth="120.0" text="Fecha " />
-                                 <TableColumn prefWidth="127.0" text="Padre" />
-                                 <TableColumn minWidth="0.0" prefWidth="128.0" text="Madre" />
-                             </columns>
+                           <TextField layoutX="348.0" layoutY="14.0" prefHeight="23.0" prefWidth="230.0" />
+                           <Button layoutX="601.0" layoutY="14.0" mnemonicParsing="false" text="Buscar" />
+                           <Separator layoutX="14.0" layoutY="61.0" prefHeight="0.0" prefWidth="973.0" />
+                           <TableView fx:id="tvConfirmacion" layoutX="14.0" layoutY="71.0" prefHeight="390.0" prefWidth="972.0" style="-fx-background-color: linear-gradient(to bottom, #FF8E69, #ffffff);">
+                              <columns>
+                                 <TableColumn fx:id="tcLibroCf" minWidth="40.0" prefWidth="40.0" text="Libro" />
+                                 <TableColumn fx:id="tcFolioCf" minWidth="40.0" prefWidth="40.0" text="Folio" />
+                                 <TableColumn fx:id="tcPartidaCf" minWidth="47.0" prefWidth="47.0" text="Partida" />
+                                 <TableColumn fx:id="tcNombreCf" prefWidth="75.0" text="Nombres" />
+                                 <TableColumn fx:id="tcApellidoCf" prefWidth="75.0" text="Apellidos" />
+                                 <TableColumn fx:id="tcNacimientoCf" prefWidth="75.0" text="Nacimineto" />
+                                 <TableColumn fx:id="tcEdadCf" prefWidth="75.0" text="Edad" />
+                                 <TableColumn fx:id="tcCelebranteCf" prefWidth="75.0" text="Celebrante" />
+                                 <TableColumn fx:id="tcFechaCf" prefWidth="75.0" text="Fecha" />
+                                 <TableColumn fx:id="tcLugarCf" prefWidth="75.0" text="Lugar" />
+                                 <TableColumn fx:id="tcPadreCf" prefWidth="75.0" text="Padre" />
+                                 <TableColumn fx:id="tcMadreCf" prefWidth="75.0" text="Madre" />
+                                 <TableColumn fx:id="tcPadrinosCf" prefWidth="75.0" text="Padrinos" />
+                                 <TableColumn fx:id="tcInscritoCf" prefWidth="75.0" text="¿Anotado?" />
+                                 <TableColumn fx:id="tcObservacionesCf" prefWidth="75.0" text="Observacines" />
+                                 <TableColumn fx:id="tcRegistroCf" prefWidth="75.0" text="Registro" />
+                              </columns>
                            </TableView>
-                           <Button layoutX="315.0" layoutY="41.0" mnemonicParsing="false" text="Buscar" />
                         </children>
                      </AnchorPane>
                   </content></Tab>
@@ -220,7 +230,7 @@
 
     <!-- Pie de página -->
     <bottom>
-        <HBox alignment="CENTER" prefHeight="46.0" prefWidth="696.0" spacing="10" style="-fx-background-color: linear-gradient(to bottom, #FF8E69, #ffffff) linear-gradient(to bottom, #FF8E69, #ffffff);">
+        <HBox alignment="CENTER" prefHeight="25.0" prefWidth="1000.0" spacing="10" style="-fx-background-color: linear-gradient(to bottom, #FF8E69, #ffffff) linear-gradient(to bottom, #FF8E69, #ffffff);">
             <Label text="© 2023 Iglesia Católica - Sistema de Gestión de Sacramentos" />
         </HBox>
     </bottom>

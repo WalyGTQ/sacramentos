@@ -14,13 +14,19 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
  * FXML Controller class
@@ -28,6 +34,43 @@ import javafx.scene.control.TextField;
  * @author walyn
  */
 public class ConfirmacionController implements Initializable {
+    
+        //Inicio Campo Para Consulta de Confirmacion
+    @FXML
+    private TableView<ConsultaConfirmacion> tvConfirmacion;
+    @FXML
+    private TableColumn<ConsultaConfirmacion, Integer> tcLibroCf;
+    @FXML
+    private TableColumn<ConsultaConfirmacion, Integer> tcFolioCf;
+    @FXML
+    private TableColumn<ConsultaConfirmacion, Integer> tcPartidaCf;
+    @FXML
+    private TableColumn<ConsultaConfirmacion, String> tcNombreCf;
+    @FXML
+    private TableColumn<ConsultaConfirmacion, String> tcApellidoCf;
+    @FXML
+    private TableColumn<ConsultaConfirmacion, LocalDate> tcNacimientoCf;
+    @FXML
+    private TableColumn<ConsultaConfirmacion, Integer> tcEdadCf;
+    @FXML
+    private TableColumn<ConsultaConfirmacion, String> tcCelebranteCf;
+    @FXML
+    private TableColumn<ConsultaConfirmacion, LocalDate> tcFechaCf;
+    @FXML
+    private TableColumn<ConsultaConfirmacion, String> tcLugarCf;
+    @FXML
+    private TableColumn<ConsultaConfirmacion, String> tcPadreCf;
+    @FXML
+    private TableColumn<ConsultaConfirmacion, String> tcMadreCf;
+    @FXML
+    private TableColumn<ConsultaConfirmacion, String> tcPadrinosCf;
+    @FXML
+    private TableColumn<ConsultaConfirmacion, String> tcInscritoCf;
+    @FXML
+    private TableColumn<ConsultaConfirmacion, String> tcObservacionesCf;
+    @FXML
+    private TableColumn<ConsultaConfirmacion, LocalDate> tcRegistroCf;
+    //Fin Campos Para Consulta de Confirmacion
 
     //LLamado a los elementos del FXML
     @FXML
@@ -134,14 +177,16 @@ public class ConfirmacionController implements Initializable {
             conn = ConexionDB.getConexion();
 
             // Creando la consulta SQL para insertar datos.
-            String sql = "INSERT INTO feligres (nombre, apellido, nacimiento, edadFeligres) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO feligres (nombre, apellido, padreFeligres, madreFeligres, nacimiento, edadFeligres) VALUES (?, ?, ?, ?, ?, ?)";
 
             // Preparando la consulta SQL
             pstmt1 = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             pstmt1.setString(1, nombre);
             pstmt1.setString(2, apellido);
-            pstmt1.setDate(3, Date.valueOf(fechaNacimiento));
-            pstmt1.setInt(4, edad);
+            pstmt1.setString(3, madre);
+            pstmt1.setString(4, padre);
+            pstmt1.setDate(5, Date.valueOf(fechaNacimiento));
+            pstmt1.setInt(6, edad);
             // Ejecutando la consulta SQL
             pstmt1.executeUpdate();
 
@@ -244,6 +289,104 @@ public class ConfirmacionController implements Initializable {
         
     }//La siguiente Llave termina _guardarCf
 
+        @FXML
+    private void _busquedaAutomatica() throws IOException {
+        //Escucha el evento del doble Clic
+        tvConfirmacion.setRowFactory(tv -> {
+            TableRow<ConsultaConfirmacion> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!row.isEmpty())) {
+                    ConsultaConfirmacion rowData = row.getItem();
+                    SingletonConfirmacion.getInstance().setFeligresDetalle(rowData); // Guarda los datos en el Singleton
+                    try {
+                        App.setRoot("edicionRegistroPc");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            return row;
+        });
+
+        // Configuración de las columnas usando PropertyValueFactory
+
+        tcLibroCf.setCellValueFactory(new PropertyValueFactory<ConsultaConfirmacion, Integer>("libroCf"));
+        tcFolioCf.setCellValueFactory(new PropertyValueFactory<ConsultaConfirmacion, Integer>("folioCf"));
+        tcPartidaCf.setCellValueFactory(new PropertyValueFactory<ConsultaConfirmacion, Integer>("partidaCf"));
+        tcNombreCf.setCellValueFactory(new PropertyValueFactory<ConsultaConfirmacion, String>("nombreCf"));
+        tcApellidoCf.setCellValueFactory(new PropertyValueFactory<ConsultaConfirmacion, String>("apellidoCf"));
+        tcNacimientoCf.setCellValueFactory(new PropertyValueFactory<ConsultaConfirmacion, LocalDate>("nacimientoCf"));
+        tcEdadCf.setCellValueFactory(new PropertyValueFactory<ConsultaConfirmacion, Integer>("edadCf"));
+        tcCelebranteCf.setCellValueFactory(new PropertyValueFactory<ConsultaConfirmacion, String>("celebranteCf"));
+        tcFechaCf.setCellValueFactory(new PropertyValueFactory<ConsultaConfirmacion, LocalDate>("fechaCf"));
+        tcLugarCf.setCellValueFactory(new PropertyValueFactory<ConsultaConfirmacion, String>("lugarCf"));
+        tcPadreCf.setCellValueFactory(new PropertyValueFactory<ConsultaConfirmacion, String>("padreCf"));
+        tcMadreCf.setCellValueFactory(new PropertyValueFactory<ConsultaConfirmacion, String>("madreCf"));
+        tcPadrinosCf.setCellValueFactory(new PropertyValueFactory<ConsultaConfirmacion, String>("padrinosCf"));
+        tcInscritoCf.setCellValueFactory(new PropertyValueFactory<ConsultaConfirmacion, String>("inscritoCf"));
+        tcObservacionesCf.setCellValueFactory(new PropertyValueFactory<ConsultaConfirmacion, String>("observacionesCf"));
+        tcRegistroCf.setCellValueFactory(new PropertyValueFactory<ConsultaConfirmacion, LocalDate>("registroCf"));
+
+        ObservableList<ConsultaConfirmacion> data3 = FXCollections.observableArrayList();
+        Connection connection = ConexionDB.getConexion();
+        try {
+            String query = "SELECT r.libro, r.folio, r.partida, r.inscritoLibro, "
+                    + "f.nombre, f.apellido, f.nacimiento, f.edadFeligres, f.padreFeligres, f.madreFeligres, "
+                    + "cf.fechaInscripcion, cf.fechaSacramento, cf.lugarSacramento, cf.padrino, "
+                    + "c.nombreCelebrante,  "
+                    + "o.observacion  "
+                    + "FROM feligres f "
+                    + "JOIN confirmacion cf ON f.idFeligres = cf.idFeligres "
+                    + "JOIN celebrante c ON cf.celebrante_idCelebrante = c.idCelebrante "
+                    + "JOIN registrolibro r ON cf.idConfirmacion = r.confirmacion_idConfirmacion "
+                    + "JOIN observacion o ON cf.idConfirmacion = o.confirmacion_idConfirmacion ";
+            PreparedStatement stmt = connection.prepareStatement(query);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                data3.add(new ConsultaConfirmacion(
+                        rs.getInt("libro"),
+                        rs.getInt("folio"),
+                        rs.getInt("partida"),
+                        rs.getString("nombre"),
+                        rs.getString("apellido"),
+                        rs.getDate("nacimiento").toLocalDate(),
+                        rs.getInt("edadFeligres"),
+                        rs.getString("nombreCelebrante"),
+                        rs.getDate("fechaSacramento").toLocalDate(),
+                        rs.getString("lugarSacramento"),
+                        rs.getString("padreFeligres"),
+                        rs.getString("madreFeligres"),
+                        rs.getString("padrino"),
+                        rs.getString("inscritoLibro"),
+                        rs.getString("observacion"),
+                        rs.getDate("fechaInscripcion").toLocalDate()
+                ));
+            }
+
+            // Validación para verificar si no se encontraron resultados
+            if (data3.isEmpty()) {
+                showAlert("Información", "Confirmacion, No se encontraron resultados  " , Alert.AlertType.INFORMATION);
+                tvConfirmacion.setItems(FXCollections.observableArrayList()); // Limpia la tabla
+                return;
+            }
+
+            tvConfirmacion.setItems(data3);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            showAlert("Error", "Hubo un error al realizar la búsqueda.", Alert.AlertType.ERROR);
+        } finally {
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    
+    //Otros Codigos
     public void limpiarCampos() {
         // Limpiar todos los otros campos
         // Limpieza de los TextField
@@ -267,6 +410,14 @@ public class ConfirmacionController implements Initializable {
         // Limpieza de los DatePicker
         dpFechaSacCf.setValue(null);
         dpNacimientoCf.setValue(null);
+    }
+    
+    // Función para mostrar alertas fácilmente
+    private void showAlert(String title, String content, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 
 }
