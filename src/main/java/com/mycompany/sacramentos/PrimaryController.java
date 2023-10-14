@@ -527,10 +527,9 @@ public class PrimaryController {
                     + "FROM Matrimonios m "
                     + "JOIN Feligres f1 ON m.idFeligres1 = f1.idFeligres "
                     + "JOIN Feligres f2 ON m.idFeligres2 = f2.idFeligres "
-                    + "JOIN RegistroLibro r ON m.idMatrimonio = r.idRegistroLibro "
-                    + "JOIN Celebrante c ON m.idMatrimonio = c.idCelebrante "
-                    + "JOIN Observacion o ON m.idMatrimonio = o.idObservacion "
-                    + "WHERE f1.nombre LIKE ? OR f1.apellido LIKE ?";
+                    + "JOIN RegistroLibro r ON m.idMatrimonio = r.matrimonio_idMatrimonio "
+                    + "JOIN Celebrante c ON m.celebrante_idCelebrante = c.idCelebrante "
+                    + "JOIN Observacion o ON m.idMatrimonio = o.matrimonio_idMatrimonio ";
             PreparedStatement stmt = connection.prepareStatement(query);
             stmt.setString(1, "%" + busqueda + "%");
             stmt.setString(2, "%" + busqueda + "%");
