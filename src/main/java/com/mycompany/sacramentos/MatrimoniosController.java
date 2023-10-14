@@ -14,13 +14,18 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
  * FXML Controller class
@@ -28,6 +33,66 @@ import javafx.scene.control.TextField;
  * @author walyn
  */
 public class MatrimoniosController implements Initializable {
+
+    //Inicio Campor Para Consulta de Matrimonios
+    @FXML
+    private TableView<ConsultaMatrimonio> tvMatrimonio;
+    @FXML
+    private TableColumn<ConsultaMatrimonio, Integer> tcLibroM;
+    @FXML
+    private TableColumn<ConsultaMatrimonio, Integer> tcFolioM;
+    @FXML
+    private TableColumn<ConsultaMatrimonio, Integer> tcPartidaM;
+    @FXML
+    private TableColumn<ConsultaMatrimonio, String> tcLugarM;
+    @FXML
+    private TableColumn<ConsultaMatrimonio, LocalDate> tcFechaM;
+    @FXML
+    private TableColumn<ConsultaMatrimonio, String> tcTestigoUnoM;
+    @FXML
+    private TableColumn<ConsultaMatrimonio, String> tcTestigoDosM;
+    @FXML
+    private TableColumn<ConsultaMatrimonio, String> tcNombreMM;
+    @FXML
+    private TableColumn<ConsultaMatrimonio, String> tcApellidoMM;
+    @FXML
+    private TableColumn<ConsultaMatrimonio, Integer> tcEdadMM;
+    @FXML
+    private TableColumn<ConsultaMatrimonio, String> tcOrigenMM;
+    @FXML
+    private TableColumn<ConsultaMatrimonio, String> tcFeligresMM;
+    @FXML
+    private TableColumn<ConsultaMatrimonio, String> tcPadreMM;
+    @FXML
+    private TableColumn<ConsultaMatrimonio, String> tcMadreMM;
+    @FXML
+    private TableColumn<ConsultaMatrimonio, String> tcNOmbreFM;
+    @FXML
+    private TableColumn<ConsultaMatrimonio, String> tcApellidoFM;
+    @FXML
+    private TableColumn<ConsultaMatrimonio, Integer> tcEdadFM;
+    @FXML
+    private TableColumn<ConsultaMatrimonio, String> tcOrigenFM;
+    @FXML
+    private TableColumn<ConsultaMatrimonio, String> tcFeligresFM;
+    @FXML
+    private TableColumn<ConsultaMatrimonio, String> tcPadreFM;
+    @FXML
+    private TableColumn<ConsultaMatrimonio, String> tcMadreFM;
+    @FXML
+    private TableColumn<ConsultaMatrimonio, String> tcCelebranteM;
+    @FXML
+    private TableColumn<ConsultaMatrimonio, String> tcInscritoM;
+    @FXML
+    private TableColumn<ConsultaMatrimonio, String> tcObservacionM;
+    @FXML
+    private TableColumn<ConsultaMatrimonio, LocalDate> tcRegistroM;
+    //Fin Campos Para Consulta de Matrimonios
+
+    //Para La Busqueda
+    @FXML
+    private TextField txtBusqueda;
+    private String busqueda;
 
     //LLamado a los elementos del FXML
     @FXML
@@ -51,6 +116,209 @@ public class MatrimoniosController implements Initializable {
     @FXML
     private void _regresar() throws IOException {
         App.setRoot("primary");
+    }
+
+    @FXML
+    private void _busquedaAutomatica() throws IOException {
+        tcLibroM.setCellValueFactory(new PropertyValueFactory<ConsultaMatrimonio, Integer>("libroM"));
+        tcFolioM.setCellValueFactory(new PropertyValueFactory<ConsultaMatrimonio, Integer>("folioM"));
+        tcPartidaM.setCellValueFactory(new PropertyValueFactory<ConsultaMatrimonio, Integer>("partidaM"));
+        tcLugarM.setCellValueFactory(new PropertyValueFactory<ConsultaMatrimonio, String>("lugarM"));
+        tcFechaM.setCellValueFactory(new PropertyValueFactory<ConsultaMatrimonio, LocalDate>("fechaM"));
+        tcTestigoUnoM.setCellValueFactory(new PropertyValueFactory<ConsultaMatrimonio, String>("testigoUnoM"));
+        tcTestigoDosM.setCellValueFactory(new PropertyValueFactory<ConsultaMatrimonio, String>("testigoDosM"));
+        tcNombreMM.setCellValueFactory(new PropertyValueFactory<ConsultaMatrimonio, String>("nombreMM"));
+        tcApellidoMM.setCellValueFactory(new PropertyValueFactory<ConsultaMatrimonio, String>("apellidoMM"));
+        tcEdadMM.setCellValueFactory(new PropertyValueFactory<ConsultaMatrimonio, Integer>("edadMM"));
+        tcOrigenMM.setCellValueFactory(new PropertyValueFactory<ConsultaMatrimonio, String>("origenMM"));
+        tcFeligresMM.setCellValueFactory(new PropertyValueFactory<ConsultaMatrimonio, String>("feligresMM"));
+        tcPadreMM.setCellValueFactory(new PropertyValueFactory<ConsultaMatrimonio, String>("padreMM"));
+        tcMadreMM.setCellValueFactory(new PropertyValueFactory<ConsultaMatrimonio, String>("madreMM"));
+        tcNOmbreFM.setCellValueFactory(new PropertyValueFactory<ConsultaMatrimonio, String>("nombreFM"));
+        tcApellidoFM.setCellValueFactory(new PropertyValueFactory<ConsultaMatrimonio, String>("apellidoFM"));
+        tcEdadFM.setCellValueFactory(new PropertyValueFactory<ConsultaMatrimonio, Integer>("edadFM"));
+        tcOrigenFM.setCellValueFactory(new PropertyValueFactory<ConsultaMatrimonio, String>("origenFM"));
+        tcFeligresFM.setCellValueFactory(new PropertyValueFactory<ConsultaMatrimonio, String>("feligresFM"));
+        tcPadreFM.setCellValueFactory(new PropertyValueFactory<ConsultaMatrimonio, String>("padreFM"));
+        tcMadreFM.setCellValueFactory(new PropertyValueFactory<ConsultaMatrimonio, String>("madreFM"));
+        tcCelebranteM.setCellValueFactory(new PropertyValueFactory<ConsultaMatrimonio, String>("celebranteM"));
+        tcInscritoM.setCellValueFactory(new PropertyValueFactory<ConsultaMatrimonio, String>("inscritoM"));
+        tcObservacionM.setCellValueFactory(new PropertyValueFactory<ConsultaMatrimonio, String>("observacionM"));
+        tcRegistroM.setCellValueFactory(new PropertyValueFactory<ConsultaMatrimonio, LocalDate>("registroM"));
+        ObservableList<ConsultaMatrimonio> data4 = FXCollections.observableArrayList();
+        Connection connection = ConexionDB.getConexion();
+
+        try {
+            String query = "SELECT r.libro, r.folio, r.partida, "
+                    + "m.lugarSacramento, m.fechaSacramento, m.testigo1, m.testigo2, "
+                    + " f1.nombre AS nombreMM, f1.apellido AS apellidoMM, f1.edadFeligres AS edadMM, f1.lugarNacimiento AS origenMM, f1.feligresDe AS feligresMM, f1.padreFeligres AS padreMM, f1.madreFeligres AS madreMM, "
+                    + "f2.nombre AS nombreFM, f2.apellido AS apellidoFM, f2.edadFeligres AS edadFM, f2.lugarNacimiento AS origenFM, f2.feligresDe AS feligresFM, f2.padreFeligres AS padreFM, f2.madreFeligres AS madreFM,  "
+                    + "c.nombreCelebrante, r.inscritoLibro, o.observacion, m.fechaInscripcion  "
+                    + "FROM Matrimonios m "
+                    + "JOIN Feligres f1 ON m.idFeligres1 = f1.idFeligres "
+                    + "JOIN Feligres f2 ON m.idFeligres2 = f2.idFeligres "
+                    + "JOIN RegistroLibro r ON m.idMatrimonio = r.matrimonio_idMatrimonio "
+                    + "JOIN Celebrante c ON m.celebrante_idCelebrante = c.idCelebrante "
+                    + "JOIN Observacion o ON m.idMatrimonio = o.matrimonio_idMatrimonio ";
+            PreparedStatement stmt = connection.prepareStatement(query);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                data4.add(new ConsultaMatrimonio(
+                        rs.getInt("libro"),
+                        rs.getInt("folio"),
+                        rs.getInt("partida"),
+                        rs.getString("lugarSacramento"),
+                        rs.getDate("fechaSacramento").toLocalDate(),
+                        rs.getString("testigo1"),
+                        rs.getString("testigo2"),
+                        rs.getString("nombreMM"),
+                        rs.getString("apellidoMM"),
+                        rs.getInt("edadMM"),
+                        rs.getString("origenMM"),
+                        rs.getString("feligresMM"),
+                        rs.getString("padreMM"),
+                        rs.getString("madreMM"),
+                        rs.getString("nombreFM"),
+                        rs.getString("apellidoFM"),
+                        rs.getInt("edadFM"),
+                        rs.getString("origenFM"),
+                        rs.getString("feligresFM"),
+                        rs.getString("padreFM"),
+                        rs.getString("madreFM"),
+                        rs.getString("nombreCelebrante"),
+                        rs.getString("inscritoLibro"),
+                        rs.getString("observacion"),
+                        rs.getDate("fechaInscripcion").toLocalDate()
+                ));
+            }
+
+            // Validación para verificar si no se encontraron resultados
+            if (data4.isEmpty()) {
+                showAlert("Información", "Matrimonio, No se encontraron resultados", Alert.AlertType.INFORMATION);
+                tvMatrimonio.setItems(FXCollections.observableArrayList()); // Limpia la tabla
+                return;
+            }
+
+            tvMatrimonio.setItems(data4);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            showAlert("Error", "Hubo un error al realizar la búsqueda.", Alert.AlertType.ERROR);
+        } finally {
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @FXML
+    private void _busquedaEspecifica() throws IOException {
+                // Validación para verificar si el TextField está vacío
+        busqueda = txtBusqueda.getText();
+        if (busqueda.trim().isEmpty()) {
+            showAlert("Error", "El campo de búsqueda no puede estar vacío.", Alert.AlertType.ERROR);
+            return;
+        }
+        tcLibroM.setCellValueFactory(new PropertyValueFactory<ConsultaMatrimonio, Integer>("libroM"));
+        tcFolioM.setCellValueFactory(new PropertyValueFactory<ConsultaMatrimonio, Integer>("folioM"));
+        tcPartidaM.setCellValueFactory(new PropertyValueFactory<ConsultaMatrimonio, Integer>("partidaM"));
+        tcLugarM.setCellValueFactory(new PropertyValueFactory<ConsultaMatrimonio, String>("lugarM"));
+        tcFechaM.setCellValueFactory(new PropertyValueFactory<ConsultaMatrimonio, LocalDate>("fechaM"));
+        tcTestigoUnoM.setCellValueFactory(new PropertyValueFactory<ConsultaMatrimonio, String>("testigoUnoM"));
+        tcTestigoDosM.setCellValueFactory(new PropertyValueFactory<ConsultaMatrimonio, String>("testigoDosM"));
+        tcNombreMM.setCellValueFactory(new PropertyValueFactory<ConsultaMatrimonio, String>("nombreMM"));
+        tcApellidoMM.setCellValueFactory(new PropertyValueFactory<ConsultaMatrimonio, String>("apellidoMM"));
+        tcEdadMM.setCellValueFactory(new PropertyValueFactory<ConsultaMatrimonio, Integer>("edadMM"));
+        tcOrigenMM.setCellValueFactory(new PropertyValueFactory<ConsultaMatrimonio, String>("origenMM"));
+        tcFeligresMM.setCellValueFactory(new PropertyValueFactory<ConsultaMatrimonio, String>("feligresMM"));
+        tcPadreMM.setCellValueFactory(new PropertyValueFactory<ConsultaMatrimonio, String>("padreMM"));
+        tcMadreMM.setCellValueFactory(new PropertyValueFactory<ConsultaMatrimonio, String>("madreMM"));
+        tcNOmbreFM.setCellValueFactory(new PropertyValueFactory<ConsultaMatrimonio, String>("nombreFM"));
+        tcApellidoFM.setCellValueFactory(new PropertyValueFactory<ConsultaMatrimonio, String>("apellidoFM"));
+        tcEdadFM.setCellValueFactory(new PropertyValueFactory<ConsultaMatrimonio, Integer>("edadFM"));
+        tcOrigenFM.setCellValueFactory(new PropertyValueFactory<ConsultaMatrimonio, String>("origenFM"));
+        tcFeligresFM.setCellValueFactory(new PropertyValueFactory<ConsultaMatrimonio, String>("feligresFM"));
+        tcPadreFM.setCellValueFactory(new PropertyValueFactory<ConsultaMatrimonio, String>("padreFM"));
+        tcMadreFM.setCellValueFactory(new PropertyValueFactory<ConsultaMatrimonio, String>("madreFM"));
+        tcCelebranteM.setCellValueFactory(new PropertyValueFactory<ConsultaMatrimonio, String>("celebranteM"));
+        tcInscritoM.setCellValueFactory(new PropertyValueFactory<ConsultaMatrimonio, String>("inscritoM"));
+        tcObservacionM.setCellValueFactory(new PropertyValueFactory<ConsultaMatrimonio, String>("observacionM"));
+        tcRegistroM.setCellValueFactory(new PropertyValueFactory<ConsultaMatrimonio, LocalDate>("registroM"));
+        ObservableList<ConsultaMatrimonio> data4 = FXCollections.observableArrayList();
+        Connection connection = ConexionDB.getConexion();
+
+        try {
+            String query = "SELECT r.libro, r.folio, r.partida, "
+                    + "m.lugarSacramento, m.fechaSacramento, m.testigo1, m.testigo2, "
+                    + " f1.nombre AS nombreMM, f1.apellido AS apellidoMM, f1.edadFeligres AS edadMM, f1.lugarNacimiento AS origenMM, f1.feligresDe AS feligresMM, f1.padreFeligres AS padreMM, f1.madreFeligres AS madreMM, "
+                    + "f2.nombre AS nombreFM, f2.apellido AS apellidoFM, f2.edadFeligres AS edadFM, f2.lugarNacimiento AS origenFM, f2.feligresDe AS feligresFM, f2.padreFeligres AS padreFM, f2.madreFeligres AS madreFM,  "
+                    + "c.nombreCelebrante, r.inscritoLibro, o.observacion, m.fechaInscripcion  "
+                    + "FROM Matrimonios m "
+                    + "JOIN Feligres f1 ON m.idFeligres1 = f1.idFeligres "
+                    + "JOIN Feligres f2 ON m.idFeligres2 = f2.idFeligres "
+                    + "JOIN RegistroLibro r ON m.idMatrimonio = r.matrimonio_idMatrimonio "
+                    + "JOIN Celebrante c ON m.celebrante_idCelebrante = c.idCelebrante "
+                    + "JOIN Observacion o ON m.idMatrimonio = o.matrimonio_idMatrimonio "
+                    + "WHERE f1.nombre LIKE ? OR f1.apellido LIKE ?";
+            PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setString(1, "%" + busqueda + "%");
+            stmt.setString(2, "%" + busqueda + "%");
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                data4.add(new ConsultaMatrimonio(
+                        rs.getInt("libro"),
+                        rs.getInt("folio"),
+                        rs.getInt("partida"),
+                        rs.getString("lugarSacramento"),
+                        rs.getDate("fechaSacramento").toLocalDate(),
+                        rs.getString("testigo1"),
+                        rs.getString("testigo2"),
+                        rs.getString("nombreMM"),
+                        rs.getString("apellidoMM"),
+                        rs.getInt("edadMM"),
+                        rs.getString("origenMM"),
+                        rs.getString("feligresMM"),
+                        rs.getString("padreMM"),
+                        rs.getString("madreMM"),
+                        rs.getString("nombreFM"),
+                        rs.getString("apellidoFM"),
+                        rs.getInt("edadFM"),
+                        rs.getString("origenFM"),
+                        rs.getString("feligresFM"),
+                        rs.getString("padreFM"),
+                        rs.getString("madreFM"),
+                        rs.getString("nombreCelebrante"),
+                        rs.getString("inscritoLibro"),
+                        rs.getString("observacion"),
+                        rs.getDate("fechaInscripcion").toLocalDate()
+                ));
+            }
+
+            // Validación para verificar si no se encontraron resultados
+            if (data4.isEmpty()) {
+                showAlert("Información", "Matrimonio, No se encontraron resultados para: " + busqueda, Alert.AlertType.INFORMATION);
+                tvMatrimonio.setItems(FXCollections.observableArrayList()); // Limpia la tabla
+                return;
+            }
+
+            tvMatrimonio.setItems(data4);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            showAlert("Error", "Hubo un error al realizar la búsqueda.", Alert.AlertType.ERROR);
+        } finally {
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @FXML
@@ -340,6 +608,14 @@ public class MatrimoniosController implements Initializable {
 
         // Limpieza de los DatePicker
         dpFechaM.setValue(null);
+    }
+
+    // Función para mostrar alertas fácilmente
+    private void showAlert(String title, String content, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 
 }
