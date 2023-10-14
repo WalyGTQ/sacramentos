@@ -82,6 +82,10 @@ public class ConfirmacionController implements Initializable {
     @FXML
     private DatePicker dpFechaSacCf, dpNacimientoCf;
     private String check;
+    
+    @FXML
+    private TextField txtBusqueda;
+    private String busqueda;
 
     /**
      * Initializes the controller class.
@@ -289,7 +293,7 @@ public class ConfirmacionController implements Initializable {
         
     }//La siguiente Llave termina _guardarCf
 
-        @FXML
+    @FXML
     private void _busquedaAutomatica() throws IOException {
         //Escucha el evento del doble Clic
         tvConfirmacion.setRowFactory(tv -> {
@@ -341,6 +345,96 @@ public class ConfirmacionController implements Initializable {
                     + "JOIN registrolibro r ON cf.idConfirmacion = r.confirmacion_idConfirmacion "
                     + "JOIN observacion o ON cf.idConfirmacion = o.confirmacion_idConfirmacion ";
             PreparedStatement stmt = connection.prepareStatement(query);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                data3.add(new ConsultaConfirmacion(
+                        rs.getInt("libro"),
+                        rs.getInt("folio"),
+                        rs.getInt("partida"),
+                        rs.getString("nombre"),
+                        rs.getString("apellido"),
+                        rs.getDate("nacimiento").toLocalDate(),
+                        rs.getInt("edadFeligres"),
+                        rs.getString("nombreCelebrante"),
+                        rs.getDate("fechaSacramento").toLocalDate(),
+                        rs.getString("lugarSacramento"),
+                        rs.getString("padreFeligres"),
+                        rs.getString("madreFeligres"),
+                        rs.getString("padrino"),
+                        rs.getString("inscritoLibro"),
+                        rs.getString("observacion"),
+                        rs.getDate("fechaInscripcion").toLocalDate()
+                ));
+            }
+
+            // Validación para verificar si no se encontraron resultados
+            if (data3.isEmpty()) {
+                showAlert("Información", "Confirmacion, No se encontraron resultados  " , Alert.AlertType.INFORMATION);
+                tvConfirmacion.setItems(FXCollections.observableArrayList()); // Limpia la tabla
+                return;
+            }
+
+            tvConfirmacion.setItems(data3);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            showAlert("Error", "Hubo un error al realizar la búsqueda.", Alert.AlertType.ERROR);
+        } finally {
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    
+    @FXML
+    private void _busquedaEspecifica() throws IOException {
+        // Validación para verificar si el TextField está vacío
+        busqueda = txtBusqueda.getText();
+        if (busqueda.trim().isEmpty()) {
+            showAlert("Error", "El campo de búsqueda no puede estar vacío.", Alert.AlertType.ERROR);
+            return;
+        }
+
+        // Configuración de las columnas usando PropertyValueFactory
+
+        tcLibroCf.setCellValueFactory(new PropertyValueFactory<ConsultaConfirmacion, Integer>("libroCf"));
+        tcFolioCf.setCellValueFactory(new PropertyValueFactory<ConsultaConfirmacion, Integer>("folioCf"));
+        tcPartidaCf.setCellValueFactory(new PropertyValueFactory<ConsultaConfirmacion, Integer>("partidaCf"));
+        tcNombreCf.setCellValueFactory(new PropertyValueFactory<ConsultaConfirmacion, String>("nombreCf"));
+        tcApellidoCf.setCellValueFactory(new PropertyValueFactory<ConsultaConfirmacion, String>("apellidoCf"));
+        tcNacimientoCf.setCellValueFactory(new PropertyValueFactory<ConsultaConfirmacion, LocalDate>("nacimientoCf"));
+        tcEdadCf.setCellValueFactory(new PropertyValueFactory<ConsultaConfirmacion, Integer>("edadCf"));
+        tcCelebranteCf.setCellValueFactory(new PropertyValueFactory<ConsultaConfirmacion, String>("celebranteCf"));
+        tcFechaCf.setCellValueFactory(new PropertyValueFactory<ConsultaConfirmacion, LocalDate>("fechaCf"));
+        tcLugarCf.setCellValueFactory(new PropertyValueFactory<ConsultaConfirmacion, String>("lugarCf"));
+        tcPadreCf.setCellValueFactory(new PropertyValueFactory<ConsultaConfirmacion, String>("padreCf"));
+        tcMadreCf.setCellValueFactory(new PropertyValueFactory<ConsultaConfirmacion, String>("madreCf"));
+        tcPadrinosCf.setCellValueFactory(new PropertyValueFactory<ConsultaConfirmacion, String>("padrinosCf"));
+        tcInscritoCf.setCellValueFactory(new PropertyValueFactory<ConsultaConfirmacion, String>("inscritoCf"));
+        tcObservacionesCf.setCellValueFactory(new PropertyValueFactory<ConsultaConfirmacion, String>("observacionesCf"));
+        tcRegistroCf.setCellValueFactory(new PropertyValueFactory<ConsultaConfirmacion, LocalDate>("registroCf"));
+
+        ObservableList<ConsultaConfirmacion> data3 = FXCollections.observableArrayList();
+        Connection connection = ConexionDB.getConexion();
+        try {
+            String query = "SELECT r.libro, r.folio, r.partida, r.inscritoLibro, "
+                    + "f.nombre, f.apellido, f.nacimiento, f.edadFeligres, f.padreFeligres, f.madreFeligres, "
+                    + "cf.fechaInscripcion, cf.fechaSacramento, cf.lugarSacramento, cf.padrino, "
+                    + "c.nombreCelebrante,  "
+                    + "o.observacion  "
+                    + "FROM feligres f "
+                    + "JOIN confirmacion cf ON f.idFeligres = cf.idFeligres "
+                    + "JOIN celebrante c ON cf.celebrante_idCelebrante = c.idCelebrante "
+                    + "JOIN registrolibro r ON cf.idConfirmacion = r.confirmacion_idConfirmacion "
+                    + "JOIN observacion o ON cf.idConfirmacion = o.confirmacion_idConfirmacion "
+                    + "WHERE nombre LIKE ? OR apellido LIKE ?";
+            PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setString(1, "%" + busqueda + "%");
+            stmt.setString(2, "%" + busqueda + "%");
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
