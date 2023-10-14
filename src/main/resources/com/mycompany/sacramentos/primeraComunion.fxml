@@ -22,7 +22,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.sacramentos.PrimeraComunionController">
+<BorderPane minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.sacramentos.PrimeraComunionController">
     <!-- Encabezado -->
     <top>
         <HBox alignment="CENTER" spacing="10">
@@ -150,24 +150,29 @@
                         </children>
                      </AnchorPane>
                   </content></Tab>
-               <Tab style="-fx-font-weight: bold;" text="Buscar">
+               <Tab onSelectionChanged="#_busquedaAutomatica" style="-fx-font-weight: bold;" text="Buscar">
                   <content>
                      <AnchorPane prefHeight="200.0" prefWidth="200.0">
                         <children>
-                           <TextField layoutX="62.0" layoutY="41.0" prefHeight="23.0" prefWidth="230.0" />
-                           <TableView layoutX="23.0" layoutY="76.0" prefHeight="200.0" prefWidth="768.0">
-                             <columns>
-                               <TableColumn prefWidth="36.0" text="Libro" />
-                               <TableColumn prefWidth="39.0" text="Folio" />
-                                 <TableColumn prefWidth="47.0" text="Partida" />
-                                 <TableColumn prefWidth="121.0" text="Nombre" />
-                                 <TableColumn prefWidth="149.0" text="Apellido" />
-                                 <TableColumn prefWidth="120.0" text="Fecha " />
-                                 <TableColumn prefWidth="127.0" text="Padre" />
-                                 <TableColumn minWidth="0.0" prefWidth="128.0" text="Madre" />
-                             </columns>
+                           <TextField fx:id="txtBusquedaPc" layoutX="62.0" layoutY="41.0" prefHeight="23.0" prefWidth="230.0" />
+                           <Button layoutX="315.0" layoutY="41.0" mnemonicParsing="false" onAction="#_busquedaEspecifica" text="Buscar" />
+                           <TableView fx:id="tvComunion" layoutX="14.0" layoutY="82.0" prefHeight="345.0" prefWidth="980.0">
+                              <columns>
+                                 <TableColumn fx:id="tcLibroC" minWidth="40.0" prefWidth="40.0" text="Libro" />
+                                 <TableColumn fx:id="tcFolioC" minWidth="40.0" prefWidth="40.0" text="Folio" />
+                                 <TableColumn fx:id="tcPartidaC" minWidth="40.0" prefWidth="47.0" text="Partida" />
+                                 <TableColumn fx:id="tcNombreC" prefWidth="75.0" text="Nombre" />
+                                 <TableColumn fx:id="tcApellidoC" prefWidth="75.0" text="Apellido" />
+                                 <TableColumn fx:id="tcNacimientoC" prefWidth="75.0" text="Nacimiento" />
+                                 <TableColumn fx:id="tcEdadC" prefWidth="75.0" text="Edad" />
+                                 <TableColumn fx:id="tcLugarC" prefWidth="75.0" text="Lugar" />
+                                 <TableColumn fx:id="tcFechaC" prefWidth="75.0" text="Fecha" />
+                                 <TableColumn fx:id="tcCelebranteC" prefWidth="75.0" text="Celebrante" />
+                                 <TableColumn fx:id="tcAnotadoC" prefWidth="75.0" text="Anotado" />
+                                 <TableColumn fx:id="tcRegistroC" prefWidth="75.0" text="Registro" />
+                                 <TableColumn fx:id="tcObservacionC" prefWidth="75.0" text="Observacion" />
+                              </columns>
                            </TableView>
-                           <Button layoutX="315.0" layoutY="41.0" mnemonicParsing="false" text="Buscar" />
                         </children>
                      </AnchorPane>
                   </content></Tab>

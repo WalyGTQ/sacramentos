@@ -164,6 +164,7 @@ public class EdicionRegistroController implements Initializable {
         PreparedStatement pstmt = null;
         PreparedStatement pstmt1 = null;
         PreparedStatement pstmt2 = null;
+        PreparedStatement pstmt3 = null;
         if (comparacionB()) {
             // Actualiza la base de datos
 
@@ -199,16 +200,14 @@ public class EdicionRegistroController implements Initializable {
                         if (fechaNacimientoC.getDayOfYear() > hoy.getDayOfYear()) {
                             edad--; // Ajusta la edad si el cumpleaños de este año aún no ha llegado.
                         }
-                        
-                                //Manejo del ChecBox Modificado :.(
-        boolean check = cbInscritoB.isSelected();
-        if (check) {
-            inscrito = "Si";
-        } else {
-            inscrito = "No";
-        }
 
-
+                        //Manejo del ChecBox Modificado :.(
+                        boolean check = cbInscritoB.isSelected();
+                        if (check) {
+                            inscrito = "Si";
+                        } else {
+                            inscrito = "No";
+                        }
 
                         // Update Feligres
                         String sqlFeligres = "UPDATE feligres SET nombre = ?, apellido = ?, nacimiento = ?, edadFeligres = ?, lugarNacimiento = ?, padreFeligres = ?, madreFeligres = ? WHERE idFeligres = ?";
@@ -243,13 +242,13 @@ public class EdicionRegistroController implements Initializable {
                         pstmt2.setString(4, inscrito);
                         pstmt2.setInt(5, idBautismo);
                         pstmt2.executeUpdate();
-                        
+
                         // Update RegistroLibro
                         String sqlUpdateObservaciones = "UPDATE observacion SET observacion = ? WHERE bautismo_idBautismo = ?";
-                        pstmt2 = connection.prepareStatement(sqlUpdateObservaciones);
-                        pstmt2.setString(1, taObservacionesB.getText());
-                        pstmt2.setInt(2, idBautismo);
-                        pstmt2.executeUpdate();
+                        pstmt3 = connection.prepareStatement(sqlUpdateObservaciones);
+                        pstmt3.setString(1, taObservacionesB.getText());
+                        pstmt3.setInt(2, idBautismo);
+                        pstmt3.executeUpdate();
 
                         // Registro no encontrado
                         showAlert("Información", "El registro fue Actualizado Satisfactoriamente.", "Se Actualizo: " + datosFeligres.getNombre(), Alert.AlertType.INFORMATION);
@@ -268,6 +267,18 @@ public class EdicionRegistroController implements Initializable {
                     try {
                         if (connection != null) {
                             connection.close();
+                        }
+                        if (pstmt != null) {
+                            pstmt.close();
+                        }
+                        if (pstmt1 != null) {
+                            pstmt1.close();
+                        }
+                        if (pstmt2 != null) {
+                            pstmt2.close();
+                        }
+                        if (pstmt3 != null) {
+                            pstmt3.close();
                         }
                     } catch (SQLException e) {
                         e.printStackTrace();
@@ -304,6 +315,7 @@ public class EdicionRegistroController implements Initializable {
         } catch (NumberFormatException e) {
             // Registro no encontrado
             showAlert("Advertencia", "Algun Valor Ingresado es Invalido", "Revisa que sean Numeros", Alert.AlertType.ERROR);
+            return false;
         }
         //Manejo del ChecBox :.(
         boolean check = cbInscritoB.isSelected();

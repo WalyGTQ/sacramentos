@@ -28,7 +28,7 @@ public class ConsultaPrimeraComunion {
     private final StringProperty anotadoC;
     private final StringProperty observacionC;
 
-    public ConsultaPrimeraComunion(int libroC, int folioC, int partidaC, int edadC,
+    public ConsultaPrimeraComunion(Integer libroC, Integer folioC, Integer partidaC, Integer edadC,
             LocalDate fechaRealizadoPc, LocalDate fechaNacPc, LocalDate registroC,
             String nombreC, String apellidoC, String lugarC,
             String celebranteC, String anotadoC, String observacionC) {
@@ -47,19 +47,19 @@ public class ConsultaPrimeraComunion {
         this.observacionC = new SimpleStringProperty(observacionC);
     }
 
-    public int getLibroC() {
+    public Integer getLibroC() {
         return libroC.get();
     }
 
-    public int getFolioC() {
+    public Integer getFolioC() {
         return folioC.get();
     }
 
-    public int getPartidaC() {
+    public Integer getPartidaC() {
         return partidaC.get();
     }
 
-    public int getEdadC() {
+    public Integer getEdadC() {
         return edadC.get();
     }
 
