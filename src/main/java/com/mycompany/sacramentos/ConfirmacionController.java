@@ -299,7 +299,7 @@ public class ConfirmacionController implements Initializable {
                     ConsultaConfirmacion rowData = row.getItem();
                     SingletonConfirmacion.getInstance().setFeligresDetalle(rowData); // Guarda los datos en el Singleton
                     try {
-                        App.setRoot("edicionRegistroPc");
+                        App.setRoot("edicionRegistroC");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
