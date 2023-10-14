@@ -231,7 +231,7 @@ public class PrimeraComunionController implements Initializable {
                         pstmt2.setInt(5, idGeneradoS);
                         // Ejecutando la consulta SQL
                         pstmt2.executeUpdate();
-                        System.out.println(libro + " " + folio + "  " + partida );
+                        System.out.println(libro + " " + folio + "  " + partida);
                         //Insertado a la tabla de Reistrodel Sacramento
                         String sql4 = "INSERT INTO observacion (observacion, comunion_idComunion) VALUES (?,?)";
                         // Preparando la consulta SQL
@@ -283,9 +283,10 @@ public class PrimeraComunionController implements Initializable {
         //Aca Finaliza _guardarPc
     }
     
+
     @FXML
     private void _busquedaAutomatica() throws IOException {
-                //Escucha el evento del doble Clic
+        //Escucha el evento del doble Clic
         tvComunion.setRowFactory(tv -> {
             TableRow<ConsultaPrimeraComunion> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
@@ -301,7 +302,7 @@ public class PrimeraComunionController implements Initializable {
             });
             return row;
         });
-        
+
         // Configuración de las columnas usando PropertyValueFactory
         tcLibroC.setCellValueFactory(new PropertyValueFactory<ConsultaPrimeraComunion, Integer>("libroC"));
         tcFolioC.setCellValueFactory(new PropertyValueFactory<ConsultaPrimeraComunion, Integer>("folioC"));
@@ -316,7 +317,7 @@ public class PrimeraComunionController implements Initializable {
         tcCelebranteC.setCellValueFactory(new PropertyValueFactory<ConsultaPrimeraComunion, String>("celebranteC"));
         tcAnotadoC.setCellValueFactory(new PropertyValueFactory<ConsultaPrimeraComunion, String>("anotadoC"));
         tcObservacionC.setCellValueFactory(new PropertyValueFactory<ConsultaPrimeraComunion, String>("observacionC"));
-                ObservableList<ConsultaPrimeraComunion> data2 = FXCollections.observableArrayList();
+        ObservableList<ConsultaPrimeraComunion> data2 = FXCollections.observableArrayList();
         Connection connection = ConexionDB.getConexion();
         try {
             String query = "SELECT r.libro, r.folio, r.partida, r.inscritoLibro, "
@@ -371,16 +372,16 @@ public class PrimeraComunionController implements Initializable {
             }
         }
     }
-    
+
     @FXML
-    private void _busquedaEspecifica() throws IOException{//Realiza una busqueda mediante entradas de Texto
-                // Validación para verificar si el TextField está vacío
+    private void _busquedaEspecifica() throws IOException {//Realiza una busqueda mediante entradas de Texto
+        // Validación para verificar si el TextField está vacío
         busqueda = txtBusquedaPc.getText();
         if (busqueda.trim().isEmpty()) {
             showAlert("Error", "El campo de búsqueda no puede estar vacío.", Alert.AlertType.ERROR);
             return;
         }
-                // Configuración de las columnas usando PropertyValueFactory
+        // Configuración de las columnas usando PropertyValueFactory
         tcLibroC.setCellValueFactory(new PropertyValueFactory<ConsultaPrimeraComunion, Integer>("libroC"));
         tcFolioC.setCellValueFactory(new PropertyValueFactory<ConsultaPrimeraComunion, Integer>("folioC"));
         tcPartidaC.setCellValueFactory(new PropertyValueFactory<ConsultaPrimeraComunion, Integer>("partidaC"));
@@ -452,12 +453,7 @@ public class PrimeraComunionController implements Initializable {
                 e.printStackTrace();
             }
         }
-        
-        
-        
-        
-        
-        
+
     }
 
     //Codigo Miselaneo
@@ -483,7 +479,7 @@ public class PrimeraComunionController implements Initializable {
         dpFechaRealizadoPc.setValue(null);
         dpFechaNacPc.setValue(null);
     }
-    
+
     // Función para mostrar alertas fácilmente
     private void showAlert(String title, String content, Alert.AlertType alertType) {
         Alert alert = new Alert(alertType);

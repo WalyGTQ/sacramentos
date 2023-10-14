@@ -209,6 +209,92 @@ public class EdicionRegistroPcController implements Initializable {
         }
     }
 
+    
+    @FXML
+    private void _EliminarPc() throws IOException{
+                // Crear ventana de diálogo de confirmación
+        if (showConfirmationDialog("Confirmar eliminación", "Eliminar registro", "¿Estás seguro? Deseas eliminar el registro de: " + feligres.getNombreC())) {
+            // El usuario ha confirmado la eliminación, Código para eliminar el registro
+
+            Connection connection = ConexionDB.getConexion();
+            try {
+                // 1. Obtener el idComunion basado en la partida y el nombre
+                String queryId = "SELECT p.idComunion, f.idFeligres, c.idCelebrante "
+                        + "FROM feligres f "
+                        + "JOIN comunion p ON f.idFeligres = p.idFeligres "
+                        + "JOIN registrolibro r ON p.idComunion = r.comunion_idComunion "
+                        + "JOIN celebrante c ON p.celebrante_idCelebrante = c.idCelebrante "
+                        + "WHERE f.nombre = ? AND r.partida = ?";
+                PreparedStatement stmtId = connection.prepareStatement(queryId);
+                stmtId.setString(1, feligres.getNombreC());
+                stmtId.setInt(2, feligres.getPartidaC());
+                ResultSet rs = stmtId.executeQuery();
+
+                if (rs.next()) {
+                    int idComunion = rs.getInt("idComunion");
+                    int idFeligres = rs.getInt("idFeligres");
+                    int idCelebrante = rs.getInt("idCelebrante");
+
+                    // 1. Eliminar registros asociados en las tablas secundarias
+                    String deleteObservacion = "DELETE FROM observacion WHERE comunion_idComunion = ?";
+                    PreparedStatement stmtObs = connection.prepareStatement(deleteObservacion);
+                    stmtObs.setInt(1, idComunion);
+                    stmtObs.executeUpdate();
+
+                    // 2. Eliminar registros asociados en las tablas secundarias
+                    String deleteRegistro = "DELETE FROM registrolibro WHERE comunion_idComunion = ?";
+                    PreparedStatement stmtReg = connection.prepareStatement(deleteRegistro);
+                    stmtReg.setInt(1, idComunion);
+                    stmtReg.executeUpdate();
+
+                    // 3. Eliminar el registro principal en la tabla Bautismo
+                    String deleteBautismo = "DELETE FROM comunion WHERE idComunion = ?";
+                    PreparedStatement stmtDel = connection.prepareStatement(deleteBautismo);
+                    stmtDel.setInt(1, idComunion);
+                    stmtDel.executeUpdate();
+
+                    // 4. Eliminar el registro principal en la tabla feligres
+                    String deleteFeligres = "DELETE FROM feligres WHERE idFeligres = ?";
+                    PreparedStatement stmtDelFel = connection.prepareStatement(deleteFeligres);
+                    stmtDelFel.setInt(1, idFeligres);
+                    stmtDelFel.executeUpdate();
+                    
+                    // 5. Eliminar el registro del Celebrante
+                    String deleteCelebrante = "DELETE FROM celebrante WHERE idCelebrante = ?";
+                    PreparedStatement stmtDelCel = connection.prepareStatement(deleteCelebrante);
+                    stmtDelCel.setInt(1, idCelebrante);
+                    stmtDelCel.executeUpdate();
+                    
+                    // Registro no encontrado
+                    showAlert("Información", "El registro fue eliminado Satisfactoriamente.", "Se Elimino: " + feligres.getNombreC(), Alert.AlertType.INFORMATION);
+                    App.setRoot("primeraComunion");
+
+                } else {
+                    // Registro no encontrado
+                    showAlert("Información", "No se encontró un registro con ese nombre y partida.", "", Alert.AlertType.INFORMATION);
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+                showAlert("Error", "Hubo un error al eliminar el registro.", "", Alert.AlertType.ERROR);
+            } finally {
+                try {
+                    if (connection != null) {
+                        connection.close();
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        } else {
+            // El usuario ha cancelado la eliminación, Cualquier acción que consideres necesario
+            // Registro no encontrado
+            showAlert("Información", "El Usuario a Cancelado la Operacion.", "Ninguna Modificaion Realizada", Alert.AlertType.INFORMATION);
+        }
+        
+        
+        
+    }
     //Otros Codigos
     //Intento de devolver un boleano al comparar los datos
     private boolean comparacionPc() {
