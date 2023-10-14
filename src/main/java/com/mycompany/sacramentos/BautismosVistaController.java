@@ -374,7 +374,7 @@ public class BautismosVistaController implements Initializable {
         }
 
     }//Fin Consulta Bautismo
-    // Función para mostrar alertas fácilmente
+    
 
     @FXML
     private void _consultaBautismoBusqueda() throws IOException {
@@ -464,6 +464,7 @@ public class BautismosVistaController implements Initializable {
     }
 
     //Campos Miselaneos
+    
     public void limpiarCampos() {
         // Limpiar todos los otros campos
         // Limpieza de los TextField
@@ -489,7 +490,7 @@ public class BautismosVistaController implements Initializable {
         datePikerFechaB.setValue(null);
         datePikerFechaNacimientoB.setValue(null);
     }
-
+    // Función para mostrar alertas fácilmente
     private void showAlert(String title, String content, Alert.AlertType alertType) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
