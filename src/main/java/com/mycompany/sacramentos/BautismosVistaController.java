@@ -13,13 +13,24 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Bounds;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
@@ -27,7 +38,9 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 
 /**
  * FXML Controller class
@@ -89,14 +102,69 @@ public class BautismosVistaController implements Initializable {
     private TextField txtBusquedaB;
 
     private TabPane miTabPaneB;
+    //Para Manejar las Graficas
+    @FXML
+    private BarChart<String, Number> bcBautismos;
+    @FXML
+    private ComboBox<String> cbFiltroB;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        cargarDatosBautismosPorFecha();
+        cargarDatosDistribucionEdades();
+        cargarDatosBautismosPorFecha2();
+
+        pcBautismos.setVisible(false);
+        bcBautismos.setVisible(false);
+        lcBautismo.setVisible(false);
+        pcBautismos2.setVisible(false);
+
+        cbFiltroB.getItems().addAll("Bautismos por Fecha", "Bautismos Por Edades", "por Fecha Barras", "Anotados al Libro");
         //miTabPaneB.getSelectionModel().select(1);
-        // TODO
+        // Agregar el evento de cambio de selección al ComboBox
+        cbFiltroB.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                String opcionSeleccionada = cbFiltroB.getSelectionModel().getSelectedItem();
+
+                // Verificar la opción seleccionada y ejecutar la acción correspondiente
+                if ("Bautismos por Fecha".equals(opcionSeleccionada)) {
+                    pcBautismos2.setVisible(false);
+                    pcBautismos.setVisible(false);
+                    bcBautismos.setVisible(false);
+                    lcBautismo.setVisible(true);
+                    // Ejecutar el método correspondiente
+                    cargarDatosBautismosPorFecha2();
+                } else if ("Bautismos Por Edades".equals(opcionSeleccionada)) {
+                    pcBautismos2.setVisible(false);
+                    pcBautismos.setVisible(true);
+                    bcBautismos.setVisible(false);
+                    lcBautismo.setVisible(false);
+                    cargarDatosDistribucionEdades();
+
+                    // ...
+                } else if ("por Fecha Barras".equals(opcionSeleccionada)) {
+                    pcBautismos2.setVisible(false);
+                    pcBautismos.setVisible(false);
+                    bcBautismos.setVisible(true);
+                    lcBautismo.setVisible(false);
+                    cargarDatosBautismosPorFecha();
+                    // Ejecutar otra acción
+                    // ...
+                    
+                } else if ("Anotados al Libro".equals(opcionSeleccionada)) {
+                    pcBautismos.setVisible(false);
+                    bcBautismos.setVisible(false);
+                    lcBautismo.setVisible(false);
+                    pcBautismos2.setVisible(true);
+                    cargarDatosInscritosVsNoInscritos();
+                }
+            }
+        });
+
     }
 
     @FXML
@@ -107,6 +175,7 @@ public class BautismosVistaController implements Initializable {
     @FXML
     private void _mostraDatos() throws IOException {
         _consultaBautismo();
+
     }
 
     @FXML
@@ -374,7 +443,6 @@ public class BautismosVistaController implements Initializable {
         }
 
     }//Fin Consulta Bautismo
-    
 
     @FXML
     private void _consultaBautismoBusqueda() throws IOException {
@@ -464,7 +532,6 @@ public class BautismosVistaController implements Initializable {
     }
 
     //Campos Miselaneos
-    
     public void limpiarCampos() {
         // Limpiar todos los otros campos
         // Limpieza de los TextField
@@ -490,6 +557,7 @@ public class BautismosVistaController implements Initializable {
         datePikerFechaB.setValue(null);
         datePikerFechaNacimientoB.setValue(null);
     }
+
     // Función para mostrar alertas fácilmente
     private void showAlert(String title, String content, Alert.AlertType alertType) {
         Alert alert = new Alert(alertType);
@@ -497,5 +565,193 @@ public class BautismosVistaController implements Initializable {
         alert.setContentText(content);
         alert.showAndWait();
     }
+
+    //Manejo de Graficas
+    //Barchar Genera la Consulta pra saber cuantos Bautismos hay por fecha 
+    private Map<LocalDate, Integer> obtenerBautismosPorFecha() throws SQLException {
+        Map<LocalDate, Integer> resultados = new HashMap<>();
+
+        String sql = "SELECT fechaSacramento, COUNT(*) as total FROM bautismo GROUP BY fechaSacramento ORDER BY fechaSacramento";
+
+        try (
+                Connection conn = ConexionDB.getConexion(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                resultados.put(rs.getDate("fechaSacramento").toLocalDate(), rs.getInt("total"));
+            }
+        }
+
+        return resultados;
+    }
+
+    //Agrega los Datos obtenidos anteriormente y los muestra
+    @FXML
+    private void cargarDatosBautismosPorFecha() {
+        bcBautismos.getData().clear(); // Limpia las series anteriores
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        try {
+            Map<LocalDate, Integer> datos = obtenerBautismosPorFecha();
+
+            for (Map.Entry<LocalDate, Integer> entry : datos.entrySet()) {
+                series.getData().add(new XYChart.Data<>(entry.getKey().toString(), entry.getValue()));
+            }
+
+            bcBautismos.getData().add(series);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Aquí puedes manejar el error, quizás mostrar un mensaje al usuario
+        }
+    }
+
+    private Map<String, Integer> obtenerDistribucionEdadesBautismos() throws SQLException {
+        Map<String, Integer> resultados = new HashMap<>();
+
+        String sql = "SELECT \n"
+                + "    CASE \n"
+                + "        WHEN f.edadFeligres BETWEEN 0 AND 7 THEN '0-7 años'\n"
+                + "        ELSE '8+ años'\n"
+                + "    END AS rangoEdad,\n"
+                + "    COUNT(*) as total \n"
+                + "FROM feligres f\n"
+                + "INNER JOIN bautismo b ON f.idFeligres = b.idFeligres \n"
+                + "GROUP BY rangoEdad \n"
+                + "ORDER BY rangoEdad;";
+
+        try (
+                Connection conn = ConexionDB.getConexion(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                String edad = rs.getString("rangoEdad");
+                resultados.put(edad, rs.getInt("total"));
+            }
+        }
+
+        return resultados;
+    }
+
+    @FXML
+    private void cargarDistribucionEdadesBautismos() {
+        bcBautismos.getData().clear(); // Limpia las series anteriores
+
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        try {
+            Map<String, Integer> datos = obtenerDistribucionEdadesBautismos();
+
+            for (Map.Entry<String, Integer> entry : datos.entrySet()) {
+                series.getData().add(new XYChart.Data<>(entry.getKey(), entry.getValue()));
+            }
+
+            bcBautismos.getData().add(series);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //PieChart que muestra los bautismos por rangos de edad
+    @FXML
+    private PieChart pcBautismos;
+
+    @FXML
+    private void cargarDatosDistribucionEdades() {
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+
+        try {
+            Map<String, Integer> datos = obtenerDistribucionEdadesBautismos();
+
+            for (Map.Entry<String, Integer> entry : datos.entrySet()) {
+                pieChartData.add(new PieChart.Data(entry.getKey(), entry.getValue()));
+            }
+
+            pcBautismos.setData(pieChartData);
+
+            // Si deseas mostrar la cantidad en el PieChart
+            for (PieChart.Data data : pcBautismos.getData()) {
+                data.nameProperty().bind(Bindings.concat(data.getName(), ": ", data.pieValueProperty().asString("%.0f")));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+//LineChart que muestra los bautismos por fecha
+    @FXML
+    private LineChart<String, Number> lcBautismo;
+
+    @FXML
+    private void cargarDatosBautismosPorFecha2() {
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        series.setName("Bautismos");  // Nombre de la serie, opcional.
+
+        try {
+            Map<LocalDate, Integer> datos = obtenerBautismosPorFecha();
+
+            for (Map.Entry<LocalDate, Integer> entry : datos.entrySet()) {
+                series.getData().add(new XYChart.Data<>(entry.getKey().toString(), entry.getValue()));
+            }
+            
+
+            lcBautismo.getData().clear(); // Limpia los datos anteriores
+            lcBautismo.getData().add(series);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    //NUevo PieCHart que muestra los registros inscritos y los que no xD ---------------------------------------
+        @FXML
+    private PieChart pcBautismos2;
+        
+            // 1. Consulta para obtener la cantidad de inscritos y no inscritos.
+    private Map<String, Integer> obtenerInscritosVsNoInscritos() throws SQLException {
+        Map<String, Integer> resultados = new HashMap<>();
+        
+        String sql = "SELECT inscritoLibro, COUNT(*) as total FROM registrolibro GROUP BY inscritoLibro";
+
+        try (Connection conn = ConexionDB.getConexion();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+             
+            while (rs.next()) {
+                resultados.put(rs.getString("inscritoLibro"), rs.getInt("total"));
+            }
+        }
+
+        return resultados;
+    }
+    
+        @FXML
+    private void cargarDatosInscritosVsNoInscritos() {
+        try {
+            Map<String, Integer> datos = obtenerInscritosVsNoInscritos();
+            
+            ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+
+            for (Map.Entry<String, Integer> entry : datos.entrySet()) {
+                pieChartData.add(new PieChart.Data(entry.getKey(), entry.getValue()));
+            }
+
+            pcBautismos2.setData(pieChartData);
+
+            // Agregar leyenda a los slices del PieChart
+            for (final PieChart.Data data : pcBautismos2.getData()) {
+                data.getNode().addEventHandler(MouseEvent.MOUSE_PRESSED, e -> {
+                    Bounds b1 = data.getNode().getBoundsInLocal();
+                    double newX = (b1.getMaxX() + b1.getMinX()) / 2;
+                    double newY = (b1.getMaxY() + b1.getMinY()) / 2;
+                    System.out.println(newX + " " + newY);
+                    Tooltip t = new Tooltip(data.getPieValue() + "");
+                    Tooltip.install(data.getNode(), t);
+                });
+            }
+                        // Si deseas mostrar la cantidad en el PieChart
+            for (PieChart.Data data : pcBautismos2.getData()) {
+                data.nameProperty().bind(Bindings.concat(data.getName(), ": ", data.pieValueProperty().asString("%.0f")));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
 
 }
