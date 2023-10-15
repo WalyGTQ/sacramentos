@@ -22,6 +22,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -120,6 +121,22 @@ public class MatrimoniosController implements Initializable {
 
     @FXML
     private void _busquedaAutomatica() throws IOException {
+                //Escucha el evento del doble Clic
+        tvMatrimonio.setRowFactory(tv -> {
+            TableRow<ConsultaMatrimonio> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!row.isEmpty())) {
+                    ConsultaMatrimonio rowData = row.getItem();
+                    SingletonMatrimonio.getInstance().setFeligresDetalle(rowData); // Guarda los datos en el Singleton
+                    try {
+                        App.setRoot("edicionRegistroM");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            return row;
+        });
         tcLibroM.setCellValueFactory(new PropertyValueFactory<ConsultaMatrimonio, Integer>("libroM"));
         tcFolioM.setCellValueFactory(new PropertyValueFactory<ConsultaMatrimonio, Integer>("folioM"));
         tcPartidaM.setCellValueFactory(new PropertyValueFactory<ConsultaMatrimonio, Integer>("partidaM"));

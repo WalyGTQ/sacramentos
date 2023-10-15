@@ -173,8 +173,8 @@
                   <content>
                      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: linear-gradient(to bottom, #FF8E69, #ffffff);">
                         <children>
-                           <TextField layoutX="348.0" layoutY="14.0" prefHeight="23.0" prefWidth="230.0" />
-                           <Button layoutX="601.0" layoutY="14.0" mnemonicParsing="false" text="Buscar" />
+                           <TextField fx:id="txtBusqueda" layoutX="348.0" layoutY="14.0" prefHeight="23.0" prefWidth="230.0" />
+                           <Button layoutX="601.0" layoutY="14.0" mnemonicParsing="false" onAction="#_busquedaEspecifica" text="Buscar" />
                            <Separator layoutX="14.0" layoutY="61.0" prefHeight="0.0" prefWidth="973.0" />
                            <TableView fx:id="tvConfirmacion" layoutX="14.0" layoutY="71.0" prefHeight="390.0" prefWidth="972.0" style="-fx-background-color: linear-gradient(to bottom, #FF8E69, #ffffff);">
                               <columns>

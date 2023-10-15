@@ -76,16 +76,18 @@ public class EdicionRegistroCController implements Initializable {
     private void _regresar() throws IOException {
         App.setRoot("confirmacion");
     }
+
     @FXML
     private void _actualizarC() throws IOException, SQLException {
         if (comparacionC()) {
             //Cuando se detectan Cambios en algun Campo
-            PreparedStatement pstmt = null;
-            PreparedStatement pstmt0 = null;
-            PreparedStatement pstmt1 = null;
-            PreparedStatement pstmt2 = null;
-            PreparedStatement pstmt3 = null;
+
             if (showConfirmationDialog("Confirmar Actualizacion", "Actualizar registro", "¿Estás seguro? Deseas Actualizar el registro de: " + feligresDetalle.getNombreCf())) {
+                PreparedStatement pstmt = null;
+                PreparedStatement pstmt0 = null;
+                PreparedStatement pstmt1 = null;
+                PreparedStatement pstmt2 = null;
+                PreparedStatement pstmt3 = null;
                 Connection connection = ConexionDB.getConexion();
                 try {
 
@@ -221,22 +223,22 @@ public class EdicionRegistroCController implements Initializable {
 
     @FXML
     private void _eliminarC() throws IOException {
-                // Crear ventana de diálogo de confirmación
+        // Crear ventana de diálogo de confirmación
         if (showConfirmationDialog("Confirmar eliminación", "Eliminar registro", "¿Estás seguro? Deseas eliminar el registro de: " + feligresDetalle.getNombreCf())) {
             // El usuario ha confirmado la eliminación, Código para eliminar el registro
 
             Connection connection = ConexionDB.getConexion();
             try {
                 // 1. Obtener el idPrimeraComunion basado en la partida y el nombre
-                    String queryId = "SELECT c.idConfirmacion, c.celebrante_idCelebrante, f.idFeligres "
-                            + "FROM feligres f "
-                            + "JOIN confirmacion c ON f.idFeligres = c.idFeligres "
-                            + "JOIN registrolibro r ON c.idConfirmacion = r.confirmacion_idConfirmacion "
-                            + "WHERE f.nombre = ? AND r.partida = ?";
-                    PreparedStatement stmtId = connection.prepareStatement(queryId);
-                    stmtId.setString(1, feligresDetalle.getNombreCf());
-                    stmtId.setInt(2, feligresDetalle.getPartidaCf());
-                    ResultSet rs = stmtId.executeQuery();
+                String queryId = "SELECT c.idConfirmacion, c.celebrante_idCelebrante, f.idFeligres "
+                        + "FROM feligres f "
+                        + "JOIN confirmacion c ON f.idFeligres = c.idFeligres "
+                        + "JOIN registrolibro r ON c.idConfirmacion = r.confirmacion_idConfirmacion "
+                        + "WHERE f.nombre = ? AND r.partida = ?";
+                PreparedStatement stmtId = connection.prepareStatement(queryId);
+                stmtId.setString(1, feligresDetalle.getNombreCf());
+                stmtId.setInt(2, feligresDetalle.getPartidaCf());
+                ResultSet rs = stmtId.executeQuery();
 
                 if (rs.next()) {
                     int idConfirmacion = rs.getInt("idConfirmacion");
@@ -266,13 +268,13 @@ public class EdicionRegistroCController implements Initializable {
                     PreparedStatement stmtDelFel = connection.prepareStatement(deleteFeligres);
                     stmtDelFel.setInt(1, idFeligres);
                     stmtDelFel.executeUpdate();
-                    
+
                     // 5. Eliminar el registro del Celebrante
                     String deleteCelebrante = "DELETE FROM celebrante WHERE idCelebrante = ?";
                     PreparedStatement stmtDelCel = connection.prepareStatement(deleteCelebrante);
                     stmtDelCel.setInt(1, idCelebrante);
                     stmtDelCel.executeUpdate();
-                    
+
                     // Registro no encontrado
                     showAlert("Información", "El registro fue eliminado Satisfactoriamente.", "Se Elimino: " + feligresDetalle.getNombreCf(), Alert.AlertType.INFORMATION);
                     App.setRoot("confirmacion");

@@ -23,11 +23,11 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.sacramentos.MatrimoniosController">
+<BorderPane minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.sacramentos.MatrimoniosController">
     <!-- Encabezado -->
     <top>
         <HBox alignment="CENTER" spacing="10">
-         <AnchorPane prefHeight="14.0" prefWidth="790.0" style="-fx-background-color: linear-gradient(to bottom, #FFA1E6, #ffffff);">
+         <AnchorPane minWidth="1000.0" prefHeight="14.0" prefWidth="790.0" style="-fx-background-color: linear-gradient(to bottom, #FFA1E6, #ffffff);">
             <children>
                <Button fx:id="btnRegresar" alignment="CENTER_RIGHT" layoutX="677.0" layoutY="17.0" mnemonicParsing="false" onAction="#_regresar" prefHeight="40.0" prefWidth="99.0" text="Regresar" textAlignment="RIGHT">
                   <font>
@@ -224,24 +224,42 @@
                         </children>
                      </AnchorPane>
                   </content></Tab>
-               <Tab style="-fx-font-weight: bold;" text="Buscar">
+               <Tab onSelectionChanged="#_busquedaAutomatica" style="-fx-font-weight: bold;" text="Buscar">
                   <content>
-                     <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <AnchorPane prefHeight="442.0" prefWidth="942.0">
                         <children>
-                           <TextField layoutX="62.0" layoutY="41.0" prefHeight="23.0" prefWidth="230.0" />
-                           <TableView layoutX="23.0" layoutY="76.0" prefHeight="200.0" prefWidth="768.0">
-                             <columns>
-                               <TableColumn prefWidth="36.0" text="Libro" />
-                               <TableColumn prefWidth="39.0" text="Folio" />
-                                 <TableColumn prefWidth="47.0" text="Partida" />
-                                 <TableColumn prefWidth="121.0" text="Nombre" />
-                                 <TableColumn prefWidth="149.0" text="Apellido" />
-                                 <TableColumn prefWidth="120.0" text="Fecha " />
-                                 <TableColumn prefWidth="127.0" text="Padre" />
-                                 <TableColumn minWidth="0.0" prefWidth="128.0" text="Madre" />
-                             </columns>
+                           <TextField fx:id="txtBusqueda" layoutX="229.0" layoutY="14.0" prefHeight="23.0" prefWidth="230.0" />
+                           <Button layoutX="482.0" layoutY="14.0" mnemonicParsing="false" onAction="#_busquedaEspecifica" text="Buscar" />
+                           <TableView fx:id="tvMatrimonio" layoutX="14.0" layoutY="59.0" prefHeight="376.0" prefWidth="981.0">
+                              <columns>
+                                 <TableColumn fx:id="tcLibroM" minWidth="40.0" prefWidth="40.0" text="Libro" />
+                                 <TableColumn fx:id="tcFolioM" minWidth="40.0" prefWidth="40.0" text="Folio" />
+                                 <TableColumn fx:id="tcPartidaM" minWidth="47.0" prefWidth="47.0" text="Partida" />
+                                 <TableColumn fx:id="tcLugarM" prefWidth="75.0" text="Lugar" />
+                                 <TableColumn fx:id="tcFechaM" prefWidth="75.0" text="Fecha" />
+                                 <TableColumn fx:id="tcTestigoUnoM" prefWidth="75.0" text="Testigo Uno" />
+                                 <TableColumn fx:id="tcTestigoDosM" prefWidth="75.0" text="Testigo Dos" />
+                                 <TableColumn fx:id="tcNombreMM" prefWidth="75.0" text="Nombre  del Contrayente" />
+                                 <TableColumn fx:id="tcApellidoMM" prefWidth="75.0" text="Apellido del Contrayente" />
+                                 <TableColumn fx:id="tcEdadMM" prefWidth="75.0" text="Edad El" />
+                                 <TableColumn fx:id="tcOrigenMM" prefWidth="75.0" text="Origin del Contrayente" />
+                                 <TableColumn fx:id="tcFeligresMM" prefWidth="75.0" text="Participacion Contrayente" />
+                                 <TableColumn fx:id="tcPadreMM" prefWidth="75.0" text="Padre del Contrayente" />
+                                 <TableColumn fx:id="tcMadreMM" prefWidth="75.0" text="Madre del Contrayente" />
+                                 <TableColumn fx:id="tcNOmbreFM" prefWidth="75.0" text="Nombre de la Contrayente" />
+                                 <TableColumn fx:id="tcApellidoFM" prefWidth="75.0" text="Apellido de la Contrayente" />
+                                 <TableColumn fx:id="tcEdadFM" prefWidth="75.0" text="Edad Ella" />
+                                 <TableColumn fx:id="tcOrigenFM" prefWidth="75.0" text="Origen de la Contrayente" />
+                                 <TableColumn fx:id="tcFeligresFM" prefWidth="75.0" text="Participacion de la Contrayente" />
+                                 <TableColumn fx:id="tcPadreFM" prefWidth="75.0" text="Padre de la Contrayente" />
+                                 <TableColumn fx:id="tcMadreFM" prefWidth="75.0" text="Madre de la Contrayente" />
+                                 <TableColumn fx:id="tcCelebranteM" prefWidth="75.0" text="Celebrante" />
+                                 <TableColumn fx:id="tcInscritoM" prefWidth="75.0" text="¿Inscrito?" />
+                                 <TableColumn fx:id="tcObservacionM" prefWidth="75.0" text="Observaciones" />
+                                 <TableColumn fx:id="tcRegistroM" prefWidth="75.0" text="Registro" />
+                              </columns>
                            </TableView>
-                           <Button layoutX="315.0" layoutY="41.0" mnemonicParsing="false" text="Buscar" />
+                           <Separator layoutX="14.0" layoutY="53.0" prefHeight="0.0" prefWidth="981.0" />
                         </children>
                      </AnchorPane>
                   </content></Tab>
