@@ -83,8 +83,8 @@ public class EdicionRegistroMController implements Initializable {
     private void _regresar() throws IOException {
         App.setRoot("matrimonios");
     }
-
-    @FXML
+    
+    @FXML //Funcionalidad Para Actualizar un registro Especifico
     private void _actualizarM() throws IOException {
         if (comparacionM()) {
             //Codigo Cuanndo se detecta cambios en algun campo
@@ -246,9 +246,98 @@ public class EdicionRegistroMController implements Initializable {
 
     }
 
-    @FXML
-    private void _eliminarM() throws IOException {
+    @FXML //Funcionalidad Para eliminar un Registro Especifico
+    private void _eliminarM() throws IOException, SQLException {
+        // Crear ventana de diálogo de confirmación
+        if (showConfirmationDialog("Confirmar eliminación", "Eliminar registro", "¿Estás seguro? Deseas eliminar el registro de: " + feligresDetalle.getNombreMM() + " Y " + feligresDetalle.getNombreFM())) {
+            // El usuario ha confirmado la eliminación, Código para eliminar el registro
 
+            Connection connection = ConexionDB.getConexion();
+            try {
+                connection.setAutoCommit(false); // Start transaction
+                    // 1. Obtener el idPrimeraComunion basado en la partida y el nombre
+                    String queryId = "SELECT m.idMatrimonio, m.celebrante_idCelebrante, f1.idFeligres AS idFeligres1, f2.idFeligres AS idFeligres2 "
+                            + "FROM matrimonios m "
+                            + "JOIN Feligres f1 ON m.idFeligres1 = f1.idFeligres "
+                            + "JOIN Feligres f2 ON m.idFeligres2 = f2.idFeligres "
+                            + "JOIN registrolibro r ON m.idMatrimonio = r.matrimonio_idMatrimonio "
+                            + "WHERE f1.nombre = ? AND f2.nombre = ? AND r.partida = ? ";
+                    PreparedStatement stmtId = connection.prepareStatement(queryId);
+                    stmtId.setString(1, feligresDetalle.getNombreMM());
+                    stmtId.setString(2, feligresDetalle.getNombreFM());
+                    stmtId.setInt(3, feligresDetalle.getPartidaM());
+                    ResultSet rs = stmtId.executeQuery();
+
+                if (rs.next()) {
+                        int idMatrimonio = rs.getInt("idMatrimonio");
+                        int idFeligres1 = rs.getInt("idFeligres1");
+                        int idFeligres2 = rs.getInt("idFeligres2");
+                        int idCelebrante = rs.getInt("celebrante_idCelebrante");
+
+                    // 1. Eliminar registros asociados en las tablas secundarias
+                    String deleteObservacion = "DELETE FROM observacion WHERE matrimonio_idMatrimonio = ?";
+                    PreparedStatement stmtObs = connection.prepareStatement(deleteObservacion);
+                    stmtObs.setInt(1, idMatrimonio);
+                    stmtObs.executeUpdate();
+
+                    // 2. Eliminar registros asociados en las tablas secundarias
+                    String deleteRegistro = "DELETE FROM registrolibro WHERE matrimonio_idMatrimonio = ?";
+                    PreparedStatement stmtReg = connection.prepareStatement(deleteRegistro);
+                    stmtReg.setInt(1, idMatrimonio);
+                    stmtReg.executeUpdate();
+
+                    // 3. Eliminar el registro principal en la tabla Matrimonio
+                    String deleteMatrimonio = "DELETE FROM matrimonios WHERE IdMatrimonio = ?";
+                    PreparedStatement stmtDel = connection.prepareStatement(deleteMatrimonio);
+                    stmtDel.setInt(1, idMatrimonio);
+                    stmtDel.executeUpdate();
+
+                    // 4. Eliminar el registro principal en la tabla feligres 1
+                    String deleteFeligres1 = "DELETE FROM feligres WHERE idFeligres = ?";
+                    PreparedStatement stmtDelFel1 = connection.prepareStatement(deleteFeligres1);
+                    stmtDelFel1.setInt(1, idFeligres1);
+                    stmtDelFel1.executeUpdate();
+                    
+                    // 5. Eliminar el registro principal en la tabla feligres 2
+                    String deleteFeligres2 = "DELETE FROM feligres WHERE idFeligres = ?";
+                    PreparedStatement stmtDelFel2 = connection.prepareStatement(deleteFeligres2);
+                    stmtDelFel2.setInt(1, idFeligres2);
+                    stmtDelFel2.executeUpdate();
+
+                    // 6. Eliminar el registro del Celebrante
+                    String deleteCelebrante = "DELETE FROM celebrante WHERE idCelebrante = ?";
+                    PreparedStatement stmtDelCel = connection.prepareStatement(deleteCelebrante);
+                    stmtDelCel.setInt(1, idCelebrante);
+                    stmtDelCel.executeUpdate();
+                    connection.commit();
+                    // Registro no encontrado
+                    showAlert("Información", "El registro fue eliminado Satisfactoriamente.", "Se Elimino: " + feligresDetalle.getNombreMM() + " Y " + feligresDetalle.getNombreFM(), Alert.AlertType.INFORMATION);
+                    App.setRoot("matrimonios");
+
+                } else {
+                    // Registro no encontrado
+                    showAlert("Información", "No se encontró un registro con ese nombre y partida.", "", Alert.AlertType.INFORMATION);
+                }
+            } catch (SQLException ex) {
+                connection.rollback();
+
+                ex.printStackTrace();
+                showAlert("Error", "Hubo un error al eliminar el registro.", "", Alert.AlertType.ERROR);
+            } finally {
+                try {
+                    if (connection != null) {
+                        connection.close();
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        } else {
+            // El usuario ha cancelado la eliminación, Cualquier acción que consideres necesario
+            // Registro no encontrado
+            showAlert("Información", "El Usuario a Cancelado la Operacion.", "Ninguna Modificaion Realizada", Alert.AlertType.INFORMATION);
+        }
     }
 
     private boolean comparacionM() {
