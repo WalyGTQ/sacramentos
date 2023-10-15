@@ -154,7 +154,7 @@ public class BautismosVistaController implements Initializable {
                     cargarDatosBautismosPorFecha();
                     // Ejecutar otra acción
                     // ...
-                    
+
                 } else if ("Anotados al Libro".equals(opcionSeleccionada)) {
                     pcBautismos.setVisible(false);
                     bcBautismos.setVisible(false);
@@ -687,7 +687,6 @@ public class BautismosVistaController implements Initializable {
             for (Map.Entry<LocalDate, Integer> entry : datos.entrySet()) {
                 series.getData().add(new XYChart.Data<>(entry.getKey().toString(), entry.getValue()));
             }
-            
 
             lcBautismo.getData().clear(); // Limpia los datos anteriores
             lcBautismo.getData().add(series);
@@ -696,21 +695,22 @@ public class BautismosVistaController implements Initializable {
             e.printStackTrace();
         }
     }
-    
+
     //NUevo PieCHart que muestra los registros inscritos y los que no xD ---------------------------------------
-        @FXML
+    @FXML
     private PieChart pcBautismos2;
-        
-            // 1. Consulta para obtener la cantidad de inscritos y no inscritos.
+
+    // 1. Consulta para obtener la cantidad de inscritos y no inscritos.
     private Map<String, Integer> obtenerInscritosVsNoInscritos() throws SQLException {
         Map<String, Integer> resultados = new HashMap<>();
-        
-        String sql = "SELECT inscritoLibro, COUNT(*) as total FROM registrolibro GROUP BY inscritoLibro";
 
-        try (Connection conn = ConexionDB.getConexion();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
-             
+        String sql = "SELECT r.inscritoLibro, COUNT(*) as total \n"
+                + "FROM registrolibro r \n"
+                + "INNER JOIN bautismo b ON r.bautismo_idBautismo = b.idBautismo \n"
+                + "GROUP BY r.inscritoLibro;";
+
+        try (Connection conn = ConexionDB.getConexion(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+
             while (rs.next()) {
                 resultados.put(rs.getString("inscritoLibro"), rs.getInt("total"));
             }
@@ -718,12 +718,12 @@ public class BautismosVistaController implements Initializable {
 
         return resultados;
     }
-    
-        @FXML
+
+    @FXML
     private void cargarDatosInscritosVsNoInscritos() {
         try {
             Map<String, Integer> datos = obtenerInscritosVsNoInscritos();
-            
+
             ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
 
             for (Map.Entry<String, Integer> entry : datos.entrySet()) {
@@ -743,7 +743,7 @@ public class BautismosVistaController implements Initializable {
                     Tooltip.install(data.getNode(), t);
                 });
             }
-                        // Si deseas mostrar la cantidad en el PieChart
+            // Si deseas mostrar la cantidad en el PieChart
             for (PieChart.Data data : pcBautismos2.getData()) {
                 data.nameProperty().bind(Bindings.concat(data.getName(), ": ", data.pieValueProperty().asString("%.0f")));
             }
@@ -752,6 +752,5 @@ public class BautismosVistaController implements Initializable {
             e.printStackTrace();
         }
     }
-    
 
 }
