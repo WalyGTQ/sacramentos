@@ -63,7 +63,6 @@ public class PrimeraComunionController implements Initializable {
     private PieChart pcPrimeraComunion;
     @FXML
     private LineChart<String, Number> lcPrimeraComunion;
-
     @FXML
     private ComboBox<String> cbFiltroP;
 

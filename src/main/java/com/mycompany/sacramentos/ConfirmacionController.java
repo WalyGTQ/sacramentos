@@ -13,20 +13,36 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.TreeMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.effect.DropShadow;
 
 /**
  * FXML Controller class
@@ -34,8 +50,19 @@ import javafx.scene.control.cell.PropertyValueFactory;
  * @author walyn
  */
 public class ConfirmacionController implements Initializable {
-    
-        //Inicio Campo Para Consulta de Confirmacion
+    private int total;
+    //LLamamos los Graficos y ComboBox PAra Filtro
+
+    @FXML
+    private BarChart<String, Number> bcConfirmacion;
+    @FXML
+    private PieChart pcConfirmacion;
+    @FXML
+    private LineChart<String, Number> lcConfirmacion;
+    @FXML
+    private ComboBox<String> cbFiltroC;
+
+    //Inicio Campo Para Consulta de Confirmacion
     @FXML
     private TableView<ConsultaConfirmacion> tvConfirmacion;
     @FXML
@@ -82,7 +109,7 @@ public class ConfirmacionController implements Initializable {
     @FXML
     private DatePicker dpFechaSacCf, dpNacimientoCf;
     private String check;
-    
+
     @FXML
     private TextField txtBusqueda;
     private String busqueda;
@@ -92,7 +119,43 @@ public class ConfirmacionController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        bcConfirmacion.setVisible(false);
+        lcConfirmacion.setVisible(false);
+        pcConfirmacion.setVisible(false);
+        try {
+            _cargarGraficos();
+        } catch (IOException ex) {
+            Logger.getLogger(ConfirmacionController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        cbFiltroC.getItems().addAll("Por Edad", "Por Año", "Inscritos al Libro");
+        //miTabPaneB.getSelectionModel().select(1);
+        // Agregar el evento de cambio de selección al ComboBox
+        cbFiltroC.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                String opcionSeleccionada = cbFiltroC.getSelectionModel().getSelectedItem();
+
+                // Verificar la opción seleccionada y ejecutar la acción correspondiente
+                if ("Por Edad".equals(opcionSeleccionada)) {
+                    bcConfirmacion.setVisible(true);
+                    lcConfirmacion.setVisible(false);
+                    pcConfirmacion.setVisible(false);
+                    cargarDistribucionEdades();
+                } else if ("Por Año".equals(opcionSeleccionada)) {
+                    bcConfirmacion.setVisible(false);
+                    lcConfirmacion.setVisible(true);
+                    pcConfirmacion.setVisible(false);
+                    cargarConfirmacionesPorAño();
+                    // ...
+                } else if ("Inscritos al Libro".equals(opcionSeleccionada)) {
+                    bcConfirmacion.setVisible(false);
+                    lcConfirmacion.setVisible(false);
+                    pcConfirmacion.setVisible(true);
+                    cargarInscritosVsNoInscritos();
+                }
+            }
+        });
     }
 
     @FXML
@@ -290,7 +353,7 @@ public class ConfirmacionController implements Initializable {
                 e.printStackTrace();
             }
         }
-        
+
     }//La siguiente Llave termina _guardarCf
 
     @FXML
@@ -313,7 +376,6 @@ public class ConfirmacionController implements Initializable {
         });
 
         // Configuración de las columnas usando PropertyValueFactory
-
         tcLibroCf.setCellValueFactory(new PropertyValueFactory<ConsultaConfirmacion, Integer>("libroCf"));
         tcFolioCf.setCellValueFactory(new PropertyValueFactory<ConsultaConfirmacion, Integer>("folioCf"));
         tcPartidaCf.setCellValueFactory(new PropertyValueFactory<ConsultaConfirmacion, Integer>("partidaCf"));
@@ -370,7 +432,7 @@ public class ConfirmacionController implements Initializable {
 
             // Validación para verificar si no se encontraron resultados
             if (data3.isEmpty()) {
-                showAlert("Información", "Confirmacion, No se encontraron resultados  " , Alert.AlertType.INFORMATION);
+                showAlert("Información", "Confirmacion, No se encontraron resultados  ", Alert.AlertType.INFORMATION);
                 tvConfirmacion.setItems(FXCollections.observableArrayList()); // Limpia la tabla
                 return;
             }
@@ -389,7 +451,7 @@ public class ConfirmacionController implements Initializable {
             }
         }
     }
-    
+
     @FXML
     private void _busquedaEspecifica() throws IOException {
         // Validación para verificar si el TextField está vacío
@@ -400,7 +462,6 @@ public class ConfirmacionController implements Initializable {
         }
 
         // Configuración de las columnas usando PropertyValueFactory
-
         tcLibroCf.setCellValueFactory(new PropertyValueFactory<ConsultaConfirmacion, Integer>("libroCf"));
         tcFolioCf.setCellValueFactory(new PropertyValueFactory<ConsultaConfirmacion, Integer>("folioCf"));
         tcPartidaCf.setCellValueFactory(new PropertyValueFactory<ConsultaConfirmacion, Integer>("partidaCf"));
@@ -460,7 +521,7 @@ public class ConfirmacionController implements Initializable {
 
             // Validación para verificar si no se encontraron resultados
             if (data3.isEmpty()) {
-                showAlert("Información", "Confirmacion, No se encontraron resultados  " , Alert.AlertType.INFORMATION);
+                showAlert("Información", "Confirmacion, No se encontraron resultados  ", Alert.AlertType.INFORMATION);
                 tvConfirmacion.setItems(FXCollections.observableArrayList()); // Limpia la tabla
                 return;
             }
@@ -479,7 +540,7 @@ public class ConfirmacionController implements Initializable {
             }
         }
     }
-    
+
     //Otros Codigos
     public void limpiarCampos() {
         // Limpiar todos los otros campos
@@ -505,7 +566,7 @@ public class ConfirmacionController implements Initializable {
         dpFechaSacCf.setValue(null);
         dpNacimientoCf.setValue(null);
     }
-    
+
     // Función para mostrar alertas fácilmente
     private void showAlert(String title, String content, Alert.AlertType alertType) {
         Alert alert = new Alert(alertType);
@@ -514,4 +575,130 @@ public class ConfirmacionController implements Initializable {
         alert.showAndWait();
     }
 
+    //Graficas
+    //-------------------LineChart Para ver cuantos confirmantes por año
+    private Map<String, Integer> obtenerConfirmacionesPorAño() throws SQLException {
+        Map<String, Integer> datos = new TreeMap<>(); // TreeMap mantiene las claves en orden
+        String sql = "SELECT YEAR(fechaSacramento) as year, COUNT(*) as count FROM confirmacion GROUP BY year";
+        try (PreparedStatement pstmt = ConexionDB.getConexion().prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
+            while (rs.next()) {
+                datos.put(rs.getString("year"), rs.getInt("count"));
+            }
+        }
+        return datos;
+    }
+
+    @FXML
+    private void cargarConfirmacionesPorAño() {
+        lcConfirmacion.getData().clear();
+        try {
+            XYChart.Series<String, Number> series = new XYChart.Series<>();
+            Map<String, Integer> datos = obtenerConfirmacionesPorAño();
+            for (Map.Entry<String, Integer> entry : datos.entrySet()) {
+                series.getData().add(new XYChart.Data<>(entry.getKey(), entry.getValue()));
+            }
+            lcConfirmacion.getData().add(series);
+            lcConfirmacion.setAnimated(true);
+            series.setName("Confirmaciones por Año");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }///---------------------------------------------Fin LineChart para cuantos confirmantes por año
+
+    //Inicio de Grafico Barchart para obtener Confirmantes por edades
+    private Map<String, Integer> obtenerDistribucionEdades() throws SQLException {
+        Map<String, Integer> datos = new TreeMap<>();
+        String sql = "SELECT f.edadFeligres, COUNT(*) as count FROM feligres  f JOIN confirmacion c ON f.idFeligres = c.idFeligres GROUP BY edadFeligres";
+        try (PreparedStatement pstmt = ConexionDB.getConexion().prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
+            while (rs.next()) {
+                datos.put(String.valueOf(rs.getInt("edadFeligres")), rs.getInt("count"));
+            }
+        }
+        return datos;
+    }
+
+    @FXML
+    private void cargarDistribucionEdades() {
+        bcConfirmacion.getData().clear();
+        try {
+            XYChart.Series<String, Number> series = new XYChart.Series<>();
+            Map<String, Integer> datos = obtenerDistribucionEdades();
+            for (Map.Entry<String, Integer> entry : datos.entrySet()) {
+                series.getData().add(new XYChart.Data<>(entry.getKey(), entry.getValue()));
+            }
+            bcConfirmacion.getData().add(series);
+            bcConfirmacion.setAnimated(true);
+            series.setName("Distribución de Edades");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    //---------------------------------------Fin de Grafico Barchart para obtener Confirmantes por edades
+
+    //Inicio de Grafico PieChart que muestra cuantos registros estan inscritos al Libro
+    private Map<String, Integer> obtenerInscritosVsNoInscritos() throws SQLException {
+        Map<String, Integer> datos = new HashMap<>();
+        String sql = "SELECT r.inscritoLibro, COUNT(*) as count FROM registrolibro r JOIN confirmacion c ON r.confirmacion_idConfirmacion = c.idConfirmacion GROUP BY inscritoLibro";
+        try (PreparedStatement pstmt = ConexionDB.getConexion().prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
+            while (rs.next()) {
+                datos.put(rs.getString("inscritoLibro"), rs.getInt("count"));
+            }
+        }
+        return datos;
+    }
+
+
+@FXML
+private void cargarInscritosVsNoInscritos() {
+    pcConfirmacion.getData().clear();
+    try {
+        Map<String, Integer> datos = obtenerInscritosVsNoInscritos();
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+        
+        total = 0;
+        for (Integer value : datos.values()) {
+            total += value;
+        }
+
+        for (Map.Entry<String, Integer> entry : datos.entrySet()) {
+            PieChart.Data slice = new PieChart.Data(entry.getKey(), entry.getValue());
+            pieChartData.add(slice);
+        }
+        
+        pcConfirmacion.setData(pieChartData);
+        pcConfirmacion.setAnimated(true);
+
+        // Use Platform.runLater() to delay these operations until after nodes are created and rendered.
+        Platform.runLater(() -> {
+            for (PieChart.Data slice : pcConfirmacion.getData()) {
+                double percentage = (slice.getPieValue() / total) * 100;
+                
+                Tooltip tooltip = new Tooltip(slice.getName() + ": " + slice.getPieValue() + " (" + String.format("%.2f", percentage) + "%)");
+                Tooltip.install(slice.getNode(), tooltip);
+                
+                slice.nameProperty().bind(
+                    Bindings.concat(slice.getName(), " ", slice.pieValueProperty(), " (", Bindings.format("%.1f", percentage), "%)")
+                );
+
+                slice.getNode().setOnMouseEntered(event -> {
+                    slice.getNode().setEffect(new DropShadow(7, javafx.scene.paint.Color.BLACK));
+                });
+                slice.getNode().setOnMouseExited(event -> {
+                    slice.getNode().setEffect(null);
+                });
+            }
+        });
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+
+
+
+    @FXML//Inicializa los graficos cuando sean necesarios
+    private void _cargarGraficos() throws IOException {
+        cargarConfirmacionesPorAño();
+        cargarDistribucionEdades();
+        cargarInscritosVsNoInscritos();
+    }
 }
