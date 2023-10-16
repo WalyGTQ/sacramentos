@@ -13,20 +13,38 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.TreeMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 
 /**
  * FXML Controller class
@@ -34,6 +52,17 @@ import javafx.scene.control.cell.PropertyValueFactory;
  * @author walyn
  */
 public class MatrimoniosController implements Initializable {
+
+    @FXML
+    private BarChart<String, Number> bcMatrimonio;
+    @FXML
+    private BarChart<String, Number> bc2Matrimonio;
+    @FXML
+    private PieChart pcMatrimonio;
+    @FXML
+    private LineChart<String, Number> lcMatrimonio;
+    @FXML
+    private ComboBox<String> cbFiltroM;
 
     //Inicio Campor Para Consulta de Matrimonios
     @FXML
@@ -111,7 +140,57 @@ public class MatrimoniosController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        bcMatrimonio.setVisible(false);
+        lcMatrimonio.setVisible(false);
+        pcMatrimonio.setVisible(false);
+        bc2Matrimonio.setVisible(false);
+        try {
+            _cargarGraficos();
+        } catch (IOException ex) {
+            Logger.getLogger(ConfirmacionController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(MatrimoniosController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        cbFiltroM.getItems().addAll("Por Año", "Por Celebrante", "Inscritos al Libro", "Tendencia");
+        //miTabPaneB.getSelectionModel().select(1);
+        // Agregar el evento de cambio de selección al ComboBox
+        cbFiltroM.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                String opcionSeleccionada = cbFiltroM.getSelectionModel().getSelectedItem();
+
+                // Verificar la opción seleccionada y ejecutar la acción correspondiente
+                if ("Por Año".equals(opcionSeleccionada)) {
+                    bcMatrimonio.setVisible(true);
+                    lcMatrimonio.setVisible(false);
+                    pcMatrimonio.setVisible(false);
+                    bc2Matrimonio.setVisible(false);
+                    cargarMatrimoniosPorAño();
+                } else if ("Por Celebrante".equals(opcionSeleccionada)) {
+                    bcMatrimonio.setVisible(false);
+                    lcMatrimonio.setVisible(false);
+                    pcMatrimonio.setVisible(false);
+                    bc2Matrimonio.setVisible(true);
+                    cargarMatrimoniosPorCelebrante();
+                } else if ("Inscritos al Libro".equals(opcionSeleccionada)) {
+                    bcMatrimonio.setVisible(false);
+                    lcMatrimonio.setVisible(false);
+                    pcMatrimonio.setVisible(true);
+                    bc2Matrimonio.setVisible(false);
+                    cargarMatrimoniosInscritosVsNoInscritos();
+
+                } else if ("Tendencia".equals(opcionSeleccionada)) {
+                    bcMatrimonio.setVisible(false);
+                    lcMatrimonio.setVisible(true);
+                    pcMatrimonio.setVisible(false);
+                    bc2Matrimonio.setVisible(false);
+                    cargarTendenciaMatrimonios();
+
+                }
+
+            }
+        });
     }
 
     @FXML
@@ -121,7 +200,7 @@ public class MatrimoniosController implements Initializable {
 
     @FXML
     private void _busquedaAutomatica() throws IOException {
-                //Escucha el evento del doble Clic
+        //Escucha el evento del doble Clic
         tvMatrimonio.setRowFactory(tv -> {
             TableRow<ConsultaMatrimonio> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
@@ -234,7 +313,7 @@ public class MatrimoniosController implements Initializable {
 
     @FXML
     private void _busquedaEspecifica() throws IOException {
-                // Validación para verificar si el TextField está vacío
+        // Validación para verificar si el TextField está vacío
         busqueda = txtBusqueda.getText();
         if (busqueda.trim().isEmpty()) {
             showAlert("Error", "El campo de búsqueda no puede estar vacío.", Alert.AlertType.ERROR);
@@ -633,6 +712,204 @@ public class MatrimoniosController implements Initializable {
         alert.setTitle(title);
         alert.setContentText(content);
         alert.showAndWait();
+    }
+
+//----------------------inican LA creacion de Graficoas
+    //1 Grafica BarChart
+    private Map<String, Integer> obtenerMatrimoniosPorAño() throws SQLException {
+        Map<String, Integer> datos = new TreeMap<>(); // TreeMap mantiene las claves en orden
+
+        String sql = "SELECT YEAR(fechaSacramento) as year, COUNT(*) as count "
+                + "FROM matrimonios "
+                + "GROUP BY YEAR(fechaSacramento)";
+
+        try (Connection conn = ConexionDB.getConexion(); PreparedStatement pstmt = conn.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                datos.put(rs.getString("year"), rs.getInt("count"));
+            }
+        }
+        return datos;
+    }
+
+    public void cargarMatrimoniosPorAño() {
+        bcMatrimonio.getData().clear(); // Limpiar datos previos.
+
+        CategoryAxis xAxis = new CategoryAxis();
+        NumberAxis yAxis = new NumberAxis();
+        bcMatrimonio.setTitle("Matrimonios por Año");
+        xAxis.setLabel("Año");
+        yAxis.setLabel("Cantidad");
+
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+
+        try {
+            Map<String, Integer> datos = obtenerMatrimoniosPorAño();
+            for (Map.Entry<String, Integer> entry : datos.entrySet()) {
+                series.getData().add(new XYChart.Data<>(entry.getKey(), entry.getValue()));
+            }
+
+            bcMatrimonio.getData().addAll(series);
+
+        } catch (SQLException e) {
+            // Puedes agregar un manejo de error más detallado aquí.
+            System.out.println("Error al obtener los datos de matrimonios: " + e.getMessage());
+        }
+    }//Finaliza 1 Grafica BarChart
+
+    private Map<String, Integer> obtenerMatrimoniosPorCelebrante() throws SQLException {
+        Map<String, Integer> datos = new TreeMap<>();
+
+        // Esta consulta SQL cuenta los matrimonios por celebrante.
+        String sql = "SELECT nombreCelebrante, COUNT(*) as count FROM matrimonios m JOIN celebrante c ON m.celebrante_idCelebrante = c.idCelebrante GROUP BY nombreCelebrante";
+
+        try (PreparedStatement pstmt = ConexionDB.getConexion().prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
+            while (rs.next()) {
+                datos.put(rs.getString("nombreCelebrante"), rs.getInt("count"));
+            }
+        }
+
+        return datos;
+    }
+
+    public void cargarMatrimoniosPorCelebrante() {
+        bc2Matrimonio.getData().clear(); // Limpiar datos previos.
+
+        CategoryAxis xAxis = new CategoryAxis();
+        NumberAxis yAxis = new NumberAxis();
+        bc2Matrimonio.setTitle("Matrimonios por Celebrante");
+        xAxis.setLabel("Celebrante");
+        yAxis.setLabel("Cantidad");
+
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+
+        try {
+            Map<String, Integer> datos = obtenerMatrimoniosPorCelebrante();
+            for (Map.Entry<String, Integer> entry : datos.entrySet()) {
+                series.getData().add(new XYChart.Data<>(entry.getKey(), entry.getValue()));
+            }
+
+            bc2Matrimonio.getData().addAll(series);
+
+        } catch (SQLException e) {
+            // Puedes agregar un manejo de error más detallado aquí.
+            System.out.println("Error al obtener los datos de matrimonios por celebrante: " + e.getMessage());
+        }
+    }
+
+    //-----------------Inicia Grafica 3 donde se muestra que registros ya estan inscritos en el libro y cuales no
+    private Map<String, Integer> obtenerMatrimoniosInscritosVsNoInscritos() throws SQLException {
+        Map<String, Integer> datos = new HashMap<>();
+
+        // Consulta SQL para contar los matrimonios inscritos.
+        String sqlInscritos = "SELECT COUNT(*) as count FROM matrimonios m JOIN registrolibro r ON m.idMatrimonio = r.matrimonio_idMatrimonio WHERE r.inscritoLibro = 'Si'";
+
+        // Consulta SQL para contar los matrimonios no inscritos.
+        String sqlNoInscritos = "SELECT COUNT(*) as count FROM matrimonios m JOIN registrolibro r ON m.idMatrimonio = r.matrimonio_idMatrimonio WHERE r.inscritoLibro = 'No'";
+
+        try (PreparedStatement pstmtInscritos = ConexionDB.getConexion().prepareStatement(sqlInscritos); ResultSet rsInscritos = pstmtInscritos.executeQuery()) {
+            if (rsInscritos.next()) {
+                datos.put("Inscritos", rsInscritos.getInt("count"));
+            }
+        }
+
+        try (PreparedStatement pstmtNoInscritos = ConexionDB.getConexion().prepareStatement(sqlNoInscritos); ResultSet rsNoInscritos = pstmtNoInscritos.executeQuery()) {
+            if (rsNoInscritos.next()) {
+                datos.put("No Inscritos", rsNoInscritos.getInt("count"));
+            }
+        }
+
+        return datos;
+    }
+
+    public void cargarMatrimoniosInscritosVsNoInscritos() {
+        pcMatrimonio.getData().clear(); // Limpiar datos previos.
+
+        try {
+            Map<String, Integer> datos = obtenerMatrimoniosInscritosVsNoInscritos();
+            ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+
+            double total = datos.values().stream().mapToInt(Integer::intValue).sum();
+
+            for (Map.Entry<String, Integer> entry : datos.entrySet()) {
+                String label = String.format("%s: %d (%.1f%%)", entry.getKey(), entry.getValue(), 100.0 * entry.getValue() / total);
+                pieChartData.add(new PieChart.Data(label, entry.getValue()));
+            }
+
+            pcMatrimonio.setData(pieChartData);
+
+            // Efecto de resaltar el segmento del pie chart cuando el mouse pasa por encima.
+            final double SCALE_DELTA = 0.15;
+            for (PieChart.Data data : pcMatrimonio.getData()) {
+                Node node = data.getNode();
+
+                node.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
+                    node.setTranslateX(Math.cos(Math.toRadians(pcMatrimonio.lookup(".chart-pie").getRotate() + data.getNode().getRotate())) * SCALE_DELTA * node.getLayoutBounds().getWidth());
+                    node.setTranslateY(Math.sin(Math.toRadians(pcMatrimonio.lookup(".chart-pie").getRotate() + data.getNode().getRotate())) * SCALE_DELTA * node.getLayoutBounds().getHeight());
+                });
+
+                node.addEventHandler(MouseEvent.MOUSE_EXITED, e -> {
+                    node.setTranslateX(0);
+                    node.setTranslateY(0);
+                });
+
+                // Tooltip para mostrar el número exacto y porcentaje cuando el mouse está encima.
+                String text = String.format("%d (%.1f%%)", (int) data.getPieValue(), 100.0 * data.getPieValue() / total);
+                Tooltip tooltip = new Tooltip(text);
+                Tooltip.install(node, tooltip);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al obtener los datos de matrimonios inscritos vs. no inscritos: " + e.getMessage());
+        }
+    }    //Finaliza Grafica 3 donde se muestra que registros ya estan inscritos en el libro y cuales no
+
+//Inicia Grafica de LineBar para la tendencia Anual de matrimonios
+    private Map<String, Integer> obtenerTendenciaMatrimonios() throws SQLException {
+        Map<String, Integer> datos = new TreeMap<>(); // TreeMap mantiene las claves en orden
+        String sql = "SELECT YEAR(fechaSacramento) as year, COUNT(*) as count FROM matrimonios GROUP BY year";
+        try (PreparedStatement pstmt = ConexionDB.getConexion().prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
+            while (rs.next()) {
+                datos.put(rs.getString("year"), rs.getInt("count"));
+            }
+        }
+        return datos;
+    }
+
+    public void cargarTendenciaMatrimonios() {
+        Platform.runLater(() -> {
+            try {
+                lcMatrimonio.getData().clear(); // Limpiar datos previos.
+
+                Map<String, Integer> datos = obtenerTendenciaMatrimonios();
+
+                XYChart.Series<String, Number> series = new XYChart.Series<>();
+
+                for (Map.Entry<String, Integer> entry : datos.entrySet()) {
+                    series.getData().add(new XYChart.Data<>(entry.getKey(), entry.getValue()));
+                }
+
+                lcMatrimonio.getData().add(series);
+
+                // Opcional: Para darle un nombre a la serie
+                series.setName("Matrimonios por Año");
+
+            } catch (SQLException e) {
+                System.out.println("Error al obtener los datos de la tendencia de matrimonios: " + e.getMessage());
+            } catch (NullPointerException e) {
+                System.out.println("Se encontró un valor nulo: " + e.getMessage());
+            } catch (Exception e) {
+                System.out.println("Error inesperado: " + e.getMessage());
+            }
+        });
+    }
+
+    @FXML//Inicializa los graficos cuando sean necesarios
+    private void _cargarGraficos() throws IOException, SQLException {
+        cargarMatrimoniosPorAño();
+        cargarMatrimoniosPorCelebrante();
+        cargarMatrimoniosInscritosVsNoInscritos();
+        cargarTendenciaMatrimonios();
     }
 
 }

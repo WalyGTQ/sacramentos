@@ -2,10 +2,13 @@
 
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
@@ -272,11 +275,29 @@
                      </AnchorPane>
                   </content></Tab>
                <Tab style="-fx-font-weight: bold;" text="Constancias" />
-               <Tab style="-fx-font-weight: bold;" text="Estadisticas">
+               <Tab onSelectionChanged="#_cargarGraficos" style="-fx-font-weight: bold;" text="Estadisticas">
                   <content>
                      <AnchorPane prefHeight="200.0" prefWidth="200.0">
                         <children>
-                           <BarChart layoutX="101.0" layoutY="17.0" prefHeight="402.0" prefWidth="511.0">
+                           <BarChart fx:id="bcMatrimonio" layoutX="180.0" layoutY="20.0" prefHeight="415.0" prefWidth="816.0">
+                             <xAxis>
+                               <CategoryAxis side="BOTTOM" />
+                             </xAxis>
+                             <yAxis>
+                               <NumberAxis side="LEFT" />
+                             </yAxis>
+                           </BarChart>
+                           <ComboBox fx:id="cbFiltroM" layoutX="14.0" layoutY="21.0" prefWidth="150.0" promptText="Seleccione Filtro" />
+                           <PieChart fx:id="pcMatrimonio" layoutX="171.0" layoutY="14.0" prefHeight="414.0" prefWidth="823.0" />
+                           <LineChart fx:id="lcMatrimonio" layoutX="180.0" layoutY="14.0" prefHeight="419.0" prefWidth="816.0">
+                             <xAxis>
+                               <CategoryAxis side="BOTTOM" />
+                             </xAxis>
+                             <yAxis>
+                               <NumberAxis side="LEFT" />
+                             </yAxis>
+                           </LineChart>
+                           <BarChart fx:id="bc2Matrimonio" layoutX="171.0" layoutY="14.0" prefHeight="424.0" prefWidth="822.0">
                              <xAxis>
                                <CategoryAxis side="BOTTOM" />
                              </xAxis>
