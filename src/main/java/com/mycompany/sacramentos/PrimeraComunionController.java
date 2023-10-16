@@ -4,6 +4,7 @@
  */
 package com.mycompany.sacramentos;
 
+import java.awt.Color;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -13,20 +14,40 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
+import javafx.scene.Node;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.text.Text;
 
 /**
  * FXML Controller class
@@ -34,6 +55,17 @@ import javafx.scene.control.cell.PropertyValueFactory;
  * @author walyn
  */
 public class PrimeraComunionController implements Initializable {
+
+    //LLamamos los Graficos y ComboBox PAra Filtro
+    @FXML
+    private BarChart<String, Number> bcPrimeraComunion;
+    @FXML
+    private PieChart pcPrimeraComunion;
+    @FXML
+    private LineChart<String, Number> lcPrimeraComunion;
+
+    @FXML
+    private ComboBox<String> cbFiltroP;
 
     //Para La Busqueda
     private String busqueda;
@@ -85,7 +117,44 @@ public class PrimeraComunionController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        bcPrimeraComunion.setVisible(false);
+        lcPrimeraComunion.setVisible(false);
+        pcPrimeraComunion.setVisible(false);
+        try {
+            _cargarGraficos();
+        } catch (IOException ex) {
+            Logger.getLogger(PrimeraComunionController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        cbFiltroP.getItems().addAll("Por Edad", "Por Fecha", "Inscritos al Libro");
+        //miTabPaneB.getSelectionModel().select(1);
+        // Agregar el evento de cambio de selección al ComboBox
+        cbFiltroP.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                String opcionSeleccionada = cbFiltroP.getSelectionModel().getSelectedItem();
+
+                // Verificar la opción seleccionada y ejecutar la acción correspondiente
+                if ("Por Edad".equals(opcionSeleccionada)) {
+                    bcPrimeraComunion.setVisible(true);
+                    lcPrimeraComunion.setVisible(false);
+                    pcPrimeraComunion.setVisible(false);
+                    cargarDatosFeligresesPorEdad();
+
+                } else if ("Por Fecha".equals(opcionSeleccionada)) {
+                    bcPrimeraComunion.setVisible(false);
+                    lcPrimeraComunion.setVisible(true);
+                    pcPrimeraComunion.setVisible(false);
+                    cargarDatosComunionesPorFecha();
+                    // ...
+                } else if ("Inscritos al Libro".equals(opcionSeleccionada)) {
+                    bcPrimeraComunion.setVisible(false);
+                    lcPrimeraComunion.setVisible(false);
+                    pcPrimeraComunion.setVisible(true);
+                    cargarDatosInscritosVsNoInscritos();
+                }
+            }
+        });
     }
 
     @FXML
@@ -282,7 +351,6 @@ public class PrimeraComunionController implements Initializable {
 
         //Aca Finaliza _guardarPc
     }
-    
 
     @FXML
     private void _busquedaAutomatica() throws IOException {
@@ -488,4 +556,216 @@ public class PrimeraComunionController implements Initializable {
         alert.showAndWait();
     }
 
+    //----------------Manejo de Graficas----------------------------------------
+    //Codigo Para Grafica BarChar que muestra las primeras comuniones por edad:
+    public Map<String, Integer> obtenerFeligresesPorEdad() throws SQLException {
+        Map<String, Integer> resultados = new HashMap<>();
+
+        String sql = "SELECT "
+                + "CASE "
+                + "    WHEN edadFeligres BETWEEN 0 AND 8 THEN '0-8 años' "
+                + "    WHEN edadFeligres BETWEEN 9 AND 11 THEN '9-11 años' "
+                + "    WHEN edadFeligres BETWEEN 12 AND 15 THEN '12-15 años' "
+                + "    ELSE '16+ años' "
+                + "END AS rangoEdad, "
+                + "COUNT(*) as total "
+                + "FROM feligres "
+                + "GROUP BY rangoEdad "
+                + "ORDER BY FIELD(rangoEdad, '0-8 años', '9-11 años', '12-15 años', '16+ años');";
+
+        try (Connection conn = ConexionDB.getConexion(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+
+            while (rs.next()) {
+                resultados.put(rs.getString("rangoEdad"), rs.getInt("total"));
+            }
+        }
+
+        return resultados;
+    }
+
+    @FXML
+    private void cargarDatosFeligresesPorEdad() {
+        // Limpia los datos antiguos del gráfico
+        bcPrimeraComunion.getData().clear();
+
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+
+        try {
+            Map<String, Integer> datos = obtenerFeligresesPorEdad();
+
+            for (Map.Entry<String, Integer> entry : datos.entrySet()) {
+                XYChart.Data<String, Number> data = new XYChart.Data<>(entry.getKey(), entry.getValue());
+                series.getData().add(data);
+
+                // Para mostrar la cantidad exacta encima de la barra
+                data.nodeProperty().addListener((observable, oldValue, newValue) -> {
+                    if (newValue != null) {
+                        Node node = newValue;
+                        Text text = new Text(String.valueOf(data.getYValue()));
+
+                        node.parentProperty().addListener((obs, oldParent, newParent) -> {
+                            if (newParent != null) {
+                                Group parentGroup = (Group) newParent;
+                                parentGroup.getChildren().add(text);
+                                text.setLayoutY(node.getBoundsInParent().getMinY() - 5);
+                                text.setLayoutX(node.getBoundsInParent().getMinX() + (node.getBoundsInParent().getWidth() / 2) - (text.getLayoutBounds().getWidth() / 2));
+                            }
+                        });
+                    }
+                });
+
+            }
+
+            bcPrimeraComunion.getData().add(series);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }//---------------------------------- Finaliza Grafica BarChar
+
+    // Grafico tipo LineBar que muestra cuantas primera comuniones se han realizado en el tiempo
+    public Map<LocalDate, Integer> obtenerComunionesPorFecha() throws SQLException {
+        Map<LocalDate, Integer> resultados = new HashMap<>();
+
+        String sql = "SELECT fechaSacramento, COUNT(*) as total FROM comunion GROUP BY fechaSacramento ORDER BY fechaSacramento";
+
+        try (
+                Connection conn = ConexionDB.getConexion(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                resultados.put(rs.getDate("fechaSacramento").toLocalDate(), rs.getInt("total"));
+            }
+        }
+
+        return resultados;
+    }
+
+    @FXML
+    private void cargarDatosComunionesPorFecha() {
+        lcPrimeraComunion.getData().clear(); // Limpiamos datos antiguos
+
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+
+        try {
+            Map<LocalDate, Integer> datos = obtenerComunionesPorFecha();
+
+            for (Map.Entry<LocalDate, Integer> entry : datos.entrySet()) {
+                XYChart.Data<String, Number> data = new XYChart.Data<>(entry.getKey().toString(), entry.getValue());
+                series.getData().add(data);
+            }
+
+            lcPrimeraComunion.getData().add(series);
+
+            // Efecto: Suavizar las líneas y puntos
+            lcPrimeraComunion.setCreateSymbols(true);
+            lcPrimeraComunion.setAnimated(true);
+
+            Platform.runLater(() -> {
+                for (XYChart.Data<String, Number> data : series.getData()) {
+                    Node node = data.getNode();
+
+                    if (node == null) {
+                        data.nodeProperty().addListener(new ChangeListener<Node>() {
+                            @Override
+                            public void changed(ObservableValue<? extends Node> obs, Node oldNode, Node newNode) {
+                                if (newNode != null) {
+                                    Tooltip tooltip = new Tooltip("Fecha: " + data.getXValue() + "\nTotal: " + data.getYValue());
+                                    Tooltip.install(newNode, tooltip);
+                                    newNode.setOnMouseEntered(event -> newNode.setStyle("-fx-background-color: #ff5733;"));
+                                    newNode.setOnMouseExited(event -> newNode.setStyle("-fx-background-color: #f3622d;"));
+                                    data.nodeProperty().removeListener(this);  // Importante: eliminar el listener una vez que se ha utilizado
+                                }
+                            }
+                        });
+                    } else {
+                        Tooltip tooltip = new Tooltip("Fecha: " + data.getXValue() + "\nTotal: " + data.getYValue());
+                        Tooltip.install(node, tooltip);
+                        node.setOnMouseEntered(event -> node.setStyle("-fx-background-color: #ff5733;"));
+                        node.setOnMouseExited(event -> node.setStyle("-fx-background-color: #f3622d;"));
+                    }
+                }
+            });
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    //---------------------------------------------Finaliza la LineBarr
+
+    //Grafico de PieCHart donde se muestra quienes han sido inscritos y quienes NO
+    public Map<String, Integer> obtenerInscritosVsNoInscritos() throws SQLException {
+        Map<String, Integer> resultados = new HashMap<>();
+
+        // Usamos la lógica que determina la presencia o ausencia en la tabla Comunion
+        String sql = "SELECT "
+                + "(SELECT COUNT(*) FROM comunion WHERE idComunion IN (SELECT comunion_idComunion FROM registrolibro WHERE inscritoLibro = 'Si')) AS inscritos, "
+                + "(SELECT COUNT(*) FROM comunion WHERE idComunion IN (SELECT comunion_idComunion FROM registrolibro WHERE inscritoLibro = 'No')) AS noInscritos;";
+
+        try (Connection conn = ConexionDB.getConexion(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+
+            if (rs.next()) {
+                resultados.put("Inscritos", rs.getInt("inscritos"));
+                resultados.put("No Inscritos", rs.getInt("noInscritos"));
+            }
+        }
+
+        return resultados;
+    }
+
+    @FXML
+    private void cargarDatosInscritosVsNoInscritos() {
+        pcPrimeraComunion.getData().clear(); // Limpiamos datos antiguos
+
+        try {
+            Map<String, Integer> datos = obtenerInscritosVsNoInscritos();
+
+            ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+
+            int total = 0;
+            for (Integer value : datos.values()) {
+                total += value;
+            }
+
+            for (Map.Entry<String, Integer> entry : datos.entrySet()) {
+                PieChart.Data slice = new PieChart.Data(entry.getKey(), entry.getValue());
+                pieChartData.add(slice);
+
+                // Efecto: mostrar el valor exacto cuando se pasa el mouse encima de la porción
+                double percentage = (entry.getValue() / (double) total) * 100;
+                Tooltip tooltip = new Tooltip(entry.getKey() + ": " + entry.getValue() + " (" + String.format("%.2f", percentage) + "%)");
+                Tooltip.install(slice.getNode(), tooltip);
+
+                // Mostrar el número exacto (porcentaje) en la porción
+                slice.nameProperty().bind(
+                        Bindings.concat(slice.getName(), " ", slice.pieValueProperty(), " (", Bindings.format("%.1f", percentage), "%)")
+                );
+            }
+
+            pcPrimeraComunion.setData(pieChartData);
+            pcPrimeraComunion.setAnimated(true);
+
+            // Coloca esto después de establecer los datos en el PieChart
+            Platform.runLater(() -> {
+                for (PieChart.Data slice : pcPrimeraComunion.getData()) {
+                    // Añadir un efecto de sombra cuando el mouse pasa sobre una porción
+                    slice.getNode().setOnMouseEntered(event -> {
+                        slice.getNode().setEffect(new DropShadow(7, javafx.scene.paint.Color.BLACK));
+                    });
+                    slice.getNode().setOnMouseExited(event -> {
+                        slice.getNode().setEffect(null);
+                    });
+                }
+            });
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //Fin Grafico PieCHart
+    @FXML
+    private void _cargarGraficos() throws IOException {
+        cargarDatosFeligresesPorEdad();
+        cargarDatosComunionesPorFecha();
+        cargarDatosInscritosVsNoInscritos();
+
+    }
 }

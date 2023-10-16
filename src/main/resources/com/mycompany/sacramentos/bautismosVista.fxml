@@ -37,7 +37,7 @@
                         </font>
                     </Button>
                     <Label layoutX="233.0" layoutY="17.0" style="-fx-font-size: 24;" />
-                    <Label layoutX="206.0" layoutY="11.0" text="Graficos para el Sacramento del BAUTISMOS ">
+                    <Label layoutX="399.0" layoutY="11.0" text=" BAUTISMOS ">
                         <font>
                             <Font name="Microsoft Himalaya" size="48.0" />
                         </font>
