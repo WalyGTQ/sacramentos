@@ -4,6 +4,21 @@
  */
 package com.mycompany.sacramentos;
 
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfDocument;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -12,11 +27,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
@@ -31,6 +49,9 @@ import javafx.scene.control.TextField;
 public class EdicionRegistroController implements Initializable {
 
     FeligresDetalle datosFeligres = SingletonData1.getInstance().getFeligresDetalle();
+    //Boton para imprimir la Constancia
+    @FXML
+    private Button btnImprimirB;
 
     //Campos para el ingreso de datos
     @FXML
@@ -393,7 +414,111 @@ public class EdicionRegistroController implements Initializable {
         Optional<ButtonType> result = alert.showAndWait();
         return result.isPresent() && result.get() == ButtonType.OK;
     }
-    
-    
+
+    @FXML
+    public void _imprimirB() throws IOException, DocumentException {
+        if (showConfirmationDialog("Confirmar Impresion", "Imprimir registro", "¿Estás seguro? Se Imprimira el registro de: " + datosFeligres.getNombre())) {
+
+            Document document = new Document(PageSize.LETTER);
+            PdfWriter.getInstance(document, new FileOutputStream("src/main/Constancia_Bautismo.pdf"));
+            document.open();
+            // Añadir un encabezado
+            Font fontHeader = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 16, BaseColor.BLACK);
+            Font fontTitle = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 20, BaseColor.RED);
+            Font fontItalic = FontFactory.getFont(FontFactory.TIMES_BOLDITALIC, 14, BaseColor.BLACK);
+            Font fontNormal = FontFactory.getFont(FontFactory.HELVETICA, 14, BaseColor.BLACK);
+            Font fontNormalRed = FontFactory.getFont(FontFactory.HELVETICA, 14, BaseColor.RED);
+
+            FeligresDetalle feligres = SingletonData1.getInstance().getFeligresDetalle();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE dd 'de' MMMM 'del' yyyy", new Locale("es", "ES"));
+
+            String fechaSacramentoFormatted = feligres.getFechaSacramento().format(formatter);
+            String fechaNacimientoFormatted = feligres.getNacimiento().format(formatter);
+            String fechaActualFormatted = LocalDate.now().format(formatter);
+            
+            Image img = Image.getInstance("src/main/resources/img/logo1.png"); //  ruta de  imagen
+            img.setAbsolutePosition(50, 750); // Coordenadas x, y (desde la esquina inferior izquierda)
+            img.scaleToFit(200, 100); // Ancho y alto
+            document.add(img);
+            
+            Paragraph pHeader = new Paragraph("Parroquia Santo Hermano Pedro\nDiócesis De Sololá-Chimaltenango\n5ᵃ Avenida 4-104, Zona 1\nChimaltenango, Guatemala, C.A.\nTel: 7839-2709", fontHeader);
+            pHeader.setAlignment(Element.ALIGN_CENTER);
+            document.add(pHeader);
+
+            Paragraph pTitle = new Paragraph("CONSTANCIA DE BAUTIZO", fontTitle);
+            pTitle.setAlignment(Element.ALIGN_CENTER);
+            pTitle.setSpacingBefore(20);
+            document.add(pTitle);
+
+            // Añadir detalles del bautismo
+            Paragraph paragraph;
+
+            paragraph = new Paragraph("\nEn esta parroquia el día :", fontNormal);
+            document.add(paragraph);
+            paragraph = new Paragraph("" + fechaSacramentoFormatted, fontItalic);
+            paragraph.setAlignment(Element.ALIGN_CENTER);
+            document.add(paragraph);
+
+            paragraph = new Paragraph("\nFue bautizado(a) solemnemente: ", fontNormal);
+            document.add(paragraph);
+            paragraph = new Paragraph(feligres.getNombre() + " " + feligres.getApellido(), fontItalic);
+            paragraph.setAlignment(Element.ALIGN_CENTER);
+            document.add(paragraph);
+
+            paragraph = new Paragraph("\nQuien nació el: ", fontNormal);
+            document.add(paragraph);
+            paragraph = new Paragraph(fechaNacimientoFormatted, fontItalic);
+            paragraph.setAlignment(Element.ALIGN_CENTER);
+            document.add(paragraph);
+
+            paragraph = new Paragraph("\nHijo(a) de: ", fontNormal);
+            paragraph.setAlignment(Element.ALIGN_CENTER);
+            document.add(paragraph);
+            paragraph = new Paragraph(feligres.getPadre() + " y " + feligres.getMadre(), fontItalic);
+            paragraph.setAlignment(Element.ALIGN_CENTER);
+            document.add(paragraph);
+
+            paragraph = new Paragraph("\nFueron sus padrinos: ", fontNormal);
+            paragraph.setAlignment(Element.ALIGN_CENTER);
+            document.add(paragraph);
+            paragraph = new Paragraph(feligres.getPadrino() + " y " + feligres.getMadrina(), fontItalic);
+            paragraph.setAlignment(Element.ALIGN_CENTER);
+
+            document.add(paragraph);
+
+            paragraph = new Paragraph("\nComo consta en el libro: " + feligres.getLibro() + ", folio " + feligres.getFolio() + ", partida " + feligres.getPartida() + " de esta Parroquia.", fontNormal);
+            document.add(paragraph);
+
+            if (feligres.getObservacion() != null && !feligres.getObservacion().isEmpty()) {
+                paragraph = new Paragraph("\nObservaciones: " + feligres.getObservacion(), fontNormalRed);
+                document.add(paragraph);
+            }
+
+            // Fecha y firma
+            paragraph = new Paragraph("\nChimaltenango, " + fechaActualFormatted, fontNormal);
+            paragraph.setAlignment(Element.ALIGN_RIGHT);
+            document.add(paragraph);
+
+            try {
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                document.close();
+            }
+            try {
+                File myFile = new File("src/main/Constancia_Bautismo.pdf");
+                if (Desktop.isDesktopSupported()) {
+                    Desktop.getDesktop().open(myFile);
+                } else {
+                    showAlert("Información", "No fue Posible abrir el Documento", "Constancia_Bautismo.pdf", Alert.AlertType.INFORMATION);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            showAlert("Información", "Se Cancelo la Impresion", "Cancelado por Usuario", Alert.AlertType.INFORMATION);
+        }
+    }
 
 }
