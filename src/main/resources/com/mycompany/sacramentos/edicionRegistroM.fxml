@@ -194,7 +194,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Separator layoutY="72.0" prefHeight="1.0" prefWidth="154.0" />
+                        <Separator layoutX="20.0" layoutY="72.0" prefHeight="1.0" prefWidth="154.0" />
                         <ImageView fitHeight="34.0" fitWidth="31.0" layoutX="19.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../img/deshacer.png" />

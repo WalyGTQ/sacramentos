@@ -11,8 +11,8 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.paint.Color?>
 
-<AnchorPane maxHeight="404.0" maxWidth="603.0" minHeight="600.0" minWidth="800.0" prefHeight="404.0" prefWidth="603.0" style="-fx-background-color: linear-gradient(to bottom, #90FA7E, #ffffff);" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.sacramentos._generalController">
-   <Label layoutX="269.0" layoutY="56.0" style="-fx-font-size: 24px;" text="Formulario de REGISTRO">
+<AnchorPane maxHeight="600.0" maxWidth="1000.0" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: linear-gradient(to bottom, #90FA7E, #ffffff);" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.sacramentos._generalController">
+   <Label layoutX="309.0" layoutY="55.0" style="-fx-font-size: 24px;" text="REGISTRO PARA ADMINISTRADORES">
       <effect>
          <DropShadow blurType="GAUSSIAN" height="35.66" radius="13.665">
             <color>
@@ -21,7 +21,7 @@
          </DropShadow>
       </effect></Label>
    <Label layoutX="249.0" layoutY="73.0" style="-fx-font-size: 24px;" />
-   <AnchorPane layoutX="182.0" layoutY="149.0" prefHeight="318.0" prefWidth="436.0" style="-fx-background-color: linear-gradient(to bottom, #90FA7E, #ffffff); -fx-background-radius: 10px;">
+   <AnchorPane layoutX="288.0" layoutY="135.0" prefHeight="318.0" prefWidth="436.0" style="-fx-background-color: linear-gradient(to bottom, #90FA7E, #ffffff); -fx-background-radius: 10px;">
       <children>
             <Button fx:id="_registoAdministrador" focusTraversable="false" layoutX="37.0" layoutY="274.0" onAction="#_registoAdministrador" prefHeight="25.0" prefWidth="383.0" text="Registrar" />
          <Label layoutX="40.0" layoutY="37.0" text="Nombre" />
@@ -42,8 +42,8 @@
          <TextField fx:id="celAdmin" alignment="TOP_CENTER" layoutX="246.0" layoutY="120.0" prefHeight="25.0" prefWidth="174.0" promptText="Ingrese su Celular" />
       </children>
    </AnchorPane>
-   <Button fx:id="_btnCancelarRegistro" layoutX="674.0" layoutY="550.0" onAction="#_cancelarRegistro" prefHeight="25.0" prefWidth="93.0" text="Cancelar" textAlignment="CENTER" />
-   <ImageView fitHeight="116.0" fitWidth="150.0" layoutX="342.0" layoutY="470.0" pickOnBounds="true" preserveRatio="true">
+   <Button fx:id="_btnCancelarRegistro" layoutX="879.0" layoutY="553.0" onAction="#_cancelarRegistro" prefHeight="25.0" prefWidth="93.0" text="Cancelar" textAlignment="CENTER" />
+   <ImageView fitHeight="116.0" fitWidth="150.0" layoutX="444.0" layoutY="466.0" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@../../../img/logo1.png" />
       </image>

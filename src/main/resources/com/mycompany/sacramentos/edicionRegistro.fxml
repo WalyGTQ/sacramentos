@@ -62,7 +62,7 @@
             </Pane>
          </right>
          <left>
-            <AnchorPane prefHeight="539.0" prefWidth="788.0" style="-fx-background-color: linear-gradient(to bottom, #c6eaff, #ffffff);" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="539.0" prefWidth="798.0" style="-fx-background-color: linear-gradient(to bottom, #c6eaff, #ffffff);" BorderPane.alignment="CENTER">
                <children>
                   <TextField fx:id="txtLibroB" layoutX="59.0" layoutY="13.0" prefHeight="25.0" prefWidth="40.0" />
                   <Label layoutX="14.0" layoutY="17.0" text="Libro" />

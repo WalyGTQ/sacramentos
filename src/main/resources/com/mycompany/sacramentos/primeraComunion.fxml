@@ -59,7 +59,7 @@
     <!-- Contenido principal, este espacio cambia según la opción seleccionada en el menú -->
     <center>
         <StackPane prefHeight="337.0" prefWidth="493.0">
-         <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+         <TabPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: linear-gradient(to bottom, #FFDC61, #ffffff);" tabClosingPolicy="UNAVAILABLE">
            <tabs>
              <Tab style="-fx-font-weight: bold;" text="Inscripciones">
                   <content>
@@ -68,9 +68,9 @@
                            <TextField fx:id="txtLibroPc" alignment="TOP_CENTER" layoutX="55.0" layoutY="16.0" prefHeight="25.0" prefWidth="43.0" promptText="#" />
                            <TextField fx:id="txtFolioPc" alignment="TOP_CENTER" layoutX="160.0" layoutY="16.0" prefHeight="25.0" prefWidth="40.0" promptText="#" />
                            <TextField fx:id="txtPartidaPc" alignment="TOP_CENTER" layoutX="264.0" layoutY="16.0" prefHeight="25.0" prefWidth="40.0" promptText="#" />
-                           <TextField fx:id="txtApellidoPc" layoutX="264.0" layoutY="153.0" prefHeight="25.0" prefWidth="239.0" promptText="Apellidos de la Persona" />
-                           <TextField fx:id="txtNombrePc" layoutX="35.0" layoutY="153.0" prefHeight="25.0" prefWidth="223.0" promptText="Nombres de la Persona" />
-                           <TextArea fx:id="txtAreaObPc" layoutX="521.0" layoutY="95.0" prefHeight="296.0" prefWidth="271.0" promptText="Observaciones si Hubiese" text="Ninguna" />
+                           <TextField fx:id="txtApellidoPc" layoutX="415.0" layoutY="141.0" prefHeight="25.0" prefWidth="239.0" promptText="Apellidos de la Persona" />
+                           <TextField fx:id="txtNombrePc" layoutX="103.0" layoutY="141.0" prefHeight="25.0" prefWidth="223.0" promptText="Nombres de la Persona" />
+                           <TextArea fx:id="txtAreaObPc" layoutX="708.0" layoutY="60.0" prefHeight="296.0" prefWidth="271.0" promptText="Observaciones si Hubiese" text="Ninguna" />
                            <Label layoutX="14.0" layoutY="17.0" prefHeight="23.0" prefWidth="41.0" text="Libro">
                               <font>
                                  <Font name="Arial Bold" size="12.0" />
@@ -86,70 +86,54 @@
                                  <Font name="Arial Bold" size="12.0" />
                               </font>
                            </Label>
-                           <Label layoutX="135.0" layoutY="105.0" prefHeight="23.0" prefWidth="114.0" text="Fecha Realizado">
+                           <Label layoutX="18.0" layoutY="79.0" prefHeight="23.0" prefWidth="114.0" text="Fecha Realizado">
                               <font>
                                  <Font name="Arial Bold" size="12.0" />
                               </font>
                            </Label>
-                           <DatePicker fx:id="dpFechaRealizadoPc" layoutX="268.0" layoutY="103.0" prefHeight="25.0" prefWidth="231.0" promptText="Fecha en que se Realizó" />
-                           <Label layoutX="35.0" layoutY="130.0" prefHeight="23.0" prefWidth="114.0" text="Nombre">
+                           <DatePicker fx:id="dpFechaRealizadoPc" layoutX="151.0" layoutY="77.0" prefHeight="25.0" prefWidth="231.0" promptText="Fecha en que se Realizó" />
+                           <Label layoutX="41.0" layoutY="142.0" prefHeight="23.0" prefWidth="57.0" text="Nombre">
                               <font>
                                  <Font name="Arial Bold" size="12.0" />
                               </font>
                            </Label>
-                           <Label layoutX="264.0" layoutY="130.0" prefHeight="23.0" prefWidth="114.0" text="Apellido">
+                           <Label layoutX="347.0" layoutY="142.0" prefHeight="23.0" prefWidth="56.0" text="Apellido">
                               <font>
                                  <Font name="Arial Bold" size="12.0" />
                               </font>
                            </Label>
-                           <Label layoutX="35.0" layoutY="196.0" prefHeight="23.0" prefWidth="129.0" text="Fecha de Nacimiento">
+                           <Label layoutX="18.0" layoutY="197.0" prefHeight="23.0" prefWidth="129.0" text="Fecha de Nacimiento">
                               <font>
                                  <Font name="Arial Bold" size="12.0" />
                               </font>
                            </Label>
-                           <DatePicker fx:id="dpFechaNacPc" layoutX="167.0" layoutY="195.0" prefHeight="25.0" prefWidth="258.0" promptText="Ingrese Fecha de Nacimiento" />
-                           <Label layoutX="580.0" layoutY="68.0" prefHeight="23.0" prefWidth="114.0" text="Observaciones">
+                           <DatePicker fx:id="dpFechaNacPc" layoutX="149.0" layoutY="196.0" prefHeight="25.0" prefWidth="258.0" promptText="Ingrese Fecha de Nacimiento" />
+                           <Label layoutX="787.0" layoutY="30.0" prefHeight="23.0" prefWidth="114.0" text="Observaciones">
                               <font>
                                  <Font name="Arial Bold" size="12.0" />
                               </font>
                            </Label>
-                           <TextField fx:id="txtLugarBauPc" layoutX="167.0" layoutY="237.0" prefHeight="25.0" prefWidth="333.0" promptText="Lugar en que se Realizo el Sacramento" text="SEDE - Parroquia Santo Hermano Pedro" />
-                           <Label layoutX="35.0" layoutY="238.0" prefHeight="23.0" prefWidth="114.0" text="Lugar Bautismo">
+                           <TextField fx:id="txtLugarBauPc" layoutX="153.0" layoutY="248.0" prefHeight="25.0" prefWidth="333.0" promptText="Lugar en que se Realizo el Sacramento" text="SEDE - Parroquia Santo Hermano Pedro" />
+                           <Label layoutX="46.0" layoutY="249.0" prefHeight="23.0" prefWidth="114.0" text="Lugar Bautismo">
                               <font>
                                  <Font name="Arial Bold" size="12.0" />
                               </font>
                            </Label>
-                           <CheckBox fx:id="boxInscritoPc" layoutX="14.0" layoutY="60.0" mnemonicParsing="false" text="Inscrito al Libro">
+                           <CheckBox fx:id="boxInscritoPc" layoutX="370.0" layoutY="22.0" mnemonicParsing="false" text="Inscrito al Libro">
                               <font>
                                  <Font name="System Bold Italic" size="12.0" />
                               </font>
                            </CheckBox>
                            <Accordion layoutX="536.0" layoutY="233.0" />
-                           <AnchorPane layoutX="175.0" layoutY="318.0" prefHeight="110.0" prefWidth="318.0">
-                              <children>
-                                 <Button layoutX="5.0" layoutY="6.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="39.0" text="&lt;&lt;" />
-                                 <Button layoutX="52.0" layoutY="6.0" mnemonicParsing="false" text="&lt;" />
-                                 <Button layoutX="84.0" layoutY="6.0" mnemonicParsing="false" text="&gt;" />
-                                 <Button layoutX="116.0" layoutY="6.0" mnemonicParsing="false" text="&gt;&gt;" />
-                                 <Button layoutX="167.0" layoutY="43.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="99.0" text="Actualizar" />
-                                 <Button layoutX="93.0" layoutY="73.0" mnemonicParsing="false" text="Limpiar" />
-                                 <Button layoutX="23.0" layoutY="43.0" mnemonicParsing="false" onAction="#_guardarPc" prefHeight="25.0" prefWidth="109.0" text="Guardar" />
-                                 <Button layoutX="178.0" layoutY="73.0" mnemonicParsing="false" text="Borrar" />
-                                 <Button layoutX="216.0" layoutY="6.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="54.0" text="Clonar" />
-                                 <Button layoutX="158.0" layoutY="6.0" mnemonicParsing="false" text="Nuevo" />
-                              </children>
-                           </AnchorPane>
-                           <AnchorPane layoutX="18.0" layoutY="340.0" prefHeight="51.0" prefWidth="149.0">
-                              <children>
-                                 <Button layoutX="22.0" layoutY="13.0" mnemonicParsing="false" text="IMPRIMIR FICHA" />
-                              </children>
-                           </AnchorPane>
-                           <TextField fx:id="txtCelebrantePc" layoutX="168.0" layoutY="284.0" prefHeight="25.0" prefWidth="333.0" promptText="Sacerdote o delegado que Celebro" text="P. José Rolando Cúmez Tuyuc" />
-                           <Label layoutX="36.0" layoutY="285.0" prefHeight="23.0" prefWidth="114.0" text="Celebrante">
+                           <AnchorPane layoutX="18.0" layoutY="340.0" prefHeight="51.0" prefWidth="149.0" />
+                           <TextField fx:id="txtCelebrantePc" layoutX="153.0" layoutY="302.0" prefHeight="25.0" prefWidth="333.0" promptText="Sacerdote o delegado que Celebro" text="P. José Rolando Cúmez Tuyuc" />
+                           <Label layoutX="75.0" layoutY="303.0" prefHeight="23.0" prefWidth="68.0" text="Celebrante">
                               <font>
                                  <Font name="Arial Bold" size="12.0" />
                               </font>
                            </Label>
+                           <Button layoutX="763.0" layoutY="367.0" mnemonicParsing="false" onAction="#_guardarPc" prefHeight="25.0" prefWidth="109.0" text="Guardar" />
+                           <Button layoutX="901.0" layoutY="367.0" mnemonicParsing="false" text="Limpiar" />
                         </children>
                      </AnchorPane>
                   </content></Tab>
@@ -159,7 +143,7 @@
                         <children>
                            <TextField fx:id="txtBusquedaPc" layoutX="62.0" layoutY="41.0" prefHeight="23.0" prefWidth="230.0" />
                            <Button layoutX="315.0" layoutY="41.0" mnemonicParsing="false" onAction="#_busquedaEspecifica" text="Buscar" />
-                           <TableView fx:id="tvComunion" layoutX="14.0" layoutY="82.0" prefHeight="345.0" prefWidth="980.0">
+                           <TableView fx:id="tvComunion" layoutX="14.0" layoutY="82.0" prefHeight="345.0" prefWidth="980.0" style="-fx-background-color: linear-gradient(to bottom, #FFDC61, #ffffff);">
                               <columns>
                                  <TableColumn fx:id="tcLibroC" minWidth="40.0" prefWidth="40.0" text="Libro" />
                                  <TableColumn fx:id="tcFolioC" minWidth="40.0" prefWidth="40.0" text="Folio" />
@@ -179,15 +163,6 @@
                         </children>
                      </AnchorPane>
                   </content></Tab>
-               <Tab style="-fx-font-weight: bold;" text="Requisitos">
-                  <content>
-                     <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                        <children>
-                           <TextArea layoutX="14.0" layoutY="14.0" prefHeight="412.0" prefWidth="328.0" promptText="GUATEMALA" text="Si necesitas mostrar registros de una base de datos, que probablemente contienen múltiples campos (por ejemplo, ID, nombre, fecha), el TableView es definitivamente la opción más adecuada. Esto se debe a que permite representar cada registro en filas y cada campo de datos en columnas, proporcionando así una representación tabular completa de tus registros. Esto es especialmente útil si tienes datos que deseas mostrar en columnas separadas y potencialmente ofrecer ordenación y otras funciones avanzadas.&#10;&#10;Por otro lado, si solo necesitas mostrar una lista simple de ítems, sin detalles adicionales, el ListView podría ser suficiente.&#10;&#10;Dado tu escenario (mostrar registros de una base de datos después de pulsar un botón para buscar), te recomendaría usar TableView." />
-                        </children>
-                     </AnchorPane>
-                  </content></Tab>
-               <Tab style="-fx-font-weight: bold;" text="Constancias" />
                <Tab onSelectionChanged="#_cargarGraficos" style="-fx-font-weight: bold;" text="Estadisticas">
                   <content>
                      <AnchorPane prefHeight="200.0" prefWidth="200.0">

@@ -237,22 +237,22 @@
                      <TableColumn fx:id="tcRegistroM" prefWidth="75.0" text="Registro" />
                   </columns>
                </TableView>
-               <Label focusTraversable="false" layoutX="16.0" layoutY="75.0" prefHeight="17.0" prefWidth="69.0" text="Bautismos" textFill="RED">
+               <Label focusTraversable="false" layoutX="16.0" layoutY="75.0" prefHeight="17.0" prefWidth="69.0" text="Bautismos">
                   <font>
                      <Font name="System Bold" size="12.0" />
                   </font>
                </Label>
-               <Label focusTraversable="false" layoutX="16.0" layoutY="175.0" prefHeight="17.0" prefWidth="122.0" text="Primeras Couniones" textFill="RED">
+               <Label focusTraversable="false" layoutX="16.0" layoutY="175.0" prefHeight="17.0" prefWidth="140.0" text="Primeras Comuniones">
                   <font>
                      <Font name="System Bold" size="12.0" />
                   </font>
                </Label>
-               <Label focusTraversable="false" layoutX="16.0" layoutY="293.0" prefHeight="17.0" prefWidth="122.0" text="Confirmaciones" textFill="RED">
+               <Label focusTraversable="false" layoutX="16.0" layoutY="293.0" prefHeight="17.0" prefWidth="122.0" text="Confirmaciones">
                   <font>
                      <Font name="System Bold" size="12.0" />
                   </font>
                </Label>
-               <Label focusTraversable="false" layoutX="16.0" layoutY="398.0" prefHeight="17.0" prefWidth="122.0" text="Matrimonios" textFill="RED">
+               <Label focusTraversable="false" layoutX="16.0" layoutY="398.0" prefHeight="17.0" prefWidth="122.0" text="Matrimonios">
                   <font>
                      <Font name="System Bold" size="12.0" />
                   </font>

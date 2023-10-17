@@ -1,0 +1,33 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 16 oct 2023, 21:23:19
+    Author     : walyn
+*/
+/* Estilo básico del botón */
+#_ingresar {
+    background-color: #3498db; /* Color azul */
+    border-radius: 8px; /* Bordes redondeados */
+    border: none; /* No mostramos bordes */
+    font-size: 16px; /* Tamaño de letra */
+    text-fill: white; /* Color de letra blanco */
+    transition: all 0.3s ease; /* Transición suave para los efectos */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+}
+
+/* Efecto hover: cuando pasas el ratón por encima */
+#_ingresar:hover {
+    background-color: #5DADE2; /* Un tono de azul más claro */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Sombra más prominente */
+    transform: translateY(-2px); /* Un pequeño "salto" hacia arriba */
+}
+
+/* Efecto active: cuando el botón está siendo presionado */
+#_ingresar:pressed {
+    background-color: #2980b9; /* Un tono de azul más oscuro */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra menos prominente */
+    transform: translateY(2px); /* Un pequeño "hundimiento" hacia abajo */
+}
+
