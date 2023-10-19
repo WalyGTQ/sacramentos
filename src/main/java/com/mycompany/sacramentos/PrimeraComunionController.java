@@ -221,14 +221,22 @@ public class PrimeraComunionController implements Initializable {
         try {
 
             // Obtén la fecha de nacimiento del DatePicker
-           LocalDate fechaNacimientoC = dpFechaNacPc.getValue();
+            LocalDate fechaNacimientoC = dpFechaNacPc.getValue();
             LocalDate fechaInscripcion = dpFechaRealizadoPc.getValue();
 
             // Calcula la edad
             LocalDate hoy = LocalDate.now();
             int edad = fechaInscripcion.getYear() - fechaNacimientoC.getYear();
             if (fechaNacimientoC.getDayOfYear() > fechaInscripcion.getDayOfYear()) {
-            edad--; // Ajusta la edad si el cumpleaños de este año aún no ha llegado.
+                edad--; // Ajusta la edad si el cumpleaños de este año aún no ha llegado.
+            }
+            if (fechaNacimientoC.isAfter(hoy)) {
+                showAlert("Error", "La fecha de Nacimiento no puede ser despues de hoy ", Alert.AlertType.ERROR);
+                return;
+            }
+            if (fechaNacimientoC.isAfter(fechaInscripcion)) {
+                showAlert("Error", "El Sacramento no puede ser Antes del Nacimiento", Alert.AlertType.ERROR);
+                return;
             }
 
             // Validadndo el Combo Box

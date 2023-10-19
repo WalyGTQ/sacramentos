@@ -101,14 +101,22 @@ public class EdicionRegistroPcController implements Initializable {
                         int idCelebrante = rs.getInt("celebrante_idCelebrante");
 
                         // Obtén la fecha de nacimiento del DatePicker
-           LocalDate fechaNacimientoC = dpFechaNacPc.getValue();
-            LocalDate fechaInscripcion = dpFechaRealizadoPc.getValue();
+                        LocalDate fechaNacimientoC = dpFechaNacPc.getValue();
+                        LocalDate fechaInscripcion = dpFechaRealizadoPc.getValue();
 
-            // Calcula la edad
-            LocalDate hoy = LocalDate.now();
-            int edad = fechaInscripcion.getYear() - fechaNacimientoC.getYear();
-            if (fechaNacimientoC.getDayOfYear() > fechaInscripcion.getDayOfYear()) {
-            edad--; // Ajusta la edad si el cumpleaños de este año aún no ha llegado.
+                        // Calcula la edad
+                        LocalDate hoy = LocalDate.now();
+                        int edad = fechaInscripcion.getYear() - fechaNacimientoC.getYear();
+                        if (fechaNacimientoC.getDayOfYear() > fechaInscripcion.getDayOfYear()) {
+                            edad--; // Ajusta la edad si el cumpleaños de este año aún no ha llegado.
+                        }
+                        if (fechaNacimientoC.isAfter(hoy)) {
+                            showAlert("Error", "La fecha de Nacimiento no puede ser despues de hoy ", "", Alert.AlertType.ERROR);
+                            return;
+                        }
+                        if (fechaNacimientoC.isAfter(fechaInscripcion)) {
+                            showAlert("Error", "El Sacramento no puede ser Antes del Nacimiento", "", Alert.AlertType.ERROR);
+                            return;
                         }
 
                         //Manejo del ChecBox Modificado :.(
@@ -210,10 +218,9 @@ public class EdicionRegistroPcController implements Initializable {
         }
     }
 
-    
     @FXML
-    private void _EliminarPc() throws IOException{
-                // Crear ventana de diálogo de confirmación
+    private void _EliminarPc() throws IOException {
+        // Crear ventana de diálogo de confirmación
         if (showConfirmationDialog("Confirmar eliminación", "Eliminar registro", "¿Estás seguro? Deseas eliminar el registro de: " + feligres.getNombreC())) {
             // El usuario ha confirmado la eliminación, Código para eliminar el registro
 
@@ -259,13 +266,13 @@ public class EdicionRegistroPcController implements Initializable {
                     PreparedStatement stmtDelFel = connection.prepareStatement(deleteFeligres);
                     stmtDelFel.setInt(1, idFeligres);
                     stmtDelFel.executeUpdate();
-                    
+
                     // 5. Eliminar el registro del Celebrante
                     String deleteCelebrante = "DELETE FROM celebrante WHERE idCelebrante = ?";
                     PreparedStatement stmtDelCel = connection.prepareStatement(deleteCelebrante);
                     stmtDelCel.setInt(1, idCelebrante);
                     stmtDelCel.executeUpdate();
-                    
+
                     // Registro no encontrado
                     showAlert("Información", "El registro fue eliminado Satisfactoriamente.", "Se Elimino: " + feligres.getNombreC(), Alert.AlertType.INFORMATION);
                     App.setRoot("primeraComunion");
@@ -292,10 +299,9 @@ public class EdicionRegistroPcController implements Initializable {
             // Registro no encontrado
             showAlert("Información", "El Usuario a Cancelado la Operacion.", "Ninguna Modificaion Realizada", Alert.AlertType.INFORMATION);
         }
-        
-        
-        
+
     }
+
     //Otros Codigos
     //Intento de devolver un boleano al comparar los datos
     private boolean comparacionPc() {
