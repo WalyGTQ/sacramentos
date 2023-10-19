@@ -241,11 +241,12 @@ public class BautismosVistaController implements Initializable {
 
             // Obtén la fecha de nacimiento del DatePicker
             LocalDate fechaNacimientoC = datePikerFechaNacimientoB.getValue();
+            LocalDate fechaInscripcion = datePikerFechaB.getValue();
 
             // Calcula la edad
             LocalDate hoy = LocalDate.now();
-            int edad = hoy.getYear() - fechaNacimientoC.getYear();
-            if (fechaNacimientoC.getDayOfYear() > hoy.getDayOfYear()) {
+            int edad = fechaInscripcion.getYear() - fechaNacimientoC.getYear();
+            if (fechaNacimientoC.getDayOfYear() > fechaInscripcion.getDayOfYear()) {
                 edad--; // Ajusta la edad si el cumpleaños de este año aún no ha llegado.
             }
 

@@ -213,12 +213,14 @@ public class EdicionRegistroController implements Initializable {
                         int idFeligres = rs.getInt("idFeligres");
 
                         // Obtén la fecha de nacimiento del DatePicker
+                        // Obtén la fecha de nacimiento del DatePicker
                         LocalDate fechaNacimientoC = dpNacimientoB.getValue();
+                        LocalDate fechaInscripcion = dpFechaB.getValue();
 
                         // Calcula la edad
                         LocalDate hoy = LocalDate.now();
-                        int edad = hoy.getYear() - fechaNacimientoC.getYear();
-                        if (fechaNacimientoC.getDayOfYear() > hoy.getDayOfYear()) {
+                        int edad = fechaInscripcion.getYear() - fechaNacimientoC.getYear();
+                        if (fechaNacimientoC.getDayOfYear() > fechaInscripcion.getDayOfYear()) {
                             edad--; // Ajusta la edad si el cumpleaños de este año aún no ha llegado.
                         }
 
@@ -435,12 +437,12 @@ public class EdicionRegistroController implements Initializable {
             String fechaSacramentoFormatted = feligres.getFechaSacramento().format(formatter);
             String fechaNacimientoFormatted = feligres.getNacimiento().format(formatter);
             String fechaActualFormatted = LocalDate.now().format(formatter);
-            
+
             Image img = Image.getInstance("src/main/resources/img/logo1.png"); //  ruta de  imagen
             img.setAbsolutePosition(50, 750); // Coordenadas x, y (desde la esquina inferior izquierda)
             img.scaleToFit(200, 100); // Ancho y alto
             document.add(img);
-            
+
             Paragraph pHeader = new Paragraph("Parroquia Santo Hermano Pedro\nDiócesis De Sololá-Chimaltenango\n5ᵃ Avenida 4-104, Zona 1\nChimaltenango, Guatemala, C.A.\nTel: 7839-2709", fontHeader);
             pHeader.setAlignment(Element.ALIGN_CENTER);
             document.add(pHeader);

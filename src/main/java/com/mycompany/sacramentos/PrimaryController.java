@@ -358,7 +358,7 @@ public class PrimaryController {
                     + "FROM feligres f "
                     + "JOIN comunion p ON f.idFeligres = p.idFeligres "
                     + "JOIN celebrante c ON p.celebrante_idCelebrante = c.idCelebrante "
-                    + "JOIN registrolibro r ON p.idComunion = r.idRegistroLibro "
+                    + "JOIN registrolibro r ON p.idComunion = r.comunion_idComunion "
                     + "JOIN observacion o ON p.idComunion = o.comunion_idComunion "
                     + "WHERE nombre LIKE ? OR apellido LIKE ?";
             PreparedStatement stmt = connection.prepareStatement(query);
@@ -438,7 +438,7 @@ public class PrimaryController {
                     + "FROM feligres f "
                     + "JOIN confirmacion cf ON f.idFeligres = cf.idFeligres "
                     + "JOIN celebrante c ON cf.celebrante_idCelebrante = c.idCelebrante "
-                    + "JOIN registrolibro r ON cf.idConfirmacion = r.idRegistroLibro "
+                    + "JOIN registrolibro r ON cf.idConfirmacion = r.confirmacion_idConfirmacion "
                     + "JOIN observacion o ON cf.idConfirmacion = o.confirmacion_idConfirmacion "
                     + "WHERE nombre LIKE ? OR apellido LIKE ?";
             PreparedStatement stmt = connection.prepareStatement(query);

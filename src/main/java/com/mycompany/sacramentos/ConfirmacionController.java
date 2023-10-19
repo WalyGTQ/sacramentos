@@ -50,6 +50,7 @@ import javafx.scene.effect.DropShadow;
  * @author walyn
  */
 public class ConfirmacionController implements Initializable {
+
     private int total;
     //LLamamos los Graficos y ComboBox PAra Filtro
 
@@ -225,12 +226,13 @@ public class ConfirmacionController implements Initializable {
         try {
 
             // Obtén la fecha de nacimiento del DatePicker
-            LocalDate fechaNacimientoCf = dpNacimientoCf.getValue();
+            LocalDate fechaNacimientoC = dpNacimientoCf.getValue();
+            LocalDate fechaInscripcion = dpFechaSacCf.getValue();
 
             // Calcula la edad
             LocalDate hoy = LocalDate.now();
-            int edad = hoy.getYear() - fechaNacimientoCf.getYear();
-            if (fechaNacimientoCf.getDayOfYear() > hoy.getDayOfYear()) {
+            int edad = fechaInscripcion.getYear() - fechaNacimientoC.getYear();
+            if (fechaNacimientoC.getDayOfYear() > fechaInscripcion.getDayOfYear()) {
                 edad--; // Ajusta la edad si el cumpleaños de este año aún no ha llegado.
             }
 
@@ -647,53 +649,50 @@ public class ConfirmacionController implements Initializable {
         return datos;
     }
 
+    @FXML
+    private void cargarInscritosVsNoInscritos() {
+        pcConfirmacion.getData().clear();
+        try {
+            Map<String, Integer> datos = obtenerInscritosVsNoInscritos();
+            ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
 
-@FXML
-private void cargarInscritosVsNoInscritos() {
-    pcConfirmacion.getData().clear();
-    try {
-        Map<String, Integer> datos = obtenerInscritosVsNoInscritos();
-        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
-        
-        total = 0;
-        for (Integer value : datos.values()) {
-            total += value;
-        }
-
-        for (Map.Entry<String, Integer> entry : datos.entrySet()) {
-            PieChart.Data slice = new PieChart.Data(entry.getKey(), entry.getValue());
-            pieChartData.add(slice);
-        }
-        
-        pcConfirmacion.setData(pieChartData);
-        pcConfirmacion.setAnimated(true);
-
-        // Use Platform.runLater() to delay these operations until after nodes are created and rendered.
-        Platform.runLater(() -> {
-            for (PieChart.Data slice : pcConfirmacion.getData()) {
-                double percentage = (slice.getPieValue() / total) * 100;
-                
-                Tooltip tooltip = new Tooltip(slice.getName() + ": " + slice.getPieValue() + " (" + String.format("%.2f", percentage) + "%)");
-                Tooltip.install(slice.getNode(), tooltip);
-                
-                slice.nameProperty().bind(
-                    Bindings.concat(slice.getName(), " ", slice.pieValueProperty(), " (", Bindings.format("%.1f", percentage), "%)")
-                );
-
-                slice.getNode().setOnMouseEntered(event -> {
-                    slice.getNode().setEffect(new DropShadow(7, javafx.scene.paint.Color.BLACK));
-                });
-                slice.getNode().setOnMouseExited(event -> {
-                    slice.getNode().setEffect(null);
-                });
+            total = 0;
+            for (Integer value : datos.values()) {
+                total += value;
             }
-        });
-    } catch (SQLException e) {
-        e.printStackTrace();
+
+            for (Map.Entry<String, Integer> entry : datos.entrySet()) {
+                PieChart.Data slice = new PieChart.Data(entry.getKey(), entry.getValue());
+                pieChartData.add(slice);
+            }
+
+            pcConfirmacion.setData(pieChartData);
+            pcConfirmacion.setAnimated(true);
+
+            // Use Platform.runLater() to delay these operations until after nodes are created and rendered.
+            Platform.runLater(() -> {
+                for (PieChart.Data slice : pcConfirmacion.getData()) {
+                    double percentage = (slice.getPieValue() / total) * 100;
+
+                    Tooltip tooltip = new Tooltip(slice.getName() + ": " + slice.getPieValue() + " (" + String.format("%.2f", percentage) + "%)");
+                    Tooltip.install(slice.getNode(), tooltip);
+
+                    slice.nameProperty().bind(
+                            Bindings.concat(slice.getName(), " ", slice.pieValueProperty(), " (", Bindings.format("%.1f", percentage), "%)")
+                    );
+
+                    slice.getNode().setOnMouseEntered(event -> {
+                        slice.getNode().setEffect(new DropShadow(7, javafx.scene.paint.Color.BLACK));
+                    });
+                    slice.getNode().setOnMouseExited(event -> {
+                        slice.getNode().setEffect(null);
+                    });
+                }
+            });
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
-}
-
-
 
     @FXML//Inicializa los graficos cuando sean necesarios
     private void _cargarGraficos() throws IOException {
