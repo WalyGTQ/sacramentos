@@ -563,15 +563,16 @@ public class PrimeraComunionController implements Initializable {
 
         String sql = "SELECT "
                 + "CASE "
-                + "    WHEN edadFeligres BETWEEN 0 AND 8 THEN '0-8 años' "
-                + "    WHEN edadFeligres BETWEEN 9 AND 11 THEN '9-11 años' "
-                + "    WHEN edadFeligres BETWEEN 12 AND 15 THEN '12-15 años' "
+                + "    WHEN f.edadFeligres BETWEEN 0 AND 8 THEN '0-8 años' "
+                + "    WHEN f.edadFeligres BETWEEN 9 AND 11 THEN '9-11 años' "
+                + "    WHEN f.edadFeligres BETWEEN 12 AND 15 THEN '12-15 años' "
                 + "    ELSE '16+ años' "
                 + "END AS rangoEdad, "
                 + "COUNT(*) as total "
-                + "FROM feligres "
+                + "FROM feligres f "
+                + "JOIN comunion c ON f.idFeligres = c.idFeligres "
                 + "GROUP BY rangoEdad "
-                + "ORDER BY FIELD(rangoEdad, '0-8 años', '9-11 años', '12-15 años', '16+ años');";
+                + "ORDER BY FIELD(rangoEdad, '0-8 años', '9-11 años', '12-15 años', '16+ años')";
 
         try (Connection conn = ConexionDB.getConexion(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
 
