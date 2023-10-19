@@ -249,6 +249,16 @@ public class BautismosVistaController implements Initializable {
             if (fechaNacimientoC.getDayOfYear() > fechaInscripcion.getDayOfYear()) {
                 edad--; // Ajusta la edad si el cumpleaños de este año aún no ha llegado.
             }
+            
+            if(fechaNacimientoC.isAfter(hoy ) ){
+                showAlert("Error", "La fecha de Nacimiento no puede ser despues de hoy ", Alert.AlertType.ERROR);
+                return;
+            } 
+            if(fechaNacimientoC.isAfter( fechaInscripcion) ){
+                showAlert("Error", "El Sacramento no puede ser Antes del Nacimiento", Alert.AlertType.ERROR);
+                return;
+            } 
+            
 
             // Validadndo el Combo Box
             if (inscrito) {
