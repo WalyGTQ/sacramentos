@@ -431,7 +431,7 @@ public class EdicionRegistroController implements Initializable {
         if (showConfirmationDialog("Confirmar Impresion", "Imprimir registro", "¿Estás seguro? Se Imprimira el registro de: " + datosFeligres.getNombre())) {
 
             Document document = new Document(PageSize.LETTER);
-            PdfWriter.getInstance(document, new FileOutputStream("src/main/Constancia_Bautismo.pdf"));
+            PdfWriter.getInstance(document, new FileOutputStream("C:/Users/walyn/Downloads/Constancia_Bautismo.pdf"));
             document.open();
             // Añadir un encabezado
             Font fontHeader = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 16, BaseColor.BLACK);
@@ -518,7 +518,7 @@ public class EdicionRegistroController implements Initializable {
                 document.close();
             }
             try {
-                File myFile = new File("src/main/Constancia_Bautismo.pdf");
+                File myFile = new File("C:/Users/walyn/Downloads/Constancia_Bautismo.pdf");
                 if (Desktop.isDesktopSupported()) {
                     Desktop.getDesktop().open(myFile);
                 } else {
