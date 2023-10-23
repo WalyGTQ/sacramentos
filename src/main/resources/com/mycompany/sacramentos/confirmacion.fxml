@@ -69,10 +69,20 @@
                            <TextField fx:id="txtLibroCf" alignment="CENTER" layoutX="53.0" layoutY="16.0" prefHeight="25.0" prefWidth="40.0" promptText="#" />
                            <TextField fx:id="txtFolioCf" alignment="CENTER" layoutX="160.0" layoutY="16.0" prefHeight="25.0" prefWidth="40.0" promptText="#" />
                            <TextField fx:id="txtPartidaCf" alignment="CENTER" layoutX="264.0" layoutY="16.0" prefHeight="25.0" prefWidth="40.0" promptText="#" />
-                           <TextField fx:id="txtApellidoCf" layoutX="411.0" layoutY="192.0" prefHeight="25.0" prefWidth="249.0" promptText="Apellidos del Confirmante" />
+                            <CheckBox fx:id="boxInscritoCf" layoutX="384.0" layoutY="10.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="157.0" text="Inscrito al Libro" wrapText="true">
+                              <font>
+                                 <Font name="System Bold Italic" size="12.0" />
+                              </font>
+                           </CheckBox>
+                           <TextField fx:id="txtLugarCf" layoutX="156.0" layoutY="67.0" prefHeight="25.0" prefWidth="427.0" promptText="Lugar donde se realizo el Sacramento" text="Parroquia Santo Hermano Pedro Chimaltenango" />
+                           <DatePicker fx:id="dpFechaSacCf" layoutX="144.0" layoutY="102.0" prefHeight="25.0" prefWidth="259.0" promptText="Fecha en que Se realizo el Sacramento" />
+                           <TextField fx:id="txtCelebranteCf" layoutX="149.0" layoutY="148.0" prefHeight="25.0" prefWidth="335.0" promptText="Obispo o delegado que Confirió el Sacramento" text="Domingo Buezo Leiva" />
                            <TextField fx:id="txtNombreCf" layoutX="114.0" layoutY="192.0" prefHeight="25.0" prefWidth="237.0" promptText="Nombres del Confirmate" />
-                           <TextField fx:id="txtMadreCf" layoutX="407.0" layoutY="294.0" prefHeight="25.0" prefWidth="258.0" promptText="Nombre de la Madre" />
+                           <TextField fx:id="txtApellidoCf" layoutX="411.0" layoutY="192.0" prefHeight="25.0" prefWidth="249.0" promptText="Apellidos del Confirmante" />
+                           <DatePicker fx:id="dpNacimientoCf" layoutX="155.0" layoutY="241.0" prefHeight="25.0" prefWidth="337.0" promptText="Fecha de Nacimiento Confirmante" />
                            <TextField fx:id="txtPadreCf" layoutX="108.0" layoutY="294.0" prefHeight="25.0" prefWidth="223.0" promptText="Nombre  del Padre" />
+                           <TextField fx:id="txtMadreCf" layoutX="407.0" layoutY="294.0" prefHeight="25.0" prefWidth="258.0" promptText="Nombre de la Madre" />
+                           <TextField fx:id="txtPadrino_MadrinaCf" layoutX="135.0" layoutY="352.0" prefHeight="25.0" prefWidth="355.0" promptText="Nombre Completo Padrino o Madrina" />
                            <TextArea fx:id="txtAreaCf" layoutX="781.0" layoutY="72.0" prefHeight="265.0" prefWidth="212.0" promptText="Observaciones o Notas" text="Ninguna" />
                            <Label layoutX="14.0" layoutY="17.0" prefHeight="23.0" prefWidth="41.0" text="Libro">
                               <font>
@@ -94,7 +104,6 @@
                                  <Font name="Arial Bold" size="12.0" />
                               </font>
                            </Label>
-                           <DatePicker fx:id="dpFechaSacCf" layoutX="144.0" layoutY="102.0" prefHeight="25.0" prefWidth="259.0" promptText="Fecha en que Se realizo el Sacramento" />
                            <Label layoutX="63.0" layoutY="193.0" prefHeight="23.0" prefWidth="60.0" text="Nombre">
                               <font>
                                  <Font name="Arial Bold" size="12.0" />
@@ -110,7 +119,6 @@
                                  <Font name="Arial Bold" size="12.0" />
                               </font>
                            </Label>
-                           <DatePicker fx:id="dpNacimientoCf" layoutX="155.0" layoutY="241.0" prefHeight="25.0" prefWidth="337.0" promptText="Fecha de Nacimiento Confirmante" />
                            <Label layoutX="823.0" layoutY="30.0" prefHeight="23.0" prefWidth="114.0" text="Observaciones">
                               <font>
                                  <Font name="Arial Bold" size="12.0" />
@@ -121,8 +129,6 @@
                                  <Font name="Arial Bold" size="12.0" />
                               </font>
                            </Label>
-                           <TextField fx:id="txtCelebranteCf" layoutX="149.0" layoutY="148.0" prefHeight="25.0" prefWidth="335.0" promptText="Obispo o delegado que Confirió el Sacramento" text="Domingo Buezo Leiva" />
-                           <TextField fx:id="txtPadrino_MadrinaCf" layoutX="135.0" layoutY="352.0" prefHeight="25.0" prefWidth="355.0" promptText="Nombre Completo Padrino o Madrina" />
                            <Label layoutX="13.0" layoutY="353.0" prefHeight="23.0" prefWidth="127.0" text="Padrinos o Madrina">
                               <font>
                                  <Font name="Arial Bold" size="12.0" />
@@ -133,17 +139,12 @@
                                  <Font name="Arial Bold" size="12.0" />
                               </font>
                            </Label>
-                           <TextField fx:id="txtLugarCf" layoutX="156.0" layoutY="67.0" prefHeight="25.0" prefWidth="427.0" promptText="Lugar donde se realizo el Sacramento" text="Parroquia Santo Hermano Pedro Chimaltenango" />
                            <Label layoutX="13.0" layoutY="68.0" prefHeight="23.0" prefWidth="161.0" text="Lugar del Sacramento">
                               <font>
                                  <Font name="Arial Bold" size="12.0" />
                               </font>
                            </Label>
-                           <CheckBox fx:id="boxInscritoCf" layoutX="384.0" layoutY="10.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="157.0" text="Inscrito al Libro" wrapText="true">
-                              <font>
-                                 <Font name="System Bold Italic" size="12.0" />
-                              </font>
-                           </CheckBox>
+
                            <Accordion layoutX="536.0" layoutY="233.0" />
                            <AnchorPane layoutX="147.0" layoutY="377.0" prefHeight="51.0" prefWidth="225.0" />
                            <Button layoutX="790.0" layoutY="390.0" mnemonicParsing="false" onAction="#_guardarCf" prefHeight="25.0" prefWidth="109.0" text="Guardar" />

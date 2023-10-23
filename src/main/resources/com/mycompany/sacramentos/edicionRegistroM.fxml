@@ -21,201 +21,206 @@
     <stylesheets>
         <URL value="@/styles/edicionregistrom.css" />
     </stylesheets>
-   <children>
-      <BorderPane prefHeight="600.0" prefWidth="1000.0">
-         <top>
-            <AnchorPane prefHeight="90.0" prefWidth="1000.0" style="-fx-background-color: linear-gradient(to bottom, #FFA1E6, #ffffff);" BorderPane.alignment="CENTER">
-               <children>
-                  <Label layoutX="227.0" layoutY="14.0" text="Edicion de Registro de Matrimonios">
-                     <font>
-                        <Font size="34.0" />
-                     </font>
-                  </Label>
-               </children>
-            </AnchorPane>
-         </top>
-         <center>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-               <children>
-                  <AnchorPane prefHeight="513.0" prefWidth="851.0" style="-fx-background-color: linear-gradient(to bottom, #FFA1E6, #ffffff);">
-                     <children>
-                        <TextField fx:id="txtLibroM" layoutX="62.0" layoutY="7.0" prefHeight="25.0" prefWidth="40.0" promptText="#" />
-                        <TextField fx:id="txtFolioM" layoutX="160.0" layoutY="7.0" prefHeight="25.0" prefWidth="40.0" promptText="#" />
-                        <TextField fx:id="txtPartidaM" layoutX="264.0" layoutY="7.0" prefHeight="25.0" prefWidth="40.0" promptText="#" />
-                        <TextField fx:id="txtApellidoMM" layoutX="361.0" layoutY="193.0" prefHeight="25.0" prefWidth="227.0" promptText="Apellidos del Contrayente" />
-                        <TextField fx:id="txtNombreMM" layoutX="125.0" layoutY="193.0" prefHeight="25.0" prefWidth="227.0" promptText="Nombres del Contrayente" />
-                        <TextArea fx:id="txtAreaM" layoutX="619.0" layoutY="160.0" prefHeight="272.0" prefWidth="201.0" promptText="Onservaciones o Notas" />
-                        <Label layoutX="14.0" layoutY="8.0" prefHeight="23.0" prefWidth="41.0" text="Libro">
-                           <font>
-                              <Font name="Arial Bold" size="12.0" />
-                           </font>
+    <children>
+        <BorderPane prefHeight="600.0" prefWidth="1000.0">
+            <top>
+                <AnchorPane prefHeight="90.0" prefWidth="1000.0" style="-fx-background-color: linear-gradient(to bottom, #FFA1E6, #ffffff);" BorderPane.alignment="CENTER">
+                    <children>
+                        <Label layoutX="227.0" layoutY="14.0" text="Edicion de Registro de Matrimonios">
+                            <font>
+                                <Font size="34.0" />
+                            </font>
                         </Label>
-                        <Label layoutX="214.0" layoutY="8.0" prefHeight="23.0" prefWidth="41.0" text="Partida">
-                           <font>
-                              <Font name="Arial Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="112.0" layoutY="8.0" prefHeight="23.0" prefWidth="41.0" text="Folio">
-                           <font>
-                              <Font name="Arial Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="436.0" layoutY="75.0" prefHeight="23.0" prefWidth="56.0" text="Y fecha:">
-                           <font>
-                              <Font name="Arial Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <DatePicker fx:id="dpFechaM" blendMode="SRC_ATOP" layoutX="519.0" layoutY="74.0" prefHeight="25.0" prefWidth="235.0" promptText="Fecha del Sacramento" />
-                        <Label layoutX="19.0" layoutY="192.0" prefHeight="23.0" prefWidth="114.0" text="El Matrimonio de:">
-                           <font>
-                              <Font name="Arial Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="652.0" layoutY="132.0" prefHeight="23.0" prefWidth="114.0" text="Observaciones">
-                           <font>
-                              <Font name="Arial Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="18.0" layoutY="273.0" prefHeight="23.0" prefWidth="56.0" text="Hijo de:">
-                           <font>
-                              <Font name="Arial Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="314.0" layoutY="273.0" prefHeight="23.0" prefWidth="20.0" text="Y">
-                           <font>
-                              <Font name="Arial Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="txtCelebranteM" layoutX="170.0" layoutY="459.0" prefHeight="25.0" prefWidth="222.0" promptText="Sacerdote que Celebro el Sacramento" />
-                        <Label layoutX="36.0" layoutY="460.0" prefHeight="23.0" prefWidth="140.0" text="Celebro el Matrimonio:">
-                           <font>
-                              <Font name="Arial Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <AnchorPane layoutX="35.0" layoutY="37.0" />
-                        <Label layoutX="39.0" layoutY="75.0" prefHeight="23.0" prefWidth="25.0" text="En">
-                           <font>
-                              <Font name="Arial Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <CheckBox fx:id="boxInscritoM" layoutX="345.0" layoutY="11.0" mnemonicParsing="false" text="Inscrito al Libro">
-                           <font>
-                              <Font name="System Bold Italic" size="12.0" />
-                           </font>
-                        </CheckBox>
-                        <Accordion layoutX="536.0" layoutY="233.0" />
-                        <TextField fx:id="txtTestigo2M" layoutX="330.0" layoutY="143.0" prefHeight="25.0" prefWidth="248.0" promptText="Nombre Testigo Dos" />
-                        <TextField fx:id="txtTestigo1M" layoutX="71.0" layoutY="143.0" prefHeight="25.0" prefWidth="230.0" promptText="Nombre Testigo Uno" />
-                        <Label layoutX="114.0" layoutY="121.0" prefHeight="23.0" prefWidth="415.0" text="Previo a los tramites de Derecho y sin Impedimentos, ante los testigos:">
-                           <font>
-                              <Font name="Arial Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="311.0" layoutY="144.0" prefHeight="23.0" prefWidth="20.0" text="Y">
-                           <font>
-                              <Font name="Arial Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="15.0" layoutY="231.0" prefHeight="23.0" prefWidth="30.0" text="De:">
-                           <font>
-                              <Font name="Arial Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="txtEdadMM" layoutX="34.0" layoutY="230.0" prefHeight="25.0" prefWidth="42.0" promptText="Edad" />
-                        <Label layoutX="77.0" layoutY="231.0" prefHeight="23.0" prefWidth="90.0" text="Originario de :">
-                           <font>
-                              <Font name="Arial Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="txtOrigenMM" layoutX="160.0" layoutY="231.0" prefHeight="25.0" prefWidth="211.0" promptText="Lugar de Origen" />
-                        <Label layoutX="375.0" layoutY="231.0" prefHeight="23.0" prefWidth="69.0" text="Feligres de:">
-                           <font>
-                              <Font name="Arial Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="txtFeligresMM" layoutX="444.0" layoutY="230.0" prefHeight="25.0" prefWidth="142.0" promptText="Feligres" />
-                        <TextField fx:id="txtMadreMM" layoutX="335.0" layoutY="272.0" prefHeight="25.0" prefWidth="253.0" promptText="Madre del Contrayente" />
-                        <TextField fx:id="txtPadreMM" layoutX="63.0" layoutY="272.0" prefHeight="25.0" prefWidth="239.0" promptText="Padre del Contrayente" />
-                        <TextField fx:id="txtApellidoFM" layoutX="358.0" layoutY="320.0" prefHeight="25.0" prefWidth="227.0" promptText="Apellidos de la Contrayente" />
-                        <TextField fx:id="txtNombreFM" layoutX="122.0" layoutY="320.0" prefHeight="25.0" prefWidth="227.0" promptText="Nombres de la Contrayente" />
-                        <Label layoutX="16.0" layoutY="319.0" prefHeight="23.0" prefWidth="114.0" text="Con la Señorita:">
-                           <font>
-                              <Font name="Arial Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="19.0" layoutY="415.0" prefHeight="23.0" prefWidth="56.0" text="Hijo de:">
-                           <font>
-                              <Font name="Arial Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="315.0" layoutY="415.0" prefHeight="23.0" prefWidth="20.0" text="Y">
-                           <font>
-                              <Font name="Arial Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="19.0" layoutY="359.0" prefHeight="23.0" prefWidth="30.0" text="De:">
-                           <font>
-                              <Font name="Arial Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="txtEdadFM" layoutX="38.0" layoutY="358.0" prefHeight="25.0" prefWidth="42.0" promptText="Edad" />
-                        <Label layoutX="81.0" layoutY="359.0" prefHeight="23.0" prefWidth="90.0" text="Originaria de :">
-                           <font>
-                              <Font name="Arial Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="txtOrigenFM" layoutX="164.0" layoutY="359.0" prefHeight="25.0" prefWidth="211.0" promptText="Lugar de Origen" />
-                        <Label layoutX="379.0" layoutY="359.0" prefHeight="23.0" prefWidth="69.0" text="Feligres de:">
-                           <font>
-                              <Font name="Arial Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="txtFeligresFM" layoutX="448.0" layoutY="358.0" prefHeight="25.0" prefWidth="142.0" promptText="Feligres" />
-                        <TextField fx:id="txtMadreFM" layoutX="336.0" layoutY="414.0" prefHeight="25.0" prefWidth="253.0" promptText="Madre de la Contrayente" />
-                        <TextField fx:id="txtPadreFM" layoutX="64.0" layoutY="414.0" prefHeight="25.0" prefWidth="239.0" promptText="Padre de la contrayente" />
-                        <Separator layoutX="17.0" layoutY="305.0" prefHeight="2.0" prefWidth="562.0" />
-                        <Separator layoutX="21.0" layoutY="175.0" prefHeight="2.0" prefWidth="562.0" />
-                        <TextField fx:id="txtlugarM" layoutX="72.0" layoutY="74.0" prefHeight="25.0" prefWidth="333.0" promptText="Lugar donde Se Realiza el Sacramento" />
-                     </children>
-                  </AnchorPane>
-               </children>
-            </AnchorPane>
-         </center>
-         <right>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-               <children>
-                  <Pane layoutX="-1.0" prefHeight="513.0" prefWidth="202.0" style="-fx-background-color: linear-gradient(to bottom, #FFA1E6, #ffffff);">
-                     <children>
-                        <Button layoutX="29.0" layoutY="25.0" mnemonicParsing="false" onAction="#_regresar" prefHeight="37.0" prefWidth="112.0" text="Regresar">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
-                        <Separator layoutX="20.0" layoutY="72.0" prefHeight="1.0" prefWidth="154.0" />
-                        <ImageView fitHeight="34.0" fitWidth="31.0" layoutX="19.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../img/deshacer.png" />
-                           </image>
-                        </ImageView>
-                        <Button layoutX="27.0" layoutY="84.0" mnemonicParsing="false" onAction="#_actualizarM" prefHeight="34.0" prefWidth="116.0" style="-fx-background-color: green;" text="Guardar" textFill="#f2f2f2">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
-                        <Button layoutX="29.0" layoutY="132.0" mnemonicParsing="false" onAction="#_eliminarM" prefHeight="40.0" prefWidth="113.0" style="-fx-background-color: red;" text="Eliminar" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Button>
-                        <Button fx:id="btnImprimirC" layoutX="31.0" layoutY="185.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="108.0" text="Imprimir " />
-                     </children>
-                  </Pane>
-               </children>
-            </AnchorPane>
-         </right>
-      </BorderPane>
-   </children>
+                    </children>
+                </AnchorPane>
+            </top>
+            <center>
+                <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <AnchorPane prefHeight="513.0" prefWidth="851.0" style="-fx-background-color: linear-gradient(to bottom, #FFA1E6, #ffffff);">
+                            <children>
+                                <TextField fx:id="txtLibroM" layoutX="62.0" layoutY="7.0" prefHeight="25.0" prefWidth="40.0" promptText="#" />
+                                <TextField fx:id="txtFolioM" layoutX="160.0" layoutY="7.0" prefHeight="25.0" prefWidth="40.0" promptText="#" />
+                                <TextField fx:id="txtPartidaM" layoutX="264.0" layoutY="7.0" prefHeight="25.0" prefWidth="40.0" promptText="#" />
+                                <CheckBox fx:id="boxInscritoM" layoutX="345.0" layoutY="11.0" mnemonicParsing="false" text="Inscrito al Libro">
+                                    <font>
+                                        <Font name="System Bold Italic" size="12.0" />
+                                    </font>
+                                </CheckBox>    
+                                <TextField fx:id="txtlugarM" layoutX="72.0" layoutY="74.0" prefHeight="25.0" prefWidth="333.0" promptText="Lugar donde Se Realiza el Sacramento" />                                   
+                                <DatePicker fx:id="dpFechaM" blendMode="SRC_ATOP" layoutX="519.0" layoutY="74.0" prefHeight="25.0" prefWidth="235.0" promptText="Fecha del Sacramento" />
+                                <TextField fx:id="txtTestigo1M" layoutX="71.0" layoutY="143.0" prefHeight="25.0" prefWidth="230.0" promptText="Nombre Testigo Uno" />                                                                                         
+                                <TextField fx:id="txtTestigo2M" layoutX="330.0" layoutY="143.0" prefHeight="25.0" prefWidth="248.0" promptText="Nombre Testigo Dos" />
+                                <TextField fx:id="txtNombreMM" layoutX="125.0" layoutY="193.0" prefHeight="25.0" prefWidth="227.0" promptText="Nombres del Contrayente" />                                
+                                <TextField fx:id="txtApellidoMM" layoutX="361.0" layoutY="193.0" prefHeight="25.0" prefWidth="227.0" promptText="Apellidos del Contrayente" />
+                                <TextField fx:id="txtEdadMM" layoutX="34.0" layoutY="230.0" prefHeight="25.0" prefWidth="42.0" promptText="Edad" />
+                                <TextField fx:id="txtOrigenMM" layoutX="160.0" layoutY="231.0" prefHeight="25.0" prefWidth="211.0" promptText="Lugar de Origen" />
+                                <TextField fx:id="txtFeligresMM" layoutX="444.0" layoutY="230.0" prefHeight="25.0" prefWidth="142.0" promptText="Feligres" />
+                                <TextField fx:id="txtPadreMM" layoutX="63.0" layoutY="272.0" prefHeight="25.0" prefWidth="239.0" promptText="Padre del Contrayente" />                                
+                                <TextField fx:id="txtMadreMM" layoutX="335.0" layoutY="272.0" prefHeight="25.0" prefWidth="253.0" promptText="Madre del Contrayente" />
+                                <TextField fx:id="txtNombreFM" layoutX="122.0" layoutY="320.0" prefHeight="25.0" prefWidth="227.0" promptText="Nombres de la Contrayente" />
+                                <TextField fx:id="txtApellidoFM" layoutX="358.0" layoutY="320.0" prefHeight="25.0" prefWidth="227.0" promptText="Apellidos de la Contrayente" />
+                                <TextField fx:id="txtEdadFM" layoutX="38.0" layoutY="358.0" prefHeight="25.0" prefWidth="42.0" promptText="Edad" />
+                                <TextField fx:id="txtOrigenFM" layoutX="164.0" layoutY="359.0" prefHeight="25.0" prefWidth="211.0" promptText="Lugar de Origen" />
+                                <TextField fx:id="txtFeligresFM" layoutX="448.0" layoutY="358.0" prefHeight="25.0" prefWidth="142.0" promptText="Feligres" />
+                                <TextField fx:id="txtPadreFM" layoutX="64.0" layoutY="414.0" prefHeight="25.0" prefWidth="239.0" promptText="Padre de la contrayente" />                                
+                                <TextField fx:id="txtMadreFM" layoutX="336.0" layoutY="414.0" prefHeight="25.0" prefWidth="253.0" promptText="Madre de la Contrayente" />
+                                <TextField fx:id="txtCelebranteM" layoutX="170.0" layoutY="459.0" prefHeight="25.0" prefWidth="222.0" promptText="Sacerdote que Celebro el Sacramento" />                                
+                                <TextArea fx:id="txtAreaM" layoutX="619.0" layoutY="160.0" prefHeight="272.0" prefWidth="201.0" promptText="Onservaciones o Notas" />
+                                <Label layoutX="14.0" layoutY="8.0" prefHeight="23.0" prefWidth="41.0" text="Libro">
+                                    <font>
+                                        <Font name="Arial Bold" size="12.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="214.0" layoutY="8.0" prefHeight="23.0" prefWidth="41.0" text="Partida">
+                                    <font>
+                                        <Font name="Arial Bold" size="12.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="112.0" layoutY="8.0" prefHeight="23.0" prefWidth="41.0" text="Folio">
+                                    <font>
+                                        <Font name="Arial Bold" size="12.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="436.0" layoutY="75.0" prefHeight="23.0" prefWidth="56.0" text="Y fecha:">
+                                    <font>
+                                        <Font name="Arial Bold" size="12.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="19.0" layoutY="192.0" prefHeight="23.0" prefWidth="114.0" text="El Matrimonio de:">
+                                    <font>
+                                        <Font name="Arial Bold" size="12.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="652.0" layoutY="132.0" prefHeight="23.0" prefWidth="114.0" text="Observaciones">
+                                    <font>
+                                        <Font name="Arial Bold" size="12.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="18.0" layoutY="273.0" prefHeight="23.0" prefWidth="56.0" text="Hijo de:">
+                                    <font>
+                                        <Font name="Arial Bold" size="12.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="314.0" layoutY="273.0" prefHeight="23.0" prefWidth="20.0" text="Y">
+                                    <font>
+                                        <Font name="Arial Bold" size="12.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="36.0" layoutY="460.0" prefHeight="23.0" prefWidth="140.0" text="Celebro el Matrimonio:">
+                                    <font>
+                                        <Font name="Arial Bold" size="12.0" />
+                                    </font>
+                                </Label>
+                                <AnchorPane layoutX="35.0" layoutY="37.0" />
+                                <Label layoutX="39.0" layoutY="75.0" prefHeight="23.0" prefWidth="25.0" text="En">
+                                    <font>
+                                        <Font name="Arial Bold" size="12.0" />
+                                    </font>
+                                </Label>
+
+                                <Accordion layoutX="536.0" layoutY="233.0" />
+                                
+                                <Label layoutX="114.0" layoutY="121.0" prefHeight="23.0" prefWidth="415.0" text="Previo a los tramites de Derecho y sin Impedimentos, ante los testigos:">
+                                    <font>
+                                        <Font name="Arial Bold" size="12.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="311.0" layoutY="144.0" prefHeight="23.0" prefWidth="20.0" text="Y">
+                                    <font>
+                                        <Font name="Arial Bold" size="12.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="15.0" layoutY="231.0" prefHeight="23.0" prefWidth="30.0" text="De:">
+                                    <font>
+                                        <Font name="Arial Bold" size="12.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="77.0" layoutY="231.0" prefHeight="23.0" prefWidth="90.0" text="Originario de :">
+                                    <font>
+                                        <Font name="Arial Bold" size="12.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="375.0" layoutY="231.0" prefHeight="23.0" prefWidth="69.0" text="Feligres de:">
+                                    <font>
+                                        <Font name="Arial Bold" size="12.0" />
+                                    </font>
+                                </Label>
+                               
+                                
+                                <Label layoutX="16.0" layoutY="319.0" prefHeight="23.0" prefWidth="114.0" text="Con la Señorita:">
+                                    <font>
+                                        <Font name="Arial Bold" size="12.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="19.0" layoutY="415.0" prefHeight="23.0" prefWidth="56.0" text="Hijo de:">
+                                    <font>
+                                        <Font name="Arial Bold" size="12.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="315.0" layoutY="415.0" prefHeight="23.0" prefWidth="20.0" text="Y">
+                                    <font>
+                                        <Font name="Arial Bold" size="12.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="19.0" layoutY="359.0" prefHeight="23.0" prefWidth="30.0" text="De:">
+                                    <font>
+                                        <Font name="Arial Bold" size="12.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="81.0" layoutY="359.0" prefHeight="23.0" prefWidth="90.0" text="Originaria de :">
+                                    <font>
+                                        <Font name="Arial Bold" size="12.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="379.0" layoutY="359.0" prefHeight="23.0" prefWidth="69.0" text="Feligres de:">
+                                    <font>
+                                        <Font name="Arial Bold" size="12.0" />
+                                    </font>
+                                </Label>
+                                
+                                <Separator layoutX="17.0" layoutY="305.0" prefHeight="2.0" prefWidth="562.0" />
+                                <Separator layoutX="21.0" layoutY="175.0" prefHeight="2.0" prefWidth="562.0" />
+                            </children>
+                        </AnchorPane>
+                    </children>
+                </AnchorPane>
+            </center>
+            <right>
+                <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <Pane layoutX="-1.0" prefHeight="513.0" prefWidth="202.0" style="-fx-background-color: linear-gradient(to bottom, #FFA1E6, #ffffff);">
+                            <children>
+                                <Button layoutX="29.0" layoutY="25.0" mnemonicParsing="false" onAction="#_regresar" prefHeight="37.0" prefWidth="112.0" text="Regresar">
+                                    <font>
+                                        <Font name="System Bold" size="14.0" />
+                                    </font>
+                                    <cursor>
+                                        <Cursor fx:constant="HAND" />
+                                    </cursor>
+                                </Button>
+                                <Separator layoutX="20.0" layoutY="72.0" prefHeight="1.0" prefWidth="154.0" />
+                                <ImageView fitHeight="34.0" fitWidth="31.0" layoutX="19.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../../img/deshacer.png" />
+                                    </image>
+                                </ImageView>
+                                <Button layoutX="27.0" layoutY="84.0" mnemonicParsing="false" onAction="#_actualizarM" prefHeight="34.0" prefWidth="116.0" style="-fx-background-color: green;" text="Guardar" textFill="#f2f2f2">
+                                    <cursor>
+                                        <Cursor fx:constant="HAND" />
+                                    </cursor>
+                                </Button>
+                                <Button layoutX="29.0" layoutY="132.0" mnemonicParsing="false" onAction="#_eliminarM" prefHeight="40.0" prefWidth="113.0" style="-fx-background-color: red;" text="Eliminar" textFill="WHITE">
+                                    <font>
+                                        <Font name="System Bold" size="12.0" />
+                                    </font>
+                                </Button>
+                                <Button fx:id="btnImprimirC" layoutX="31.0" layoutY="185.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="108.0" text="Imprimir " />
+                            </children>
+                        </Pane>
+                    </children>
+                </AnchorPane>
+            </right>
+        </BorderPane>
+    </children>
 </AnchorPane>

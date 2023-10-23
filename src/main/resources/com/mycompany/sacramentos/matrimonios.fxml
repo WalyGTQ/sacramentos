@@ -69,8 +69,30 @@
                            <TextField fx:id="txtLibroM" layoutX="62.0" layoutY="7.0" prefHeight="25.0" prefWidth="40.0" promptText="#" />
                            <TextField fx:id="txtFolioM" layoutX="166.0" layoutY="7.0" prefHeight="25.0" prefWidth="40.0" promptText="#" />
                            <TextField fx:id="txtPartidaM" layoutX="284.0" layoutY="7.0" prefHeight="25.0" prefWidth="52.0" promptText="#" />
-                           <TextField fx:id="txtApellidoMM" layoutX="404.0" layoutY="146.0" prefHeight="25.0" prefWidth="294.0" promptText="Apellidos del Contrayente" />
+                            <CheckBox fx:id="boxInscritoM" layoutX="389.0" layoutY="13.0" mnemonicParsing="false" text="Inscrito al Libro">
+                              <font>
+                                 <Font name="System Bold Italic" size="12.0" />
+                              </font>
+                           </CheckBox>
+                           <TextField fx:id="txtlugarM" layoutX="40.0" layoutY="46.0" prefHeight="25.0" prefWidth="333.0" promptText="Lugar donde Se Realiza el Sacramento" text="Parroquia Santo Hermano Pedro Chimaltenango" />
+                           <DatePicker fx:id="dpFechaM" blendMode="SRC_ATOP" layoutX="445.0" layoutY="46.0" prefHeight="25.0" prefWidth="235.0" promptText="Fecha del Sacramento" />
+                           <TextField fx:id="txtTestigo1M" layoutX="36.0" layoutY="112.0" prefHeight="25.0" prefWidth="285.0" promptText="Nombre Testigo Uno" />
+                           <TextField fx:id="txtTestigo2M" layoutX="358.0" layoutY="111.0" prefHeight="25.0" prefWidth="302.0" promptText="Nombre Testigo Dos" />
                            <TextField fx:id="txtNombreMM" layoutX="121.0" layoutY="148.0" prefHeight="25.0" prefWidth="275.0" promptText="Nombres del Contrayente" />
+                           <TextField fx:id="txtApellidoMM" layoutX="404.0" layoutY="146.0" prefHeight="25.0" prefWidth="294.0" promptText="Apellidos del Contrayente" />
+                           <TextField fx:id="txtEdadMM" layoutX="33.0" layoutY="177.0" prefHeight="25.0" prefWidth="42.0" promptText="Edad" />
+                           <TextField fx:id="txtOrigenMM" layoutX="159.0" layoutY="178.0" prefHeight="25.0" prefWidth="252.0" promptText="Lugar de Origen" />
+                           <TextField fx:id="txtFeligresMM" layoutX="500.0" layoutY="178.0" prefHeight="25.0" prefWidth="244.0" promptText="Feligres" text="Esta Parroquia" />
+                           <TextField fx:id="txtPadreMM" layoutX="59.0" layoutY="209.0" prefHeight="25.0" prefWidth="239.0" promptText="Padre del Contrayente" />
+                           <TextField fx:id="txtMadreMM" layoutX="331.0" layoutY="209.0" prefHeight="25.0" prefWidth="253.0" promptText="Madre del Contrayente" />
+                           <TextField fx:id="txtNombreFM" layoutX="122.0" layoutY="262.0" prefHeight="25.0" prefWidth="275.0" promptText="Nombres de la Contrayente" />
+                           <TextField fx:id="txtApellidoFM" layoutX="405.0" layoutY="262.0" prefHeight="25.0" prefWidth="287.0" promptText="Apellidos de la Contrayente" />
+                           <TextField fx:id="txtEdadFM" layoutX="33.0" layoutY="301.0" prefHeight="25.0" prefWidth="42.0" promptText="Edad" />
+                           <TextField fx:id="txtOrigenFM" layoutX="159.0" layoutY="302.0" prefHeight="25.0" prefWidth="255.0" promptText="Lugar de Origen" />
+                           <TextField fx:id="txtFeligresFM" layoutX="498.0" layoutY="302.0" prefHeight="25.0" prefWidth="249.0" promptText="Feligres" text="Esta Parroquia" />
+                           <TextField fx:id="txtPadreFM" layoutX="60.0" layoutY="345.0" prefHeight="25.0" prefWidth="239.0" promptText="Padre de la contrayente" />
+                           <TextField fx:id="txtMadreFM" layoutX="332.0" layoutY="345.0" prefHeight="25.0" prefWidth="253.0" promptText="Madre de la Contrayente" />
+                           <TextField fx:id="txtCelebranteM" layoutX="148.0" layoutY="388.0" prefHeight="25.0" prefWidth="340.0" promptText="Sacerdote que Celebro el Sacramento" text="P. José Rolando Cúmez Tuyuc" />
                            <TextArea fx:id="txtAreaM" layoutX="783.0" layoutY="42.0" prefHeight="272.0" prefWidth="201.0" promptText="Onservaciones o Notas" text="Ninguna" />
                            <Label layoutX="14.0" layoutY="8.0" prefHeight="23.0" prefWidth="41.0" text="Libro">
                               <font>
@@ -92,7 +114,6 @@
                                  <Font name="Arial Bold" size="12.0" />
                               </font>
                            </Label>
-                           <DatePicker fx:id="dpFechaM" blendMode="SRC_ATOP" layoutX="445.0" layoutY="46.0" prefHeight="25.0" prefWidth="235.0" promptText="Fecha del Sacramento" />
                            <Label layoutX="15.0" layoutY="147.0" prefHeight="23.0" prefWidth="114.0" text="El Matrimonio de:">
                               <font>
                                  <Font name="Arial Bold" size="12.0" />
@@ -113,7 +134,6 @@
                                  <Font name="Arial Bold" size="12.0" />
                               </font>
                            </Label>
-                           <TextField fx:id="txtCelebranteM" layoutX="148.0" layoutY="388.0" prefHeight="25.0" prefWidth="340.0" promptText="Sacerdote que Celebro el Sacramento" text="P. José Rolando Cúmez Tuyuc" />
                            <Label layoutX="14.0" layoutY="389.0" prefHeight="23.0" prefWidth="140.0" text="Celebro el Matrimonio:">
                               <font>
                                  <Font name="Arial Bold" size="12.0" />
@@ -125,14 +145,9 @@
                                  <Font name="Arial Bold" size="12.0" />
                               </font>
                            </Label>
-                           <CheckBox fx:id="boxInscritoM" layoutX="389.0" layoutY="13.0" mnemonicParsing="false" text="Inscrito al Libro">
-                              <font>
-                                 <Font name="System Bold Italic" size="12.0" />
-                              </font>
-                           </CheckBox>
+
                            <Accordion layoutX="536.0" layoutY="233.0" />
-                           <TextField fx:id="txtTestigo2M" layoutX="358.0" layoutY="111.0" prefHeight="25.0" prefWidth="302.0" promptText="Nombre Testigo Dos" />
-                           <TextField fx:id="txtTestigo1M" layoutX="36.0" layoutY="112.0" prefHeight="25.0" prefWidth="285.0" promptText="Nombre Testigo Uno" />
+
                            <Label layoutX="190.0" layoutY="81.0" prefHeight="23.0" prefWidth="415.0" text="Previo a los tramites de Derecho y sin Impedimentos, ante los testigos:">
                               <font>
                                  <Font name="Arial Bold" size="12.0" />
@@ -148,23 +163,18 @@
                                  <Font name="Arial Bold" size="12.0" />
                               </font>
                            </Label>
-                           <TextField fx:id="txtEdadMM" layoutX="33.0" layoutY="177.0" prefHeight="25.0" prefWidth="42.0" promptText="Edad" />
                            <Label layoutX="76.0" layoutY="178.0" prefHeight="23.0" prefWidth="90.0" text="Originario de :">
                               <font>
                                  <Font name="Arial Bold" size="12.0" />
                               </font>
                            </Label>
-                           <TextField fx:id="txtOrigenMM" layoutX="159.0" layoutY="178.0" prefHeight="25.0" prefWidth="252.0" promptText="Lugar de Origen" />
                            <Label layoutX="424.0" layoutY="179.0" prefHeight="23.0" prefWidth="69.0" text="Feligres de:">
                               <font>
                                  <Font name="Arial Bold" size="12.0" />
                               </font>
                            </Label>
-                           <TextField fx:id="txtFeligresMM" layoutX="500.0" layoutY="178.0" prefHeight="25.0" prefWidth="244.0" promptText="Feligres" text="Esta Parroquia" />
-                           <TextField fx:id="txtMadreMM" layoutX="331.0" layoutY="209.0" prefHeight="25.0" prefWidth="253.0" promptText="Madre del Contrayente" />
-                           <TextField fx:id="txtPadreMM" layoutX="59.0" layoutY="209.0" prefHeight="25.0" prefWidth="239.0" promptText="Padre del Contrayente" />
-                           <TextField fx:id="txtApellidoFM" layoutX="405.0" layoutY="262.0" prefHeight="25.0" prefWidth="287.0" promptText="Apellidos de la Contrayente" />
-                           <TextField fx:id="txtNombreFM" layoutX="122.0" layoutY="262.0" prefHeight="25.0" prefWidth="275.0" promptText="Nombres de la Contrayente" />
+                           
+                         
                            <Label layoutX="16.0" layoutY="261.0" prefHeight="23.0" prefWidth="114.0" text="Con la Señorita:">
                               <font>
                                  <Font name="Arial Bold" size="12.0" />
@@ -185,25 +195,20 @@
                                  <Font name="Arial Bold" size="12.0" />
                               </font>
                            </Label>
-                           <TextField fx:id="txtEdadFM" layoutX="33.0" layoutY="301.0" prefHeight="25.0" prefWidth="42.0" promptText="Edad" />
                            <Label layoutX="76.0" layoutY="302.0" prefHeight="23.0" prefWidth="90.0" text="Originaria de :">
                               <font>
                                  <Font name="Arial Bold" size="12.0" />
                               </font>
                            </Label>
-                           <TextField fx:id="txtOrigenFM" layoutX="159.0" layoutY="302.0" prefHeight="25.0" prefWidth="255.0" promptText="Lugar de Origen" />
                            <Label layoutX="423.0" layoutY="303.0" prefHeight="23.0" prefWidth="69.0" text="Feligres de:">
                               <font>
                                  <Font name="Arial Bold" size="12.0" />
                               </font>
                            </Label>
-                           <TextField fx:id="txtFeligresFM" layoutX="498.0" layoutY="302.0" prefHeight="25.0" prefWidth="249.0" promptText="Feligres" text="Esta Parroquia" />
-                           <TextField fx:id="txtMadreFM" layoutX="332.0" layoutY="345.0" prefHeight="25.0" prefWidth="253.0" promptText="Madre de la Contrayente" />
-                           <TextField fx:id="txtPadreFM" layoutX="60.0" layoutY="345.0" prefHeight="25.0" prefWidth="239.0" promptText="Padre de la contrayente" />
+                          
                            <Separator layoutX="16.0" layoutY="247.0" prefHeight="0.0" prefWidth="700.0" />
                            <Button layoutX="812.0" layoutY="357.0" mnemonicParsing="false" onAction="#_guardarM" prefHeight="25.0" prefWidth="79.0" text="Guardar" />
                            <Button layoutX="920.0" layoutY="357.0" mnemonicParsing="false" onAction="#limpiarCampos" text="Limpiar" />
-                           <TextField fx:id="txtlugarM" layoutX="40.0" layoutY="46.0" prefHeight="25.0" prefWidth="333.0" promptText="Lugar donde Se Realiza el Sacramento" text="Parroquia Santo Hermano Pedro Chimaltenango" />
                         </children>
                      </AnchorPane>
                   </content></Tab>

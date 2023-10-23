@@ -21,142 +21,143 @@
     <stylesheets>
         <URL value="@/styles/edicionregistropc.css" />
     </stylesheets>
-   <children>
-      <BorderPane prefHeight="600.0" prefWidth="1000.0">
-         <top>
-            <AnchorPane prefHeight="87.0" prefWidth="1000.0" style="-fx-background-color: linear-gradient(to bottom, #FFDC61, #ffffff);" BorderPane.alignment="CENTER">
-               <children>
-                  <Label layoutX="187.0" layoutY="14.0" text="Edicion de Registro de Primera Comunion">
-                     <font>
-                        <Font size="34.0" />
-                     </font>
-                  </Label>
-               </children>
-            </AnchorPane>
-         </top>
-         <right>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-               <children>
-                  <Pane prefHeight="477.0" prefWidth="206.0" style="-fx-background-color: linear-gradient(to bottom, #FFDC61, #ffffff);">
-                     <children>
-                        <Button layoutX="47.0" layoutY="22.0" mnemonicParsing="false" onAction="#_regresar" prefHeight="37.0" prefWidth="112.0" text="Regresar">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
-                        <Separator layoutX="3.0" layoutY="68.0" prefWidth="200.0" />
-                        <ImageView fitHeight="34.0" fitWidth="31.0" layoutX="14.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../img/deshacer.png" />
-                           </image>
-                        </ImageView>
-                        <Button layoutX="45.0" layoutY="81.0" mnemonicParsing="false" onAction="#_actualziarPc" prefHeight="34.0" prefWidth="116.0" style="-fx-background-color: green;" text="Guardar" textFill="#f2f2f2">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
-                        <Button layoutX="47.0" layoutY="129.0" mnemonicParsing="false" onAction="#_EliminarPc" prefHeight="40.0" prefWidth="113.0" style="-fx-background-color: red;" text="Eliminar" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Button>
-                        <Button layoutX="49.0" layoutY="182.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="108.0" text="Imprimir " />
-                     </children>
-                  </Pane>
-               </children>
-            </AnchorPane>
-         </right>
-         <center>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-               <children>
-                  <AnchorPane prefHeight="508.0" prefWidth="797.0" style="-fx-background-color: linear-gradient(to bottom, #FFDC61, #ffffff);">
-                     <children>
-                        <TextField fx:id="txtLibroPc" alignment="TOP_CENTER" layoutX="55.0" layoutY="16.0" prefHeight="25.0" prefWidth="43.0" promptText="#" />
-                        <TextField fx:id="txtFolioPc" alignment="TOP_CENTER" layoutX="160.0" layoutY="16.0" prefHeight="25.0" prefWidth="40.0" promptText="#" />
-                        <TextField fx:id="txtPartidaPc" alignment="TOP_CENTER" layoutX="264.0" layoutY="16.0" prefHeight="25.0" prefWidth="40.0" promptText="#" />
-                        <TextField fx:id="txtApellidoPc" layoutX="69.0" layoutY="163.0" prefHeight="25.0" prefWidth="239.0" promptText="Apellidos de la Persona" />
-                        <TextField fx:id="txtNombrePc" layoutX="69.0" layoutY="118.0" prefHeight="25.0" prefWidth="238.0" promptText="Nombres de la Persona" />
-                        <TextArea fx:id="txtAreaObPc" layoutX="566.0" layoutY="90.0" prefHeight="296.0" prefWidth="216.0" promptText="Observaciones si Hubiese" />
-                        <Label layoutX="14.0" layoutY="17.0" prefHeight="23.0" prefWidth="41.0" text="Libro">
-                           <font>
-                              <Font name="Arial Bold" size="12.0" />
-                           </font>
+    <children>
+        <BorderPane prefHeight="600.0" prefWidth="1000.0">
+            <top>
+                <AnchorPane prefHeight="87.0" prefWidth="1000.0" style="-fx-background-color: linear-gradient(to bottom, #FFDC61, #ffffff);" BorderPane.alignment="CENTER">
+                    <children>
+                        <Label layoutX="187.0" layoutY="14.0" text="Edicion de Registro de Primera Comunion">
+                            <font>
+                                <Font size="34.0" />
+                            </font>
                         </Label>
-                        <Label layoutX="214.0" layoutY="17.0" prefHeight="23.0" prefWidth="41.0" text="Partida">
-                           <font>
-                              <Font name="Arial Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="112.0" layoutY="17.0" prefHeight="23.0" prefWidth="41.0" text="Folio">
-                           <font>
-                              <Font name="Arial Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="19.0" layoutY="66.0" prefHeight="23.0" prefWidth="114.0" text="Fecha Realizado">
-                           <font>
-                              <Font name="Arial Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <DatePicker fx:id="dpFechaRealizadoPc" layoutX="119.0" layoutY="65.0" prefHeight="25.0" prefWidth="278.0" promptText="Fecha en que se Realizó" />
-                        <Label layoutX="21.0" layoutY="119.0" prefHeight="23.0" prefWidth="57.0" text="Nombre">
-                           <font>
-                              <Font name="Arial Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="10.0" layoutY="164.0" prefHeight="23.0" prefWidth="53.0" text="Apellido">
-                           <font>
-                              <Font name="Arial Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="14.0" layoutY="209.0" prefHeight="23.0" prefWidth="129.0" text="Fecha de Nacimiento">
-                           <font>
-                              <Font name="Arial Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <DatePicker fx:id="dpFechaNacPc" layoutX="143.0" layoutY="208.0" prefHeight="25.0" prefWidth="258.0" promptText="Ingrese Fecha de Nacimiento" />
-                        <Label layoutX="617.0" layoutY="66.0" prefHeight="23.0" prefWidth="114.0" text="Observaciones">
-                           <font>
-                              <Font name="Arial Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="txtLugarBauPc" layoutX="133.0" layoutY="267.0" prefHeight="25.0" prefWidth="333.0" promptText="Lugar en que se Realizo el Sacramento" />
-                        <Label layoutX="19.0" layoutY="268.0" prefHeight="23.0" prefWidth="114.0" text="Lugar Bautismo">
-                           <font>
-                              <Font name="Arial Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <CheckBox fx:id="boxInscritoPc" layoutX="344.0" layoutY="20.0" mnemonicParsing="false" text="Inscrito al Libro">
-                           <font>
-                              <Font name="System Bold Italic" size="12.0" />
-                           </font>
-                        </CheckBox>
-                        <Accordion layoutX="536.0" layoutY="233.0" />
-                        <AnchorPane layoutX="18.0" layoutY="340.0" prefHeight="51.0" prefWidth="149.0" />
-                        <TextField fx:id="txtCelebrantePc" layoutX="133.0" layoutY="314.0" prefHeight="25.0" prefWidth="333.0" promptText="Sacerdote o delegado que Celebro" />
-                        <Label layoutX="36.0" layoutY="315.0" prefHeight="23.0" prefWidth="73.0" text="Celebrante">
-                           <font>
-                              <Font name="Arial Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="txtEdadPc" alignment="TOP_CENTER" editable="false" layoutX="378.0" layoutY="142.0" prefHeight="25.0" prefWidth="62.0" />
-                        <Label layoutX="335.0" layoutY="143.0" prefHeight="23.0" prefWidth="41.0" text="Edad:">
-                           <font>
-                              <Font name="Arial Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="447.0" layoutY="143.0" prefHeight="23.0" prefWidth="41.0" text="años.">
-                           <font>
-                              <Font name="Arial Bold" size="12.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </AnchorPane>
-               </children>
-            </AnchorPane>
-         </center>
-      </BorderPane>
-   </children>
+                    </children>
+                </AnchorPane>
+            </top>
+            <right>
+                <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <Pane prefHeight="477.0" prefWidth="206.0" style="-fx-background-color: linear-gradient(to bottom, #FFDC61, #ffffff);">
+                            <children>
+                                <Button layoutX="47.0" layoutY="22.0" mnemonicParsing="false" onAction="#_regresar" prefHeight="37.0" prefWidth="112.0" text="Regresar">
+                                    <font>
+                                        <Font name="System Bold" size="14.0" />
+                                    </font>
+                                    <cursor>
+                                        <Cursor fx:constant="HAND" />
+                                    </cursor>
+                                </Button>
+                                <Separator layoutX="3.0" layoutY="68.0" prefWidth="200.0" />
+                                <ImageView fitHeight="34.0" fitWidth="31.0" layoutX="14.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../../img/deshacer.png" />
+                                    </image>
+                                </ImageView>
+                                <Button layoutX="45.0" layoutY="81.0" mnemonicParsing="false" onAction="#_actualziarPc" prefHeight="34.0" prefWidth="116.0" style="-fx-background-color: green;" text="Guardar" textFill="#f2f2f2">
+                                    <cursor>
+                                        <Cursor fx:constant="HAND" />
+                                    </cursor>
+                                </Button>
+                                <Button layoutX="47.0" layoutY="129.0" mnemonicParsing="false" onAction="#_EliminarPc" prefHeight="40.0" prefWidth="113.0" style="-fx-background-color: red;" text="Eliminar" textFill="WHITE">
+                                    <font>
+                                        <Font name="System Bold" size="12.0" />
+                                    </font>
+                                </Button>
+                                <Button layoutX="49.0" layoutY="182.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="108.0" text="Imprimir " />
+                            </children>
+                        </Pane>
+                    </children>
+                </AnchorPane>
+            </right>
+            <center>
+                <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <AnchorPane prefHeight="508.0" prefWidth="797.0" style="-fx-background-color: linear-gradient(to bottom, #FFDC61, #ffffff);">
+                            <children>
+                                <TextField fx:id="txtLibroPc" alignment="TOP_CENTER" layoutX="55.0" layoutY="16.0" prefHeight="25.0" prefWidth="43.0" promptText="#" />
+                                <TextField fx:id="txtFolioPc" alignment="TOP_CENTER" layoutX="160.0" layoutY="16.0" prefHeight="25.0" prefWidth="40.0" promptText="#" />
+                                <TextField fx:id="txtPartidaPc" alignment="TOP_CENTER" layoutX="264.0" layoutY="16.0" prefHeight="25.0" prefWidth="40.0" promptText="#" />
+                                <CheckBox fx:id="boxInscritoPc" layoutX="344.0" layoutY="20.0" mnemonicParsing="false" text="Inscrito al Libro">
+                                    <font>
+                                        <Font name="System Bold Italic" size="12.0" />
+                                    </font>
+                                </CheckBox>
+                                <DatePicker fx:id="dpFechaRealizadoPc" layoutX="119.0" layoutY="65.0" prefHeight="25.0" prefWidth="278.0" promptText="Fecha en que se Realizó" />                                
+                                <TextField fx:id="txtNombrePc" layoutX="69.0" layoutY="118.0" prefHeight="25.0" prefWidth="238.0" promptText="Nombres de la Persona" />
+                                <TextField fx:id="txtApellidoPc" layoutX="69.0" layoutY="163.0" prefHeight="25.0" prefWidth="239.0" promptText="Apellidos de la Persona" />
+                                <DatePicker fx:id="dpFechaNacPc" layoutX="143.0" layoutY="208.0" prefHeight="25.0" prefWidth="258.0" promptText="Ingrese Fecha de Nacimiento" />
+                                <TextField fx:id="txtLugarBauPc" layoutX="133.0" layoutY="267.0" prefHeight="25.0" prefWidth="333.0" promptText="Lugar en que se Realizo el Sacramento" />
+                                <TextField fx:id="txtCelebrantePc" layoutX="133.0" layoutY="314.0" prefHeight="25.0" prefWidth="333.0" promptText="Sacerdote o delegado que Celebro" />                                   
+                                <TextArea fx:id="txtAreaObPc" layoutX="566.0" layoutY="90.0" prefHeight="296.0" prefWidth="216.0" promptText="Observaciones si Hubiese" />
+                                <Label layoutX="14.0" layoutY="17.0" prefHeight="23.0" prefWidth="41.0" text="Libro">
+                                    <font>
+                                        <Font name="Arial Bold" size="12.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="214.0" layoutY="17.0" prefHeight="23.0" prefWidth="41.0" text="Partida">
+                                    <font>
+                                        <Font name="Arial Bold" size="12.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="112.0" layoutY="17.0" prefHeight="23.0" prefWidth="41.0" text="Folio">
+                                    <font>
+                                        <Font name="Arial Bold" size="12.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="19.0" layoutY="66.0" prefHeight="23.0" prefWidth="114.0" text="Fecha Realizado">
+                                    <font>
+                                        <Font name="Arial Bold" size="12.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="21.0" layoutY="119.0" prefHeight="23.0" prefWidth="57.0" text="Nombre">
+                                    <font>
+                                        <Font name="Arial Bold" size="12.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="10.0" layoutY="164.0" prefHeight="23.0" prefWidth="53.0" text="Apellido">
+                                    <font>
+                                        <Font name="Arial Bold" size="12.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="14.0" layoutY="209.0" prefHeight="23.0" prefWidth="129.0" text="Fecha de Nacimiento">
+                                    <font>
+                                        <Font name="Arial Bold" size="12.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="617.0" layoutY="66.0" prefHeight="23.0" prefWidth="114.0" text="Observaciones">
+                                    <font>
+                                        <Font name="Arial Bold" size="12.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="19.0" layoutY="268.0" prefHeight="23.0" prefWidth="114.0" text="Lugar Bautismo">
+                                    <font>
+                                        <Font name="Arial Bold" size="12.0" />
+                                    </font>
+                                </Label>
+
+                                <Accordion layoutX="536.0" layoutY="233.0" />
+                                <AnchorPane layoutX="18.0" layoutY="340.0" prefHeight="51.0" prefWidth="149.0" />
+                                <Label layoutX="36.0" layoutY="315.0" prefHeight="23.0" prefWidth="73.0" text="Celebrante">
+                                    <font>
+                                        <Font name="Arial Bold" size="12.0" />
+                                    </font>
+                                </Label>
+                                <TextField fx:id="txtEdadPc" alignment="TOP_CENTER" editable="false" layoutX="378.0" layoutY="142.0" prefHeight="25.0" prefWidth="62.0" />
+                                <Label layoutX="335.0" layoutY="143.0" prefHeight="23.0" prefWidth="41.0" text="Edad:">
+                                    <font>
+                                        <Font name="Arial Bold" size="12.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="447.0" layoutY="143.0" prefHeight="23.0" prefWidth="41.0" text="años.">
+                                    <font>
+                                        <Font name="Arial Bold" size="12.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </AnchorPane>
+                    </children>
+                </AnchorPane>
+            </center>
+        </BorderPane>
+    </children>
 </AnchorPane>
