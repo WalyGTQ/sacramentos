@@ -14,7 +14,12 @@ import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.ColumnText;
+import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfDocument;
+import com.itextpdf.text.pdf.PdfGState;
+import com.itextpdf.text.pdf.PdfPageEventHelper;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.awt.Desktop;
 import java.io.File;
@@ -27,6 +32,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Optional;
@@ -431,13 +437,15 @@ public class EdicionRegistroController implements Initializable {
         if (showConfirmationDialog("Confirmar Impresion", "Imprimir registro", "¿Estás seguro? Se Imprimira el registro de: " + datosFeligres.getNombre())) {
 
             Document document = new Document(PageSize.LETTER);
-            PdfWriter.getInstance(document, new FileOutputStream("C:/Users/walyn/Downloads/Constancia_Bautismo.pdf"));
+            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("C:/Users/walyn/Downloads/Constancia_Bautismo.pdf"));
             document.open();
             // Añadir un encabezado
             Font fontHeader = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 16, BaseColor.BLACK);
             Font fontTitle = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 20, BaseColor.RED);
             Font fontItalic = FontFactory.getFont(FontFactory.TIMES_BOLDITALIC, 14, BaseColor.BLACK);
+            Font fontItalicFecha = FontFactory.getFont(FontFactory.TIMES_BOLDITALIC, 12, BaseColor.BLACK);
             Font fontNormal = FontFactory.getFont(FontFactory.HELVETICA, 14, BaseColor.BLACK);
+            Font fontNormalTitle = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 14, BaseColor.BLACK);
             Font fontNormalRed = FontFactory.getFont(FontFactory.HELVETICA, 14, BaseColor.RED);
 
             FeligresDetalle feligres = SingletonData1.getInstance().getFeligresDetalle();
@@ -446,11 +454,51 @@ public class EdicionRegistroController implements Initializable {
             String fechaSacramentoFormatted = feligres.getFechaSacramento().format(formatter);
             String fechaNacimientoFormatted = feligres.getNacimiento().format(formatter);
             String fechaActualFormatted = LocalDate.now().format(formatter);
-
-            Image img = Image.getInstance("src/main/resources/img/logo1.png"); //  ruta de  imagen
-            img.setAbsolutePosition(50, 750); // Coordenadas x, y (desde la esquina inferior izquierda)
-            img.scaleToFit(200, 100); // Ancho y alto
-            document.add(img);
+            //Integracion de Logo Iglesia Pequeño
+            Image logoP = Image.getInstance("C:/Users/walyn/OneDrive/Documentos/NetBeansProjects/Sacramentos/src/main/resources/img/logo1.png"); //  ruta de  imagen
+            logoP.setAbsolutePosition(460, 630); // Coordenadas x, y (desde la esquina inferior izquierda)
+            logoP.scaleToFit(110, 110); // Ancho y alto
+            document.add(logoP);
+            //Integracion del Logo Bautismo
+            Image logoB = Image.getInstance("C:/Users/walyn/OneDrive/Documentos/NetBeansProjects/Sacramentos/src/main/resources/img/bautismoC.png"); //  ruta de  imagen
+            logoB.setAbsolutePosition(40, 630); // Coordenadas x, y (desde la esquina inferior izquierda)
+            logoB.scaleToFit(110, 110); // Ancho y alto
+            document.add(logoB);
+            // Integracion del Logo Grande Del Centro
+            Image logoCentro = Image.getInstance("C:/Users/walyn/OneDrive/Documentos/NetBeansProjects/Sacramentos/src/main/resources/img/logo1.png");
+            logoCentro.setAbsolutePosition(110, 180);
+            logoCentro.scaleToFit(400, 400);
+// Configura la opacidad usando PdfGState
+            PdfGState state = new PdfGState();
+            state.setFillOpacity(0.15f);  // Ajusta este valor para cambiar la opacidad
+// Agrega la imagen como marca de agua
+            PdfContentByte under = writer.getDirectContentUnder();
+            under.saveState();
+            under.setGState(state);
+            under.addImage(logoCentro);
+            under.restoreState();
+            
+            Image linea = Image.getInstance("C:/Users/walyn/OneDrive/Documentos/NetBeansProjects/Sacramentos/src/main/resources/img/Lline.png"); //  ruta de  imagen
+            linea.setAbsolutePosition(35, 40); // Coordenadas x, y (desde la esquina inferior izquierda)
+            linea.scaleToFit(550, 15); // Ancho y alto
+            document.add(linea);
+            
+            
+            //Integracion de Correo
+            Image correo = Image.getInstance("C:/Users/walyn/OneDrive/Documentos/NetBeansProjects/Sacramentos/src/main/resources/img/co.png"); //  ruta de  imagen
+            correo.setAbsolutePosition(440, 5); // Coordenadas x, y (desde la esquina inferior izquierda)
+            correo.scaleToFit(160, 50); // Ancho y alto
+            document.add(correo);
+            //Integracion de Whatsapp
+            Image wha = Image.getInstance("C:/Users/walyn/OneDrive/Documentos/NetBeansProjects/Sacramentos/src/main/resources/img/wa.png"); //  ruta de  imagen
+            wha.setAbsolutePosition(20, 5); // Coordenadas x, y (desde la esquina inferior izquierda)
+            wha.scaleToFit(160, 50); // Ancho y alto
+            document.add(wha);
+            //Integracion de Firma
+            Image co = Image.getInstance("C:/Users/walyn/OneDrive/Documentos/NetBeansProjects/Sacramentos/src/main/resources/img/firma.png"); //  ruta de  imagen
+            co.setAbsolutePosition(170, 70); // Coordenadas x, y (desde la esquina inferior izquierda)
+            co.scaleToFit(350, 350); // Ancho y alto
+            document.add(co);
 
             Paragraph pHeader = new Paragraph("Parroquia Santo Hermano Pedro\nDiócesis De Sololá-Chimaltenango\n5ᵃ Avenida 4-104, Zona 1\nChimaltenango, Guatemala, C.A.\nTel: 7839-2709", fontHeader);
             pHeader.setAlignment(Element.ALIGN_CENTER);
@@ -464,51 +512,90 @@ public class EdicionRegistroController implements Initializable {
             // Añadir detalles del bautismo
             Paragraph paragraph;
 
-            paragraph = new Paragraph("\nEn esta parroquia el día :", fontNormal);
+            paragraph = new Paragraph("\nEn esta parroquia el día :", fontNormalTitle);
             document.add(paragraph);
-            paragraph = new Paragraph("" + fechaSacramentoFormatted, fontItalic);
+// Crear el Chunk con fechaSacramentoFormatted
+            Chunk dateChunk = new Chunk(fechaSacramentoFormatted, fontItalic);
+// Establecer el subrayado (puedes ajustar los parámetros para cambiar el aspecto del subrayado)
+            dateChunk.setUnderline(0.1f, -2f);
+// Agregar el Chunk a un Paragraph y centrarlo
+            paragraph = new Paragraph(dateChunk);
+            paragraph.setAlignment(Element.ALIGN_CENTER);
+// Añadir el Paragraph al documento
+            document.add(paragraph);
+
+            paragraph = new Paragraph("Fue bautizado(a) solemnemente: ", fontNormalTitle);
+            document.add(paragraph);
+            // Crear el Chunk con el nombre y apellido
+            Chunk nameChunk = new Chunk(feligres.getNombre() + " " + feligres.getApellido(), fontItalic);
+            // Establecer el subrayado (puedes ajustar los parámetros para cambiar el aspecto del subrayado)
+            nameChunk.setUnderline(0.1f, -2f);
+            // Agregar el Chunk con el nombre y apellido a un Paragraph y centrarlo
+            paragraph = new Paragraph(nameChunk);
             paragraph.setAlignment(Element.ALIGN_CENTER);
             document.add(paragraph);
 
-            paragraph = new Paragraph("\nFue bautizado(a) solemnemente: ", fontNormal);
+            paragraph = new Paragraph("Quien nació el: ", fontNormalTitle);
             document.add(paragraph);
-            paragraph = new Paragraph(feligres.getNombre() + " " + feligres.getApellido(), fontItalic);
+// Crear el Chunk con fechaNacimientoFormatted
+            Chunk birthDateChunk = new Chunk(fechaNacimientoFormatted, fontItalic);
+// Establecer el subrayado (puedes ajustar los parámetros para cambiar el aspecto del subrayado)
+            birthDateChunk.setUnderline(0.1f, -2f);
+// Agregar el Chunk a un Paragraph y centrarlo
+            paragraph = new Paragraph(birthDateChunk);
             paragraph.setAlignment(Element.ALIGN_CENTER);
+// Añadir el Paragraph al documento
             document.add(paragraph);
 
-            paragraph = new Paragraph("\nQuien nació el: ", fontNormal);
-            document.add(paragraph);
-            paragraph = new Paragraph(fechaNacimientoFormatted, fontItalic);
+            paragraph = new Paragraph("Hijo(a) de: ", fontNormalTitle);
             paragraph.setAlignment(Element.ALIGN_CENTER);
+            document.add(paragraph);
+// Crear el Chunk con los nombres de los padres
+            Chunk parentsChunk = new Chunk(feligres.getPadre() + " y " + feligres.getMadre(), fontItalic);
+// Establecer el subrayado (puedes ajustar los parámetros para cambiar el aspecto del subrayado)
+            parentsChunk.setUnderline(0.1f, -2f);
+// Agregar el Chunk a un Paragraph y centrarlo
+            paragraph = new Paragraph(parentsChunk);
+            paragraph.setAlignment(Element.ALIGN_CENTER);
+// Añadir el Paragraph al documento
             document.add(paragraph);
 
-            paragraph = new Paragraph("\nHijo(a) de: ", fontNormal);
+            paragraph = new Paragraph("Fueron sus padrinos: ", fontNormalTitle);
             paragraph.setAlignment(Element.ALIGN_CENTER);
             document.add(paragraph);
-            paragraph = new Paragraph(feligres.getPadre() + " y " + feligres.getMadre(), fontItalic);
+            // Crear el Chunk con los nombres del padrino y la madrina
+            Chunk godparentsChunk = new Chunk(feligres.getPadrino() + " y " + feligres.getMadrina(), fontItalic);
+// Establecer el subrayado (puedes ajustar los parámetros para cambiar el aspecto del subrayado)
+            godparentsChunk.setUnderline(0.1f, -2f);
+// Agregar el Chunk a un Paragraph y centrarlo
+            paragraph = new Paragraph(godparentsChunk);
             paragraph.setAlignment(Element.ALIGN_CENTER);
-            document.add(paragraph);
-
-            paragraph = new Paragraph("\nFueron sus padrinos: ", fontNormal);
-            paragraph.setAlignment(Element.ALIGN_CENTER);
-            document.add(paragraph);
-            paragraph = new Paragraph(feligres.getPadrino() + " y " + feligres.getMadrina(), fontItalic);
-            paragraph.setAlignment(Element.ALIGN_CENTER);
-
+// Añadir el Paragraph al documento
             document.add(paragraph);
 
             paragraph = new Paragraph("\nComo consta en el libro: " + feligres.getLibro() + ", folio " + feligres.getFolio() + ", partida " + feligres.getPartida() + " de esta Parroquia.", fontNormal);
             document.add(paragraph);
 
             if (feligres.getObservacion() != null && !feligres.getObservacion().isEmpty()) {
-                paragraph = new Paragraph("\nObservaciones: " + feligres.getObservacion(), fontNormalRed);
+                paragraph = new Paragraph("Observaciones: " + feligres.getObservacion(), fontNormalRed);
                 document.add(paragraph);
             }
 
             // Fecha y firma
-            paragraph = new Paragraph("\nChimaltenango, " + fechaActualFormatted, fontNormal);
+            paragraph = new Paragraph("Chimaltenango, " + fechaActualFormatted, fontItalicFecha);
             paragraph.setAlignment(Element.ALIGN_RIGHT);
             document.add(paragraph);
+            
+            // FIrma y Sello
+            paragraph = new Paragraph("\n\n\n\n\n\n\nFirma del Párroco Y sello Parroquial", fontNormal);
+            paragraph.setAlignment(Element.ALIGN_CENTER);
+            document.add(paragraph);
+            // Nombre del Parroco
+            paragraph = new Paragraph("P. José Rolando Cúmez Tuyuc", fontItalic);
+            paragraph.setAlignment(Element.ALIGN_CENTER);
+            document.add(paragraph);
+            
+            writer.setPageEvent(new FooterEvent());//Asociamos el Evento que Genera la Hora Exacta de la Extencion del Documento
 
             try {
 
@@ -529,6 +616,24 @@ public class EdicionRegistroController implements Initializable {
             }
         } else {
             showAlert("Información", "Se Cancelo la Impresion", "Cancelado por Usuario", Alert.AlertType.INFORMATION);
+        }
+    }
+    
+        static class FooterEvent extends PdfPageEventHelper {
+        Font footerFont = FontFactory.getFont(FontFactory.HELVETICA, 10, BaseColor.BLACK);
+
+        @Override
+        public void onEndPage(PdfWriter writer, Document document) {
+            // Obtener la hora actual y formatearla
+            LocalDateTime now = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss a");
+            String currentTime = now.format(formatter);
+
+            // Añadir la hora al pie de página
+            Phrase footerPhrase = new Phrase(currentTime, footerFont);
+            ColumnText.showTextAligned(writer.getDirectContent(), Element.ALIGN_CENTER,
+                    footerPhrase, (document.right() - document.left()) / 2 + document.leftMargin(),
+                    document.bottom() - 18, 0); // Puedes ajustar los valores de posición si lo necesitas
         }
     }
 
