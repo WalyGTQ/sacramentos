@@ -477,13 +477,12 @@ public class EdicionRegistroController implements Initializable {
             under.setGState(state);
             under.addImage(logoCentro);
             under.restoreState();
-            
+
             Image linea = Image.getInstance("C:/Users/walyn/OneDrive/Documentos/NetBeansProjects/Sacramentos/src/main/resources/img/Lline.png"); //  ruta de  imagen
             linea.setAbsolutePosition(35, 40); // Coordenadas x, y (desde la esquina inferior izquierda)
             linea.scaleToFit(550, 15); // Ancho y alto
             document.add(linea);
-            
-            
+
             //Integracion de Correo
             Image correo = Image.getInstance("C:/Users/walyn/OneDrive/Documentos/NetBeansProjects/Sacramentos/src/main/resources/img/co.png"); //  ruta de  imagen
             correo.setAbsolutePosition(440, 5); // Coordenadas x, y (desde la esquina inferior izquierda)
@@ -585,7 +584,7 @@ public class EdicionRegistroController implements Initializable {
             paragraph = new Paragraph("Chimaltenango, " + fechaActualFormatted, fontItalicFecha);
             paragraph.setAlignment(Element.ALIGN_RIGHT);
             document.add(paragraph);
-            
+
             // FIrma y Sello
             paragraph = new Paragraph("\n\n\n\n\n\n\nFirma del Párroco Y sello Parroquial", fontNormal);
             paragraph.setAlignment(Element.ALIGN_CENTER);
@@ -594,7 +593,7 @@ public class EdicionRegistroController implements Initializable {
             paragraph = new Paragraph("P. José Rolando Cúmez Tuyuc", fontItalic);
             paragraph.setAlignment(Element.ALIGN_CENTER);
             document.add(paragraph);
-            
+
             writer.setPageEvent(new FooterEvent());//Asociamos el Evento que Genera la Hora Exacta de la Extencion del Documento
 
             try {
@@ -618,8 +617,9 @@ public class EdicionRegistroController implements Initializable {
             showAlert("Información", "Se Cancelo la Impresion", "Cancelado por Usuario", Alert.AlertType.INFORMATION);
         }
     }
-    
-        static class FooterEvent extends PdfPageEventHelper {
+
+    static class FooterEvent extends PdfPageEventHelper {
+
         Font footerFont = FontFactory.getFont(FontFactory.HELVETICA, 10, BaseColor.BLACK);
 
         @Override

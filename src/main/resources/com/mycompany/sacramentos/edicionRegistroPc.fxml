@@ -63,7 +63,7 @@
                                         <Font name="System Bold" size="12.0" />
                                     </font>
                                 </Button>
-                                <Button layoutX="49.0" layoutY="182.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="108.0" text="Imprimir " />
+                                <Button layoutX="49.0" layoutY="182.0" mnemonicParsing="false" onAction="#_imprimirPc" prefHeight="49.0" prefWidth="108.0" text="Imprimir " />
                             </children>
                         </Pane>
                     </children>

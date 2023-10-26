@@ -331,7 +331,7 @@ public class PrimaryController {
         }
 
     }//Fin Consulta Bautismo
-
+    
     private void _consultaComunion() throws IOException {
         // Configuración de las columnas usando PropertyValueFactory
         tcLibroC.setCellValueFactory(new PropertyValueFactory<ConsultaPrimeraComunion, Integer>("libroC"));
@@ -597,4 +597,5 @@ public class PrimaryController {
         alert.setContentText(content);
         alert.showAndWait();
     }
+    
 }

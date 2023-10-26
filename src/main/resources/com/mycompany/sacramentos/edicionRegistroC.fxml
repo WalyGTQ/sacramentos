@@ -169,7 +169,7 @@
                                         <Font name="System Bold" size="12.0" />
                                     </font>
                                 </Button>
-                                <Button fx:id="btnImprimirC" layoutX="50.0" layoutY="262.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="108.0" text="Imprimir " />
+                                <Button fx:id="btnImprimirC" layoutX="50.0" layoutY="262.0" mnemonicParsing="false" onAction="#_imprimirC" prefHeight="49.0" prefWidth="108.0" text="Imprimir " />
                             </children>
                         </Pane>
                     </children>
