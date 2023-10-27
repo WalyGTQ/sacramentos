@@ -511,7 +511,7 @@ public class EdicionRegistroPcController implements Initializable {
             document.add(paragraph);
 
             // FIrma y Sello
-            paragraph = new Paragraph("\n\n\n\n\n\n\nFirma del Párroco Y sello Parroquial", fontNormal);
+            paragraph = new Paragraph("\n\n\n\n\n\n\n\n\n\nFirma del Párroco Y sello Parroquial", fontNormal);
             paragraph.setAlignment(Element.ALIGN_CENTER);
             document.add(paragraph);
             // Nombre del Parroco

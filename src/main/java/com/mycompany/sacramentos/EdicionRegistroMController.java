@@ -525,7 +525,7 @@ public class EdicionRegistroMController implements Initializable {
             paragraph = new Paragraph("Previo a los trámites de Derecho y no habiendo impedimiento Canónico, ante la precencia de los testigos: ", fontNormalTitle);
             document.add(paragraph);
             // Crear el Chunk con los testigos
-            Chunk testigosChunk = new Chunk(feligres.getTestigoUnoM() + " " + feligres.getTestigoDosM(), fontItalic);
+            Chunk testigosChunk = new Chunk(feligres.getTestigoUnoM() + "  y  " + feligres.getTestigoDosM(), fontItalic);
             // Establecer el subrayado (puedes ajustar los parámetros para cambiar el aspecto del subrayado)
             testigosChunk.setUnderline(0.1f, -2f);
             // Agregar el Chunk con el nombre y apellido a un Paragraph y centrarlo
@@ -613,7 +613,7 @@ public class EdicionRegistroMController implements Initializable {
             document.add(paragraph);
 
             // FIrma y Sello
-            paragraph = new Paragraph("\n\n\n\n\n\n\nFirma del Párroco Y sello Parroquial", fontNormal);
+            paragraph = new Paragraph("\n\n\n\n\nFirma del Párroco Y sello Parroquial", fontNormal);
             paragraph.setAlignment(Element.ALIGN_CENTER);
             document.add(paragraph);
             // Nombre del Parroco
