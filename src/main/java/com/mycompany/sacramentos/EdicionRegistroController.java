@@ -72,6 +72,7 @@ public class EdicionRegistroController implements Initializable {
     //Para validar el Check
     private String inscrito;
     private Integer idBautismo;
+    private int edad;
 
     /**
      * Initializes the controller class.
@@ -225,7 +226,7 @@ public class EdicionRegistroController implements Initializable {
 
                         // Calcula la edad
                         LocalDate hoy = LocalDate.now();
-                        int edad = fechaInscripcion.getYear() - fechaNacimientoC.getYear();
+                        edad = fechaInscripcion.getYear() - fechaNacimientoC.getYear();
                         if (fechaNacimientoC.getDayOfYear() > fechaInscripcion.getDayOfYear()) {
                             edad--; // Ajusta la edad si el cumpleaños de este año aún no ha llegado.
                         }

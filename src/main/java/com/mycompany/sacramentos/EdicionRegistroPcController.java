@@ -67,6 +67,8 @@ public class EdicionRegistroPcController implements Initializable {
     private String check;
     //Algunas variables necesarias
     private String inscrito;//para pasar un string por CheckBox
+    private int edad;
+            
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -129,7 +131,7 @@ public class EdicionRegistroPcController implements Initializable {
 
                         // Calcula la edad
                         LocalDate hoy = LocalDate.now();
-                        int edad = fechaInscripcion.getYear() - fechaNacimientoC.getYear();
+                         edad = fechaInscripcion.getYear() - fechaNacimientoC.getYear();
                         if (fechaNacimientoC.getDayOfYear() > fechaInscripcion.getDayOfYear()) {
                             edad--; // Ajusta la edad si el cumpleaños de este año aún no ha llegado.
                         }

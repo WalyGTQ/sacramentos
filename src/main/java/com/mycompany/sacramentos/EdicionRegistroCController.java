@@ -66,6 +66,7 @@ public class EdicionRegistroCController implements Initializable {
     private DatePicker dpFechaSacCf, dpNacimientoCf;
     private String check;
     private String inscrito;//para pasar un string por CheckBox
+    private int edad;
 
     /**
      * Initializes the controller class.
@@ -136,7 +137,7 @@ public class EdicionRegistroCController implements Initializable {
 
                         // Calcula la edad
                         LocalDate hoy = LocalDate.now();
-                        int edad = fechaInscripcion.getYear() - fechaNacimientoC.getYear();
+                        edad = fechaInscripcion.getYear() - fechaNacimientoC.getYear();
                         if (fechaNacimientoC.getDayOfYear() > fechaInscripcion.getDayOfYear()) {
                             edad--; // Ajusta la edad si el cumpleaños de este año aún no ha llegado.
                         }
