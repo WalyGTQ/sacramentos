@@ -406,7 +406,7 @@ public class EdicionRegistroCController implements Initializable {
         if (showConfirmationDialog("Confirmar Impresion", "Imprimir registro", "¿Estás seguro? Se Imprimira el registro de: " + feligresDetalle.getNombreCf())) {
 
             Document document = new Document(PageSize.LETTER);
-            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("C:/Users/walyn/Downloads/Constancia_C.pdf"));
+            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("C:/Users/psher/Downloads/Constancia_C.pdf"));
             document.open();
             // Añadir un encabezado
             Font fontHeader = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 16, BaseColor.BLACK);
@@ -424,17 +424,17 @@ public class EdicionRegistroCController implements Initializable {
             String fechaNacimientoFormatted = feligres.getNacimientoCf().format(formatter);
             String fechaActualFormatted = LocalDate.now().format(formatter);
             //Integracion de Logo Iglesia Pequeño
-            Image logoP = Image.getInstance("C:/Users/walyn/OneDrive/Documentos/NetBeansProjects/Sacramentos/src/main/resources/img/logo1.png"); //  ruta de  imagen
+            Image logoP = Image.getInstance("C:/Users/psher/OneDrive/Documentos/Sacramentos/img/logo1.png"); //  ruta de  imagen
             logoP.setAbsolutePosition(460, 630); // Coordenadas x, y (desde la esquina inferior izquierda)
             logoP.scaleToFit(110, 110); // Ancho y alto
             document.add(logoP);
             //Integracion del Logo Bautismo
-            Image logoB = Image.getInstance("C:/Users/walyn/OneDrive/Documentos/NetBeansProjects/Sacramentos/src/main/resources/img/espiritu-santo.png"); //  ruta de  imagen
+            Image logoB = Image.getInstance("C:/Users/psher/OneDrive/Documentos/Sacramentos/img/espiritu-santo.png"); //  ruta de  imagen
             logoB.setAbsolutePosition(40, 630); // Coordenadas x, y (desde la esquina inferior izquierda)
             logoB.scaleToFit(110, 110); // Ancho y alto
             document.add(logoB);
             // Integracion del Logo Grande Del Centro
-            Image logoCentro = Image.getInstance("C:/Users/walyn/OneDrive/Documentos/NetBeansProjects/Sacramentos/src/main/resources/img/logo1.png");
+            Image logoCentro = Image.getInstance("C:/Users/psher/OneDrive/Documentos/Sacramentos/img/logo1.png");
             logoCentro.setAbsolutePosition(110, 180);
             logoCentro.scaleToFit(400, 400);
 // Configura la opacidad usando PdfGState
@@ -447,23 +447,23 @@ public class EdicionRegistroCController implements Initializable {
             under.addImage(logoCentro);
             under.restoreState();
 
-            Image linea = Image.getInstance("C:/Users/walyn/OneDrive/Documentos/NetBeansProjects/Sacramentos/src/main/resources/img/Lline.png"); //  ruta de  imagen
+            Image linea = Image.getInstance("C:/Users/psher/OneDrive/Documentos/Sacramentos/img/Lline.png"); //  ruta de  imagen
             linea.setAbsolutePosition(35, 40); // Coordenadas x, y (desde la esquina inferior izquierda)
             linea.scaleToFit(550, 15); // Ancho y alto
             document.add(linea);
 
             //Integracion de Correo
-            Image correo = Image.getInstance("C:/Users/walyn/OneDrive/Documentos/NetBeansProjects/Sacramentos/src/main/resources/img/co.png"); //  ruta de  imagen
+            Image correo = Image.getInstance("C:/Users/psher/OneDrive/Documentos/Sacramentos/img/co.png"); //  ruta de  imagen
             correo.setAbsolutePosition(440, 5); // Coordenadas x, y (desde la esquina inferior izquierda)
             correo.scaleToFit(160, 50); // Ancho y alto
             document.add(correo);
             //Integracion de Whatsapp
-            Image wha = Image.getInstance("C:/Users/walyn/OneDrive/Documentos/NetBeansProjects/Sacramentos/src/main/resources/img/wa.png"); //  ruta de  imagen
+            Image wha = Image.getInstance("C:/Users/psher/OneDrive/Documentos/Sacramentos/img/wa.png"); //  ruta de  imagen
             wha.setAbsolutePosition(20, 5); // Coordenadas x, y (desde la esquina inferior izquierda)
             wha.scaleToFit(160, 50); // Ancho y alto
             document.add(wha);
             //Integracion de Firma
-            Image co = Image.getInstance("C:/Users/walyn/OneDrive/Documentos/NetBeansProjects/Sacramentos/src/main/resources/img/firma.png"); //  ruta de  imagen
+            Image co = Image.getInstance("C:/Users/psher/OneDrive/Documentos/Sacramentos/img/firma.png"); //  ruta de  imagen
             co.setAbsolutePosition(170, 70); // Coordenadas x, y (desde la esquina inferior izquierda)
             co.scaleToFit(350, 350); // Ancho y alto
             document.add(co);
@@ -573,7 +573,8 @@ public class EdicionRegistroCController implements Initializable {
                 document.close();
             }
             try {
-                File myFile = new File("C:/Users/walyn/Downloads/Constancia_C.pdf");
+                File myFile = new File("C:/Users/psher/Downloads/Constancia_C.pdf");//Ruta Iglesia
+                //File myFile = new File("C:/Users/walyn/Downloads/Constancia_C.pdf"); //Ruta Laptop
                 if (Desktop.isDesktopSupported()) {
                     Desktop.getDesktop().open(myFile);
                 } else {
