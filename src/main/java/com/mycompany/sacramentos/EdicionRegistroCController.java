@@ -400,8 +400,8 @@ public class EdicionRegistroCController implements Initializable {
         }
         return a.equals(b); // Si 'a' no es nulo, compara con 'b' (que puede ser nulo).
     }
-    
-        @FXML
+
+    @FXML
     public void _imprimirC() throws IOException, DocumentException {
         if (showConfirmationDialog("Confirmar Impresion", "Imprimir registro", "¿Estás seguro? Se Imprimira el registro de: " + feligresDetalle.getNombreCf())) {
 
@@ -483,7 +483,7 @@ public class EdicionRegistroCController implements Initializable {
             paragraph = new Paragraph("\nEn esta parroquia el día :", fontNormalTitle);
             document.add(paragraph);
 // Crear el Chunk con fechaSacramentoFormatted
-            Chunk dateChunk = new Chunk(fechaSacramentoFormatted + ", a la edad de "+ feligres.getEdadCf()+" años.", fontItalic);
+            Chunk dateChunk = new Chunk(fechaSacramentoFormatted + ", a la edad de " + feligres.getEdadCf() + " años.", fontItalic);
 // Establecer el subrayado (puedes ajustar los parámetros para cambiar el aspecto del subrayado)
             dateChunk.setUnderline(0.1f, -2f);
 // Agregar el Chunk a un Paragraph y centrarlo
@@ -492,7 +492,7 @@ public class EdicionRegistroCController implements Initializable {
 // Añadir el Paragraph al documento
             document.add(paragraph);
 
-            paragraph = new Paragraph("Por la imposición de manos del Obispo, "+ feligres.getCelebranteCf()+", recibio el Sacramento de la Confirmacion: ", fontNormalTitle);
+            paragraph = new Paragraph("Por la imposición de manos del Obispo, " + feligres.getCelebranteCf() + ", recibio el Sacramento de la Confirmacion: ", fontNormalTitle);
             document.add(paragraph);
             // Crear el Chunk con el nombre y apellido
             Chunk nameChunk = new Chunk(feligres.getNombreCf() + " " + feligres.getApellidoCf(), fontItalic);
@@ -607,6 +607,4 @@ public class EdicionRegistroCController implements Initializable {
         }
     }
 
-    
-    
 }

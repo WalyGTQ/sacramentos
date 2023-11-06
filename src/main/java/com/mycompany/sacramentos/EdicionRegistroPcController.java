@@ -52,7 +52,6 @@ import javafx.scene.control.TextField;
  */
 public class EdicionRegistroPcController implements Initializable {
 
-    
     ConsultaPrimeraComunion feligres = SingletonPrimeraComunion.getInstance().getFeligresDetalle();
     //Instanciamos los campos del FXML hacia aca el controlador :)
     @FXML
@@ -68,7 +67,6 @@ public class EdicionRegistroPcController implements Initializable {
     //Algunas variables necesarias
     private String inscrito;//para pasar un string por CheckBox
     private int edad;
-            
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -131,7 +129,7 @@ public class EdicionRegistroPcController implements Initializable {
 
                         // Calcula la edad
                         LocalDate hoy = LocalDate.now();
-                         edad = fechaInscripcion.getYear() - fechaNacimientoC.getYear();
+                        edad = fechaInscripcion.getYear() - fechaNacimientoC.getYear();
                         if (fechaNacimientoC.getDayOfYear() > fechaInscripcion.getDayOfYear()) {
                             edad--; // Ajusta la edad si el cumpleaños de este año aún no ha llegado.
                         }
@@ -399,7 +397,7 @@ public class EdicionRegistroPcController implements Initializable {
             Font fontNormal = FontFactory.getFont(FontFactory.HELVETICA, 14, BaseColor.BLACK);
             Font fontNormalTitle = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 14, BaseColor.BLACK);
             Font fontNormalRed = FontFactory.getFont(FontFactory.HELVETICA, 14, BaseColor.RED);
-            
+
             ConsultaPrimeraComunion feligres = SingletonPrimeraComunion.getInstance().getFeligresDetalle();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE dd 'de' MMMM 'del' yyyy", new Locale("es", "ES"));
 

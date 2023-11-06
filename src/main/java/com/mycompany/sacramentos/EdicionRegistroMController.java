@@ -105,7 +105,7 @@ public class EdicionRegistroMController implements Initializable {
     private void _regresar() throws IOException {
         App.setRoot("matrimonios");
     }
-    
+
     @FXML //Funcionalidad Para Actualizar un registro Especifico
     private void _actualizarM() throws IOException {
         if (comparacionM()) {
@@ -143,8 +143,6 @@ public class EdicionRegistroMController implements Initializable {
                         int idFeligres2 = rs.getInt("idFeligres2");
                         int idCelebrante = rs.getInt("celebrante_idCelebrante");
 
-                    
-
                         //Manejo del ChecBox Modificado :.(
                         boolean check = boxInscritoM.isSelected();
                         if (check) {
@@ -152,7 +150,7 @@ public class EdicionRegistroMController implements Initializable {
                         } else {
                             inscrito = "No";
                         }
-                         //Update Feligreses :.)
+                        //Update Feligreses :.)
                         String sqlFeligresM = "UPDATE feligres SET nombre = ?, apellido = ?, edadFeligres = ?, lugarNacimiento = ?, feligresDe = ?, madreFeligres = ?, padreFeligres = ? WHERE idFeligres = ?";
                         pstmtM = connection.prepareStatement(sqlFeligresM);
                         pstmtM.setString(1, txtNombreMM.getText());
@@ -164,7 +162,7 @@ public class EdicionRegistroMController implements Initializable {
                         pstmtM.setString(7, txtMadreMM.getText());
                         pstmtM.setInt(8, idFeligres1);
                         pstmtM.executeUpdate();
-                        
+
                         String sqlFeligresF = "UPDATE feligres SET nombre = ?, apellido = ?, edadFeligres = ?, lugarNacimiento = ?, feligresDe = ?, madreFeligres = ?, padreFeligres = ? WHERE idFeligres = ?";
                         pstmtF = connection.prepareStatement(sqlFeligresF);
                         pstmtF.setString(1, txtNombreFM.getText());
@@ -251,10 +249,7 @@ public class EdicionRegistroMController implements Initializable {
                         e.printStackTrace();
                     }
                 }
- 
-                
-                
-                
+
             } else {
                 // El usuario ha cancelado la Actualizacion, Acciones Competentes
 
@@ -277,24 +272,24 @@ public class EdicionRegistroMController implements Initializable {
             Connection connection = ConexionDB.getConexion();
             try {
                 connection.setAutoCommit(false); // Start transaction
-                    // 1. Obtener el idPrimeraComunion basado en la partida y el nombre
-                    String queryId = "SELECT m.idMatrimonio, m.celebrante_idCelebrante, f1.idFeligres AS idFeligres1, f2.idFeligres AS idFeligres2 "
-                            + "FROM matrimonios m "
-                            + "JOIN Feligres f1 ON m.idFeligres1 = f1.idFeligres "
-                            + "JOIN Feligres f2 ON m.idFeligres2 = f2.idFeligres "
-                            + "JOIN registrolibro r ON m.idMatrimonio = r.matrimonio_idMatrimonio "
-                            + "WHERE f1.nombre = ? AND f2.nombre = ? AND r.partida = ? ";
-                    PreparedStatement stmtId = connection.prepareStatement(queryId);
-                    stmtId.setString(1, feligresDetalle.getNombreMM());
-                    stmtId.setString(2, feligresDetalle.getNombreFM());
-                    stmtId.setInt(3, feligresDetalle.getPartidaM());
-                    ResultSet rs = stmtId.executeQuery();
+                // 1. Obtener el idPrimeraComunion basado en la partida y el nombre
+                String queryId = "SELECT m.idMatrimonio, m.celebrante_idCelebrante, f1.idFeligres AS idFeligres1, f2.idFeligres AS idFeligres2 "
+                        + "FROM matrimonios m "
+                        + "JOIN Feligres f1 ON m.idFeligres1 = f1.idFeligres "
+                        + "JOIN Feligres f2 ON m.idFeligres2 = f2.idFeligres "
+                        + "JOIN registrolibro r ON m.idMatrimonio = r.matrimonio_idMatrimonio "
+                        + "WHERE f1.nombre = ? AND f2.nombre = ? AND r.partida = ? ";
+                PreparedStatement stmtId = connection.prepareStatement(queryId);
+                stmtId.setString(1, feligresDetalle.getNombreMM());
+                stmtId.setString(2, feligresDetalle.getNombreFM());
+                stmtId.setInt(3, feligresDetalle.getPartidaM());
+                ResultSet rs = stmtId.executeQuery();
 
                 if (rs.next()) {
-                        int idMatrimonio = rs.getInt("idMatrimonio");
-                        int idFeligres1 = rs.getInt("idFeligres1");
-                        int idFeligres2 = rs.getInt("idFeligres2");
-                        int idCelebrante = rs.getInt("celebrante_idCelebrante");
+                    int idMatrimonio = rs.getInt("idMatrimonio");
+                    int idFeligres1 = rs.getInt("idFeligres1");
+                    int idFeligres2 = rs.getInt("idFeligres2");
+                    int idCelebrante = rs.getInt("celebrante_idCelebrante");
 
                     // 1. Eliminar registros asociados en las tablas secundarias
                     String deleteObservacion = "DELETE FROM observacion WHERE matrimonio_idMatrimonio = ?";
@@ -319,7 +314,7 @@ public class EdicionRegistroMController implements Initializable {
                     PreparedStatement stmtDelFel1 = connection.prepareStatement(deleteFeligres1);
                     stmtDelFel1.setInt(1, idFeligres1);
                     stmtDelFel1.executeUpdate();
-                    
+
                     // 5. Eliminar el registro principal en la tabla feligres 2
                     String deleteFeligres2 = "DELETE FROM feligres WHERE idFeligres = ?";
                     PreparedStatement stmtDelFel2 = connection.prepareStatement(deleteFeligres2);
@@ -431,10 +426,10 @@ public class EdicionRegistroMController implements Initializable {
         Optional<ButtonType> result = alert.showAndWait();
         return result.isPresent() && result.get() == ButtonType.OK;
     }
-    
-     @FXML
+
+    @FXML
     public void _imprimirM() throws IOException, DocumentException {
-        if (showConfirmationDialog("Confirmar Impresion", "Imprimir registro", "¿Estás seguro? Se Imprimira el registro de: " + feligresDetalle.getNombreMM()+" Y "+feligresDetalle.getNombreFM())) {
+        if (showConfirmationDialog("Confirmar Impresion", "Imprimir registro", "¿Estás seguro? Se Imprimira el registro de: " + feligresDetalle.getNombreMM() + " Y " + feligresDetalle.getNombreFM())) {
 
             Document document = new Document(PageSize.LETTER);
             PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("C:/Users/walyn/Downloads/Constancia_Matrimonio.pdf"));
@@ -532,21 +527,20 @@ public class EdicionRegistroMController implements Initializable {
             paragraph = new Paragraph(testigosChunk);
             paragraph.setAlignment(Element.ALIGN_CENTER);
             document.add(paragraph);
-            
+
             paragraph = new Paragraph("Se bendijo el matrimonio de: ", fontItalic);
             paragraph.setAlignment(Element.ALIGN_CENTER);
             document.add(paragraph);
-            
-            
+
             // Crear el Chunk con el nombre y apellido
-            Chunk elChunk = new Chunk(feligres.getNombreMM() + " " + feligres.getApellidoMM()+ ", de "+feligres.getEdadMM()+" años de edad.", fontItalic);
+            Chunk elChunk = new Chunk(feligres.getNombreMM() + " " + feligres.getApellidoMM() + ", de " + feligres.getEdadMM() + " años de edad.", fontItalic);
             // Establecer el subrayado (puedes ajustar los parámetros para cambiar el aspecto del subrayado)
             elChunk.setUnderline(0.1f, -2f);
             // Agregar el Chunk con el nombre y apellido a un Paragraph y centrarlo
             paragraph = new Paragraph(elChunk);
             paragraph.setAlignment(Element.ALIGN_CENTER);
             document.add(paragraph);
-            
+
             paragraph = new Paragraph("Hijo de: ", fontNormalTitle);
             paragraph.setAlignment(Element.ALIGN_CENTER);
             document.add(paragraph);
@@ -559,20 +553,20 @@ public class EdicionRegistroMController implements Initializable {
             paragraph.setAlignment(Element.ALIGN_CENTER);
             // Añadir el Paragraph al documento
             document.add(paragraph);
-            
+
             paragraph = new Paragraph("Con la Señorita: ", fontNormalTitle);
             paragraph.setAlignment(Element.ALIGN_CENTER);
             document.add(paragraph);
-            
-                        // Crear el Chunk con el nombre y apellido
-            Chunk ellChunk = new Chunk(feligres.getNombreFM() + " " + feligres.getApellidoFM()+ ", de "+feligres.getEdadFM()+" años de edad.", fontItalic);
+
+            // Crear el Chunk con el nombre y apellido
+            Chunk ellChunk = new Chunk(feligres.getNombreFM() + " " + feligres.getApellidoFM() + ", de " + feligres.getEdadFM() + " años de edad.", fontItalic);
             // Establecer el subrayado (puedes ajustar los parámetros para cambiar el aspecto del subrayado)
             ellChunk.setUnderline(0.1f, -2f);
             // Agregar el Chunk con el nombre y apellido a un Paragraph y centrarlo
             paragraph = new Paragraph(ellChunk);
             paragraph.setAlignment(Element.ALIGN_CENTER);
             document.add(paragraph);
-            
+
             paragraph = new Paragraph("Hijo de: ", fontNormalTitle);
             paragraph.setAlignment(Element.ALIGN_CENTER);
             document.add(paragraph);
@@ -585,7 +579,6 @@ public class EdicionRegistroMController implements Initializable {
             paragraph.setAlignment(Element.ALIGN_CENTER);
             // Añadir el Paragraph al documento
             document.add(paragraph);
-
 
             paragraph = new Paragraph("Bendijo el Matrimonio: ", fontNormalTitle);
             document.add(paragraph);
