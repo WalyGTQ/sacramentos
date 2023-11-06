@@ -41,6 +41,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
@@ -438,7 +439,7 @@ public class EdicionRegistroController implements Initializable {
         if (showConfirmationDialog("Confirmar Impresion", "Imprimir registro", "¿Estás seguro? Se Imprimira el registro de: " + datosFeligres.getNombre())) {
 
             Document document = new Document(PageSize.LETTER);
-            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("C:/Users/psher/Downloads/Constancia_Bautismo.pdf"));
+            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("C:/Users/walyn/Downloads/Constancia_Bautismo.pdf"));
             document.open();
             // Añadir un encabezado
             Font fontHeader = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 16, BaseColor.BLACK);
@@ -456,17 +457,17 @@ public class EdicionRegistroController implements Initializable {
             String fechaNacimientoFormatted = feligres.getNacimiento().format(formatter);
             String fechaActualFormatted = LocalDate.now().format(formatter);
             //Integracion de Logo Iglesia Pequeño
-            Image logoP = Image.getInstance("C:/Users/psher/OneDrive/Documentos/Sacramentos/img/logo1.png"); //  ruta de  imagen
+            Image logoP = Image.getInstance("C:/Users/walyn/OneDrive/Documentos/NetBeansProjects/Sacramentos/src/main/resources/img/logo1.png"); //  ruta de  imagen
             logoP.setAbsolutePosition(460, 630); // Coordenadas x, y (desde la esquina inferior izquierda)
             logoP.scaleToFit(110, 110); // Ancho y alto
             document.add(logoP);
             //Integracion del Logo Bautismo
-            Image logoB = Image.getInstance("C:/Users/psher/OneDrive/Documentos/Sacramentos/img/bautismoC.png"); //  ruta de  imagen
+            Image logoB = Image.getInstance("C:/Users/walyn/OneDrive/Documentos/NetBeansProjects/Sacramentos/src/main/resources/img/bautismoC.png"); //  ruta de  imagen
             logoB.setAbsolutePosition(40, 630); // Coordenadas x, y (desde la esquina inferior izquierda)
             logoB.scaleToFit(110, 110); // Ancho y alto
             document.add(logoB);
             // Integracion del Logo Grande Del Centro
-            Image logoCentro = Image.getInstance("C:/Users/psher/OneDrive/Documentos/Sacramentos/img/logo1.png");
+            Image logoCentro = Image.getInstance("C:/Users/walyn/OneDrive/Documentos/NetBeansProjects/Sacramentos/src/main/resources/img/logo1.png");
             logoCentro.setAbsolutePosition(110, 180);
             logoCentro.scaleToFit(400, 400);
 // Configura la opacidad usando PdfGState
@@ -479,23 +480,23 @@ public class EdicionRegistroController implements Initializable {
             under.addImage(logoCentro);
             under.restoreState();
 
-            Image linea = Image.getInstance("C:/Users/psher/OneDrive/Documentos/Sacramentos/img/Lline.png"); //  ruta de  imagen
+            Image linea = Image.getInstance("C:/Users/walyn/OneDrive/Documentos/NetBeansProjects/Sacramentos/src/main/resources/img/Lline.png"); //  ruta de  imagen
             linea.setAbsolutePosition(35, 40); // Coordenadas x, y (desde la esquina inferior izquierda)
             linea.scaleToFit(550, 15); // Ancho y alto
             document.add(linea);
 
             //Integracion de Correo
-            Image correo = Image.getInstance("C:/Users/psher/OneDrive/Documentos/Sacramentos/img/co.png"); //  ruta de  imagen
+            Image correo = Image.getInstance("C:/Users/walyn/OneDrive/Documentos/NetBeansProjects/Sacramentos/src/main/resources/img/co.png"); //  ruta de  imagen
             correo.setAbsolutePosition(440, 5); // Coordenadas x, y (desde la esquina inferior izquierda)
             correo.scaleToFit(160, 50); // Ancho y alto
             document.add(correo);
             //Integracion de Whatsapp
-            Image wha = Image.getInstance("C:/Users/psher/OneDrive/Documentos/Sacramentos/img/wa.png"); //  ruta de  imagen
+            Image wha = Image.getInstance("C:/Users/walyn/OneDrive/Documentos/NetBeansProjects/Sacramentos/src/main/resources/img/wa.png"); //  ruta de  imagen
             wha.setAbsolutePosition(20, 5); // Coordenadas x, y (desde la esquina inferior izquierda)
             wha.scaleToFit(160, 50); // Ancho y alto
             document.add(wha);
             //Integracion de Firma
-            Image co = Image.getInstance("C:/Users/psher/OneDrive/Documentos/Sacramentos/img/firma.png"); //  ruta de  imagen
+            Image co = Image.getInstance("C:/Users/walyn/OneDrive/Documentos/NetBeansProjects/Sacramentos/src/main/resources/img/firma.png"); //  ruta de  imagen
             co.setAbsolutePosition(170, 70); // Coordenadas x, y (desde la esquina inferior izquierda)
             co.scaleToFit(350, 350); // Ancho y alto
             document.add(co);
@@ -605,7 +606,7 @@ public class EdicionRegistroController implements Initializable {
                 document.close();
             }
             try {
-                File myFile = new File("C:/Users/psher/Downloads/Constancia_Bautismo.pdf");
+                File myFile = new File("C:/Users/walyn/Downloads/Constancia_Bautismo.pdf");
                 if (Desktop.isDesktopSupported()) {
                     Desktop.getDesktop().open(myFile);
                 } else {
@@ -635,6 +636,193 @@ public class EdicionRegistroController implements Initializable {
             ColumnText.showTextAligned(writer.getDirectContent(), Element.ALIGN_CENTER,
                     footerPhrase, (document.right() - document.left()) / 2 + document.leftMargin(),
                     document.bottom() - 18, 0); // Puedes ajustar los valores de posición si lo necesitas
+        }
+    }
+
+    @FXML
+    public void mostrarDialogoSeleccion() {
+        // Crea un Alert con opciones
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Seleccionar Documento");
+        alert.setHeaderText("¿Qué documento deseas imprimir?");
+
+        // Crear botones personalizados
+        ButtonType botonConstancia = new ButtonType("Constancia");
+        ButtonType botonFicha = new ButtonType("Ficha de Inscripción");
+        ButtonType botonCancelar = new ButtonType("Cancelar", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        // Añadir botones al diálogo
+        alert.getButtonTypes().setAll(botonConstancia, botonFicha, botonCancelar);
+
+        // Mostrar el diálogo y esperar a que el usuario responda
+        Optional<ButtonType> resultado = alert.showAndWait();
+
+        // Manejar la respuesta
+        resultado.ifPresent(buttonType -> {
+            if (buttonType == botonConstancia) {
+                try {
+                    _imprimirB(); // Método existente para imprimir la constancia
+                } catch (IOException | DocumentException e) {
+                    e.printStackTrace();
+                }
+            } else if (buttonType == botonFicha) {
+                try {
+                    _imprimirFicha(); // Método para imprimir la ficha de inscripción (debes implementarlo)
+                } catch (IOException | DocumentException e) {
+                    e.printStackTrace();
+                }
+            }
+            // Si se selecciona "Cancelar", no se hace nada
+        });
+    }
+
+    public void _imprimirFicha() throws IOException, DocumentException {
+        // Implementa la lógica para imprimir la ficha de inscripción
+        if (showConfirmationDialog("Confirmar Impresion", "Imprimir FICHA", "¿Estás seguro? Se Imprimira FICHA DE: " + datosFeligres.getNombre())) {
+
+            Document document = new Document(PageSize.LETTER);
+            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("C:/Users/walyn/Downloads/Ficha_Bautismo.pdf"));
+            document.open();
+            // Añadir un encabezado
+            Font fontHeader = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12, BaseColor.BLACK);
+            Font fontItalic = FontFactory.getFont(FontFactory.TIMES_BOLDITALIC, 12, BaseColor.RED);
+            Font fontItalicN = FontFactory.getFont(FontFactory.TIMES_BOLDITALIC, 12, BaseColor.BLACK);
+            Font fontNormal = FontFactory.getFont(FontFactory.HELVETICA, 12, BaseColor.BLACK);
+            Font fontNormalTitle = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 14, BaseColor.BLACK);
+            Font fontNormalRed = FontFactory.getFont(FontFactory.HELVETICA, 14, BaseColor.RED);
+            Font fontNormalRedOBS = FontFactory.getFont(FontFactory.HELVETICA, 8, BaseColor.RED);
+
+            FeligresDetalle feligres = SingletonData1.getInstance().getFeligresDetalle();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE dd 'de' MMMM 'del' yyyy", new Locale("es", "ES"));
+
+            String fechaSacramentoFormatted = feligres.getFechaSacramento().format(formatter);
+            String fechaNacimientoFormatted = feligres.getNacimiento().format(formatter);
+            String fechaActualFormatted = LocalDate.now().format(formatter);
+            //Parte Oficina
+            //Integracion de Logo Iglesia Pequeño
+            Image logoP = Image.getInstance("C:/Users/walyn/OneDrive/Documentos/NetBeansProjects/Sacramentos/src/main/resources/img/logo1.png"); //  ruta de  imagen
+            logoP.setAbsolutePosition(460, 680); // Coordenadas x, y (desde la esquina inferior izquierda)
+            logoP.scaleToFit(80, 80); // Ancho y alto
+            document.add(logoP);
+            //Integracion del Logo Bautismo
+            Image logoB = Image.getInstance("C:/Users/walyn/OneDrive/Documentos/NetBeansProjects/Sacramentos/src/main/resources/img/bautismoC.png"); //  ruta de  imagen
+            logoB.setAbsolutePosition(40, 680); // Coordenadas x, y (desde la esquina inferior izquierda)
+            logoB.scaleToFit(80, 80); // Ancho y alto
+            document.add(logoB);
+            //Parte feligres
+            //Integracion de Logo Iglesia Pequeño
+            Image logoP2 = Image.getInstance("C:/Users/walyn/OneDrive/Documentos/NetBeansProjects/Sacramentos/src/main/resources/img/logo1.png"); //  ruta de  imagen
+            logoP2.setAbsolutePosition(460, 340); // Coordenadas x, y (desde la esquina inferior izquierda)
+            logoP2.scaleToFit(80, 80); // Ancho y alto
+            document.add(logoP2);
+            //Integracion del Logo Bautismo
+            Image logoB2 = Image.getInstance("C:/Users/walyn/OneDrive/Documentos/NetBeansProjects/Sacramentos/src/main/resources/img/bautismoC.png"); //  ruta de  imagen
+            logoB2.setAbsolutePosition(40, 340); // Coordenadas x, y (desde la esquina inferior izquierda)
+            logoB2.scaleToFit(80, 80); // Ancho y alto
+            document.add(logoB2);
+
+            //Integracion de Correo
+            Image correo = Image.getInstance("C:/Users/walyn/OneDrive/Documentos/NetBeansProjects/Sacramentos/src/main/resources/img/co.png"); //  ruta de  imagen
+            correo.setAbsolutePosition(440, 5); // Coordenadas x, y (desde la esquina inferior izquierda)
+            correo.scaleToFit(160, 50); // Ancho y alto
+            document.add(correo);
+            //Integracion de Whatsapp
+            Image wha = Image.getInstance("C:/Users/walyn/OneDrive/Documentos/NetBeansProjects/Sacramentos/src/main/resources/img/wa.png"); //  ruta de  imagen
+            wha.setAbsolutePosition(20, 5); // Coordenadas x, y (desde la esquina inferior izquierda)
+            wha.scaleToFit(160, 50); // Ancho y alto
+            document.add(wha);
+            //Primera Parte Oficina
+            Paragraph pHeader = new Paragraph("Parroquia Santo Hermano Pedro\nDiócesis De Sololá-Chimaltenango\n5ᵃ Avenida 4-104, Zona 1\nChimaltenango, Guatemala, C.A.\nTel: 7839-2709", fontHeader);
+            pHeader.setAlignment(Element.ALIGN_CENTER);
+            document.add(pHeader);
+
+            Paragraph pTitle = new Paragraph("Ficha de Inscripcion de Bautismo", fontNormalRed);
+            pTitle.setAlignment(Element.ALIGN_CENTER);
+            pTitle.setSpacingBefore(10);
+            document.add(pTitle);
+
+            // Añadir detalles del bautismo
+            Paragraph paragraph;
+
+            paragraph = new Paragraph("\nNombre del Niño(a):  " + feligres.getNombre() + " " + feligres.getApellido(), fontNormal);
+            document.add(paragraph);
+            paragraph = new Paragraph("Fecha de Nacimiento:  " + fechaNacimientoFormatted, fontNormal);
+            document.add(paragraph);
+            paragraph = new Paragraph("Lugar de Nacimiento:  " + feligres.getLugarNacimiento(), fontNormal);
+            document.add(paragraph);
+            paragraph = new Paragraph("Nombre de los Padres:  " + feligres.getPadre() + "  Y  " + feligres.getMadre(), fontNormal);
+            document.add(paragraph);
+            paragraph = new Paragraph("Padrinos:  " + feligres.getPadrino() + "  Y  " + feligres.getMadrina(), fontNormal);
+            document.add(paragraph);
+            paragraph = new Paragraph("Fecha de Inscripcion:  " + fechaActualFormatted, fontItalicN);
+            document.add(paragraph);
+            if (feligres.getObservacion() != null && !feligres.getObservacion().isEmpty()) {
+                paragraph = new Paragraph("Observaciones: " + feligres.getObservacion(), fontNormalRedOBS);
+                document.add(paragraph);
+            }
+            paragraph = new Paragraph("Fecha del Sacramento", fontNormal);
+            paragraph.setAlignment(Element.ALIGN_CENTER);
+            document.add(paragraph);
+            paragraph = new Paragraph(fechaSacramentoFormatted, fontItalic);
+            paragraph.setAlignment(Element.ALIGN_CENTER);
+            document.add(paragraph);
+            paragraph = new Paragraph("\n-----------------------------------------------------------------------------------------------------------------------------------\n\n", fontItalicN);
+            paragraph.setAlignment(Element.ALIGN_CENTER);
+            document.add(paragraph);
+            //Segunda Parte Feligres:
+            Paragraph pHeader2 = new Paragraph("Parroquia Santo Hermano Pedro\nDiócesis De Sololá-Chimaltenango\n5ᵃ Avenida 4-104, Zona 1\nChimaltenango, Guatemala, C.A.\nTel: 7839-2709", fontHeader);
+            pHeader2.setAlignment(Element.ALIGN_CENTER);
+            document.add(pHeader2);
+
+            Paragraph pTitle2 = new Paragraph("Ficha de Inscripcion de Bautismo", fontNormalRed);
+            pTitle2.setAlignment(Element.ALIGN_CENTER);
+            pTitle2.setSpacingBefore(10);
+            document.add(pTitle2);
+
+            paragraph = new Paragraph("\nNombre del Niño(a):  " + feligres.getNombre() + " " + feligres.getApellido(), fontNormal);
+            document.add(paragraph);
+            paragraph = new Paragraph("Fecha de Nacimiento:  " + fechaNacimientoFormatted, fontNormal);
+            document.add(paragraph);
+            paragraph = new Paragraph("Lugar de Nacimiento:  " + feligres.getLugarNacimiento(), fontNormal);
+            document.add(paragraph);
+            paragraph = new Paragraph("Nombre de los Padres:  " + feligres.getPadre() + "  Y  " + feligres.getMadre(), fontNormal);
+            document.add(paragraph);
+            paragraph = new Paragraph("Padrinos:  " + feligres.getPadrino() + "  Y  " + feligres.getMadrina(), fontNormal);
+            document.add(paragraph);
+            paragraph = new Paragraph("Fecha de Inscripcion:  " + fechaActualFormatted, fontItalicN);
+            document.add(paragraph);
+            if (feligres.getObservacion() != null && !feligres.getObservacion().isEmpty()) {
+                paragraph = new Paragraph("Observaciones: " + feligres.getObservacion(), fontNormalRedOBS);
+                document.add(paragraph);
+            }
+            paragraph = new Paragraph("Fecha del Sacramento", fontNormal);
+            paragraph.setAlignment(Element.ALIGN_CENTER);
+            document.add(paragraph);
+            paragraph = new Paragraph(fechaSacramentoFormatted, fontItalic);
+            paragraph.setAlignment(Element.ALIGN_CENTER);
+            document.add(paragraph);
+
+            writer.setPageEvent(new FooterEvent());//Asociamos el Evento que Genera la Hora Exacta de la Extencion del Documento
+
+            try {
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                document.close();
+            }
+            try {
+                File myFile = new File("C:/Users/walyn/Downloads/Ficha_Bautismo.pdf");
+                if (Desktop.isDesktopSupported()) {
+                    Desktop.getDesktop().open(myFile);
+                } else {
+                    showAlert("Información", "No fue Posible abrir el Documento", "Constancia_Bautismo.pdf", Alert.AlertType.INFORMATION);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            showAlert("Información", "Se Cancelo la Impresion", "Cancelado por Usuario", Alert.AlertType.INFORMATION);
         }
     }
 
