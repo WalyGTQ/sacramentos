@@ -9,18 +9,25 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javafx.animation.FadeTransition;
+import javafx.animation.Interpolator;
+import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.util.Duration;
 
 /**
  *
  * @author walyn
  */
 public class _loginController {
-    
+
+    @FXML
+    private Label txtIncorrecto;
 
     @FXML
     private TextField txtUsuario;
@@ -56,7 +63,29 @@ public class _loginController {
                         App.setRoot("primary");
                     } else {
                         // Contraseña incorrecta
-                        showAlert(Alert.AlertType.ERROR, "Error", "Contraseña incorrecta.");
+                        //showAlert(Alert.AlertType.ERROR, "Error", "Contraseña incorrecta."); // Sustituido por Una Animacion mas Bonita
+                        txtIncorrecto.setVisible(true);
+                        // Configurar la transición de desvanecimiento
+                        FadeTransition fadeTransition = new FadeTransition(Duration.millis(4000), txtIncorrecto);
+                        fadeTransition.setFromValue(1.0);
+                        fadeTransition.setToValue(0.0);
+                        fadeTransition.setCycleCount(1);
+                        fadeTransition.setAutoReverse(false);
+
+                        // Iniciar la transición
+                        fadeTransition.play();
+
+                        // Configurar la transición de vibrante
+                        TranslateTransition translateTransition = new TranslateTransition(Duration.millis(100), txtIncorrecto);
+                        translateTransition.setFromX(0);
+                        translateTransition.setByX(10);
+                        translateTransition.setCycleCount(10);
+                        translateTransition.setAutoReverse(true);
+                        translateTransition.setInterpolator(Interpolator.LINEAR);
+
+                        // Iniciar la transición
+                        translateTransition.play();
+
                     }
                 } else {
                     // Usuario no existe
