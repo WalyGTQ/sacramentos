@@ -2,6 +2,7 @@
 
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
@@ -12,9 +13,9 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="600.0" maxWidth="1000.0" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: linear-gradient(to bottom, #c6eaff, #ffffff);" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.sacramentos._loginController">
+<AnchorPane maxHeight="800.0" maxWidth="1300.0" minHeight="800.0" minWidth="1300.0" prefHeight="800.0" prefWidth="1300.0" style="-fx-background-color: linear-gradient(to bottom, #c6eaff, #ffffff);" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.sacramentos._loginController">
    <children>
-      <AnchorPane layoutX="376.0" layoutY="138.0" prefHeight="246.0" prefWidth="253.0" style="-fx-background-color: linear-gradient(to bottom, #c6eaff, #ffffff); -fx-background-radius: 10px;">
+      <AnchorPane layoutX="524.0" layoutY="317.0" prefHeight="377.0" prefWidth="253.0" style="-fx-background-color: linear-gradient(to bottom, #c6eafa, #ffffff); -fx-background-radius: 10px;">
          <children>
             <TextField fx:id="txtUsuario" layoutX="58.0" layoutY="92.0" />
             <PasswordField fx:id="_txtPassword" layoutX="58.0" layoutY="147.0" />
@@ -25,13 +26,28 @@
             </Label>
             <Label layoutX="112.0" layoutY="65.0" text="Usuario" />
             <Label layoutX="103.0" layoutY="128.0" text="Contraseña" />
-            <Button fx:id="_ingresar" layoutX="59.0" layoutY="189.0" mnemonicParsing="false" onAction="#_irPrimero" prefHeight="39.0" prefWidth="149.0" style="-fx-background-radius: 15px;" text="Ingresar">
+            <Button fx:id="_ingresar" layoutX="58.0" layoutY="204.0" mnemonicParsing="false" onAction="#_irPrimero" prefHeight="25.0" prefWidth="149.0" style="-fx-background-radius: 15px;" text="Ingresar">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Button>
+            <Hyperlink layoutX="64.0" layoutY="259.0" onAction="#_general" text="¿Necesitas una Cuenta?">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Hyperlink>
+            <Hyperlink layoutX="70.0" layoutY="289.0" text="Olvide mi Contraseña">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Hyperlink>
+            <Label fx:id="txtIncorrecto" layoutX="42.0" layoutY="179.0" text="Usuario o Contraseña Incorrecta" textFill="#ff0808" visible="false">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
-      <Label layoutX="364.0" layoutY="6.0" text="Sistema para la ">
+      <Label layoutX="509.0" layoutY="14.0" text="Sistema para la ">
          <font>
             <Font name="System Bold" size="38.0" />
          </font>
@@ -43,12 +59,12 @@
             </DropShadow>
          </effect>
       </Label>
-      <ImageView fitHeight="179.0" fitWidth="250.0" layoutX="415.0" layoutY="404.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="179.0" fitWidth="250.0" layoutX="561.0" layoutY="139.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../img/logo1.png" />
          </image>
       </ImageView>
-      <Label layoutX="290.0" layoutY="61.0" text="Gestion de Sacramentos">
+      <Label layoutX="435.0" layoutY="69.0" text="Gestion de Sacramentos">
          <font>
             <Font name="System Bold" size="38.0" />
          </font>
@@ -58,7 +74,12 @@
             <Font name="System Bold" size="38.0" />
          </font>
       </Label>
-      <Button layoutX="832.0" layoutY="563.0" mnemonicParsing="false" onAction="#_general" prefHeight="25.0" prefWidth="149.0" text="Administrador" />
-      <Label layoutX="14.0" layoutY="567.0" text="© 2023 Iglesia Católica - Sistema de Gestión de Sacramentos" />
+      <Label layoutX="399.0" layoutY="763.0" text="© 2024 Iglesia Católica - Parroquia Santo Hermano Pedro- Sistema de Gestión de Sacramentos" />
+      <Label layoutX="1204.0" layoutY="763.0" />
+      <Hyperlink layoutX="1189.0" layoutY="760.0" text="V. 1.0.52024" textFill="#0a0a0a">
+         <font>
+            <Font name="Arial Black" size="12.0" />
+         </font>
+      </Hyperlink>
    </children>
 </AnchorPane>
