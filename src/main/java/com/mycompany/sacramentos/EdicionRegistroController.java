@@ -84,7 +84,7 @@ public class EdicionRegistroController implements Initializable {
         FeligresDetalle feligres = SingletonData1.getInstance().getFeligresDetalle();
         txtLibroB.setText(String.valueOf(feligres.getLibro()));
         txtFolioB.setText(String.valueOf(feligres.getFolio()));
-        txtPartidaB.setText(String.valueOf(feligres.getLibro()));
+        txtPartidaB.setText(String.valueOf(feligres.getPartida()));
         dpFechaB.setValue(LocalDate.parse(feligres.getFechaSacramento().toString()));
         txtLugarB.setText(feligres.getLugarSacramento());
         txtNombreB.setText(feligres.getNombre());
