@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 
 /**
  * FXML Controller class
@@ -17,7 +18,8 @@ import javafx.fxml.Initializable;
  * @author walyn
  */
 public class MenuPrincipalController implements Initializable {
-
+    @FXML private Label nombreUsuario;
+    
     private ConexionDB sesion1;
     private Usuario usuarioActual;
     private String actividad;
@@ -31,13 +33,23 @@ public class MenuPrincipalController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        nombreUsuario.setText(SingletonDatosUsuario.getInstance().getDatosUsuario().getNombre());
     }
 
     @FXML
     private void _about() throws IOException {
         App.setRoot("about");
     }
+        @FXML
+    private void sacramentos() throws IOException {
+        App.setRoot("vistaSacramentos");
+    }
+    //Envia hacia la vista de Busqueda General de Feligreses Inscritos
+    @FXML
+    public void BusquedaGeneral() throws IOException {
+        App.setRoot("vistaBusquedaGeneral");
+    }
+
 
     @FXML
     private void _salir() throws IOException {

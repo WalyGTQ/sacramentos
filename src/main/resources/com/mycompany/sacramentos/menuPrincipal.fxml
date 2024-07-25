@@ -45,9 +45,9 @@
                      <Font name="System Bold" size="12.0" />
                   </font>
                </Label>
-               <Label layoutX="190.0" layoutY="33.0" prefHeight="17.0" prefWidth="176.0" text="Walter Acuta(Master)">
+               <Label fx:id="nombreUsuario" layoutX="196.0" layoutY="25.0" prefHeight="30.0" prefWidth="203.0" text="Usuario" textFill="#30ab07">
                   <font>
-                     <Font name="System Bold" size="12.0" />
+                     <Font name="System Bold" size="18.0" />
                   </font>
                </Label>
                <ImageView fitHeight="60.0" fitWidth="78.0" layoutX="14.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
@@ -70,11 +70,11 @@
                      <Image url="@../../../img/busqueda_general.png" />
                   </image>
                </ImageView>
-               <Hyperlink layoutX="126.0" layoutY="202.0" text="Busqueda">
+               <Hyperlink layoutX="126.0" layoutY="202.0" onAction="#BusquedaGeneral" text="Busqueda">
                   <font>
                      <Font name="System Bold" size="13.0" />
                   </font></Hyperlink>
-               <Hyperlink layoutX="347.0" layoutY="202.0" text="Sacramentos">
+               <Hyperlink layoutX="347.0" layoutY="202.0" onAction="#sacramentos" text="Sacramentos">
                   <font>
                      <Font name="System Bold" size="13.0" />
                   </font></Hyperlink>

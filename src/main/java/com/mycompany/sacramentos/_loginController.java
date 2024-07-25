@@ -114,13 +114,13 @@ public class _loginController {
                          user = new Usuario(UsuarioSesion, idUsuarioSesion);
                         // Logueo exitoso, redirige al usuario a otra pantalla o realiza alguna acción
                         System.out.println("Login exitoso");
-                        actividad = "Inicio de Sesion";
+                        actividad = "Gestion Sesion";
                         horaInicioSesion = LocalDateTime.now();
-                        App.setRoot("menuPrincipal");
+                        
                         //Insatanciamos la los datos del usuario y le asignamos valor, para luego guardar la clase en el singleton :)
                         DatosUsuario usuarioSesion = new DatosUsuario(UsuarioSesion,idUsuarioSesion,horaInicioSesion,0);
                         SingletonDatosUsuario.getInstance().setDatosUsuario(usuarioSesion);
-                        
+                        App.setRoot("menuPrincipal");
                         System.out.println("Datos del Singleton "+SingletonDatosUsuario.getInstance().getDatosUsuario().getNombre()+" " + SingletonDatosUsuario.getInstance().getDatosUsuario().getPass());
                         
                         // Iniciar la sesión y registrar la actividad

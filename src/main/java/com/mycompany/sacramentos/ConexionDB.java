@@ -85,9 +85,9 @@ public class ConexionDB {
             System.out.println(formattedDateTime);
         }
 
-        if (connection != null && !connection.isClosed()) {
+       // if (connection != null && !connection.isClosed()) {
             connection.close();
-        }
+       // }
 
         System.out.println("Sesión cerrada para el usuario: " + UsuarioSesion);
     }

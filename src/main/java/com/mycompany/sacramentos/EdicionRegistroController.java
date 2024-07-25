@@ -17,7 +17,6 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.ColumnText;
 import com.itextpdf.text.pdf.PdfContentByte;
-import com.itextpdf.text.pdf.PdfDocument;
 import com.itextpdf.text.pdf.PdfGState;
 import com.itextpdf.text.pdf.PdfPageEventHelper;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -106,11 +105,11 @@ public class EdicionRegistroController implements Initializable {
 
     }
 //Unicamente retorna a la vista Principal
-
     @FXML
     public void _regresar() throws IOException {
         App.setRoot("bautismosVista");
     }
+
 //Funcion para eliminar un regitro
 
     @FXML
