@@ -43,7 +43,7 @@ public class VistaSacramentosController implements Initializable {
     }
             @FXML
     private void EditBautismo() throws IOException {
-        App.setRoot("edicionRegistro");
+        App.setRoot("vistaEdicionBautismo");
     }
     
     

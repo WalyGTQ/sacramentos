@@ -107,7 +107,7 @@ public class EdicionRegistroController implements Initializable {
 //Unicamente retorna a la vista Principal
     @FXML
     public void _regresar() throws IOException {
-        App.setRoot("bautismosVista");
+        App.setRoot("vistaSacramentos");
     }
 
 //Funcion para eliminar un regitro
