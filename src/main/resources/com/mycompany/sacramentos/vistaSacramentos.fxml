@@ -27,11 +27,16 @@
                      <Font size="25.0" />
                   </font>
                </Label>
-               <Button layoutX="29.0" layoutY="19.0" mnemonicParsing="false" onAction="#regresar" prefHeight="31.0" prefWidth="92.0" style="-fx-background-color: #EB5449;" text="Salir" textFill="WHITE">
+               <Button layoutX="1194.0" layoutY="20.0" mnemonicParsing="false" onAction="#regresar" prefHeight="31.0" prefWidth="92.0" style="-fx-background-color: #EB5449;" text="Regresar" textFill="WHITE">
                   <font>
                      <Font name="System Bold" size="12.0" />
                   </font>
                </Button>
+               <ImageView fitHeight="53.0" fitWidth="69.0" layoutX="14.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../../../img/logo1.png" />
+                  </image>
+               </ImageView>
             </children>
          </AnchorPane>
         </HBox>

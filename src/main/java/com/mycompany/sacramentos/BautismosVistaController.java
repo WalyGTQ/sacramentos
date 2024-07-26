@@ -169,7 +169,7 @@ public class BautismosVistaController implements Initializable {
 
     @FXML
     private void regresar() throws IOException {
-        App.setRoot("menuPrincipal");
+        App.setRoot("vistaSacramentos");
     }
 
     @FXML
