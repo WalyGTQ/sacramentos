@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package com.mycompany.sacramentos;
 
 import java.io.IOException;
@@ -13,56 +9,94 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 
 /**
- * FXML Controller class
+ * Controlador para la vista del menú principal. Maneja la interacción del
+ * usuario con la interfaz principal de la aplicación.
  *
- * @author walyn
+ * Autor: walyn
  */
 public class MenuPrincipalController implements Initializable {
-    @FXML private Label nombreUsuario;
-    
-    private ConexionDB sesion1;
-    private Usuario usuarioActual;
-    private String actividad;
 
+    @FXML
+    private Label nombreUsuario; // Etiqueta para mostrar el nombre del usuario
+
+    private ConexionDB sesion1; // Objeto para manejar la conexión a la base de datos
+    private Usuario usuarioActual; // Objeto para almacenar los datos del usuario actual
+    private String actividad; // Variable para almacenar la actividad actual
+
+    /**
+     * Establece el usuario actual.
+     *
+     * @param usuarioActual Objeto Usuario con los datos del usuario actual
+     */
     public void setUsuario(Usuario usuarioActual) {
         this.usuarioActual = usuarioActual;
     }
 
     /**
-     * Initializes the controller class.
+     * Inicializa el controlador de la clase.
+     *
+     * @param url URL de la ubicación del recurso
+     * @param rb Bundle de recursos para localizar el objeto raíz
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        // Establece el nombre del usuario en la etiqueta desde el Singleton
         nombreUsuario.setText(SingletonDatosUsuario.getInstance().getDatosUsuario().getNombre());
     }
 
+    /**
+     * Maneja la acción del botón "About". Cambia la vista actual a la vista
+     * "about".
+     *
+     * @throws IOException si ocurre un error al cambiar la vista
+     */
     @FXML
     private void _about() throws IOException {
         App.setRoot("about");
     }
-        @FXML
+
+    /**
+     * Maneja la acción del botón "Sacramentos". Cambia la vista actual a la
+     * vista "vistaSacramentos".
+     *
+     * @throws IOException si ocurre un error al cambiar la vista
+     */
+    @FXML
     private void sacramentos() throws IOException {
         App.setRoot("vistaSacramentos");
     }
-    //Envia hacia la vista de Busqueda General de Feligreses Inscritos
+
+    /**
+     * Maneja la acción del botón "Búsqueda General". Cambia la vista actual a
+     * la vista "vistaBusquedaGeneral".
+     *
+     * @throws IOException si ocurre un error al cambiar la vista
+     */
     @FXML
     public void BusquedaGeneral() throws IOException {
         App.setRoot("vistaBusquedaGeneral");
     }
 
-
+    /**
+     * Maneja la acción del botón "Salir". Cierra la sesión del usuario y cambia
+     * la vista actual a la vista de login.
+     *
+     * @throws IOException si ocurre un error al cambiar la vista
+     */
     @FXML
     private void _salir() throws IOException {
         actividad = "Cerrar Sesion";
-        sesion1 = new ConexionDB(SingletonDatosUsuario.getInstance().getDatosUsuario().getNombre(), SingletonDatosUsuario.getInstance().getDatosUsuario().getPass(),actividad);
+        sesion1 = new ConexionDB(SingletonDatosUsuario.getInstance().getDatosUsuario().getNombre(),
+                SingletonDatosUsuario.getInstance().getDatosUsuario().getPass(),
+                actividad);
 
         try {
-            sesion1.cerrarSesion();
+            sesion1.cerrarSesion(); // Intenta cerrar la sesión
         } catch (SQLException e) {
-            // e.printStackTrace();
-            System.out.println("Error al Cerrar Sesion para el usuario: " + SingletonDatosUsuario.getInstance().getDatosUsuario().getNombre());
+            System.out.println("Error al cerrar sesión para el usuario: "
+                    + SingletonDatosUsuario.getInstance().getDatosUsuario().getNombre());
+            e.printStackTrace(); // Imprime el stack trace para depuración
         }
-        App.setRoot("_login");
+        App.setRoot("_login"); // Cambia la vista a la vista de login
     }
-
 }
