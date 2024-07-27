@@ -22,41 +22,63 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
- * Controlador para la vista de edición de bautismos.
- * Maneja la interacción del usuario con la interfaz de edición de bautismos.
- * 
+ * Controlador para la vista de edición de bautismos. Maneja la interacción del
+ * usuario con la interfaz de edición de bautismos.
+ *
  * Autor: walyn
  */
 public class VistaEdicionBautismoController implements Initializable {
 
-    @FXML private String busqueda; // Texto de búsqueda
-    @FXML private TextField txtBusquedaB; // Campo de texto para la búsqueda
+    private ConexionDB sesion1;//Conexion para registrar la actividad
+    private String actividad;
 
-    @FXML private TableView<FeligresDetalle> tablaFeligreses; // Tabla para mostrar los feligreses
+    @FXML
+    private String busqueda; // Texto de búsqueda
+    @FXML
+    private TextField txtBusquedaB; // Campo de texto para la búsqueda
+
+    @FXML
+    private TableView<FeligresDetalle> tablaFeligreses; // Tabla para mostrar los feligreses
 
     // Columnas de la tabla
-    @FXML private TableColumn<FeligresDetalle, String> nombreColumn;
-    @FXML private TableColumn<FeligresDetalle, String> apellidoColumn;
-    @FXML private TableColumn<FeligresDetalle, Integer> libroColumn;
-    @FXML private TableColumn<FeligresDetalle, Integer> folioColumn;
-    @FXML private TableColumn<FeligresDetalle, Integer> partidaColumn;
-    @FXML private TableColumn<FeligresDetalle, String> padreColumn;
-    @FXML private TableColumn<FeligresDetalle, String> madreColumn;
-    @FXML private TableColumn<FeligresDetalle, LocalDate> nacimientoColumn;
-    @FXML private TableColumn<FeligresDetalle, Integer> edadColumn;
-    @FXML private TableColumn<FeligresDetalle, String> lugarNacimientoColumn;
-    @FXML private TableColumn<FeligresDetalle, LocalDate> fechaSacramentoColumn;
-    @FXML private TableColumn<FeligresDetalle, String> lugarSacramentoColumn;
-    @FXML private TableColumn<FeligresDetalle, String> padrinoColumn;
-    @FXML private TableColumn<FeligresDetalle, String> madrinaColumn;
-    @FXML private TableColumn<FeligresDetalle, String> observacionColumn;
-    @FXML private TableColumn<FeligresDetalle, String> registradoColumn;
+    @FXML
+    private TableColumn<FeligresDetalle, String> nombreColumn;
+    @FXML
+    private TableColumn<FeligresDetalle, String> apellidoColumn;
+    @FXML
+    private TableColumn<FeligresDetalle, Integer> libroColumn;
+    @FXML
+    private TableColumn<FeligresDetalle, Integer> folioColumn;
+    @FXML
+    private TableColumn<FeligresDetalle, Integer> partidaColumn;
+    @FXML
+    private TableColumn<FeligresDetalle, String> padreColumn;
+    @FXML
+    private TableColumn<FeligresDetalle, String> madreColumn;
+    @FXML
+    private TableColumn<FeligresDetalle, LocalDate> nacimientoColumn;
+    @FXML
+    private TableColumn<FeligresDetalle, Integer> edadColumn;
+    @FXML
+    private TableColumn<FeligresDetalle, String> lugarNacimientoColumn;
+    @FXML
+    private TableColumn<FeligresDetalle, LocalDate> fechaSacramentoColumn;
+    @FXML
+    private TableColumn<FeligresDetalle, String> lugarSacramentoColumn;
+    @FXML
+    private TableColumn<FeligresDetalle, String> padrinoColumn;
+    @FXML
+    private TableColumn<FeligresDetalle, String> madrinaColumn;
+    @FXML
+    private TableColumn<FeligresDetalle, String> observacionColumn;
+    @FXML
+    private TableColumn<FeligresDetalle, String> registradoColumn;
 
     /**
      * Inicializa el controlador de la clase.
-     * 
+     *
      * @param url URL de la ubicación del recurso
-     * @param rb  Bundle de recursos para localizar el objeto raíz
+     * @param rb Bundle de recursos para localizar el objeto raíz
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -69,7 +91,7 @@ public class VistaEdicionBautismoController implements Initializable {
 
     /**
      * Método para consultar los bautismos y llenar la tabla.
-     * 
+     *
      * @throws IOException si ocurre un error de entrada/salida
      */
     private void _consultaBautismo() throws IOException {
@@ -112,26 +134,26 @@ public class VistaEdicionBautismoController implements Initializable {
         ObservableList<FeligresDetalle> data = FXCollections.observableArrayList();
 
         try {
-            String query = "SELECT r.libro, r.folio, r.partida, f.nombre, f.apellido, f.padreFeligres, f.madreFeligres, " +
-                           "f.nacimiento, f.edadFeligres, f.lugarNacimiento, b.fechaSacramento, b.lugarSacramento, " +
-                           "b.padrino, b.madrina, o.observacion, r.inscritoLibro " +
-                           "FROM feligres f " +
-                           "JOIN bautismo b ON f.idFeligres = b.idFeligres " +
-                           "JOIN registrolibro r ON b.idBautismo = r.bautismo_idBautismo " +
-                           "JOIN observacion o ON b.idBautismo = o.bautismo_idBautismo";
+            String query = "SELECT r.libro, r.folio, r.partida, f.nombre, f.apellido, f.padreFeligres, f.madreFeligres, "
+                    + "f.nacimiento, f.edadFeligres, f.lugarNacimiento, b.fechaSacramento, b.lugarSacramento, "
+                    + "b.padrino, b.madrina, o.observacion, r.inscritoLibro "
+                    + "FROM feligres f "
+                    + "JOIN bautismo b ON f.idFeligres = b.idFeligres "
+                    + "JOIN registrolibro r ON b.idBautismo = r.bautismo_idBautismo "
+                    + "JOIN observacion o ON b.idBautismo = o.bautismo_idBautismo";
             PreparedStatement stmt = connection.prepareStatement(query);
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 data.add(new FeligresDetalle(
-                    rs.getInt("libro"), rs.getInt("folio"), rs.getInt("partida"),
-                    rs.getString("nombre"), rs.getString("apellido"),
-                    rs.getString("padreFeligres"), rs.getString("madreFeligres"),
-                    rs.getDate("nacimiento").toLocalDate(), rs.getInt("edadFeligres"),
-                    rs.getString("lugarNacimiento"), rs.getDate("fechaSacramento").toLocalDate(),
-                    rs.getString("lugarSacramento"), rs.getString("padrino"),
-                    rs.getString("madrina"), rs.getString("observacion"),
-                    rs.getString("inscritoLibro")
+                        rs.getInt("libro"), rs.getInt("folio"), rs.getInt("partida"),
+                        rs.getString("nombre"), rs.getString("apellido"),
+                        rs.getString("padreFeligres"), rs.getString("madreFeligres"),
+                        rs.getDate("nacimiento").toLocalDate(), rs.getInt("edadFeligres"),
+                        rs.getString("lugarNacimiento"), rs.getDate("fechaSacramento").toLocalDate(),
+                        rs.getString("lugarSacramento"), rs.getString("padrino"),
+                        rs.getString("madrina"), rs.getString("observacion"),
+                        rs.getString("inscritoLibro")
                 ));
             }
 
@@ -157,7 +179,7 @@ public class VistaEdicionBautismoController implements Initializable {
 
     /**
      * Método para consultar bautismos basados en una búsqueda.
-     * 
+     *
      * @throws IOException si ocurre un error de entrada/salida
      */
     @FXML
@@ -190,14 +212,17 @@ public class VistaEdicionBautismoController implements Initializable {
         ObservableList<FeligresDetalle> data = FXCollections.observableArrayList();
 
         try {
-            String query = "SELECT r.libro, r.folio, r.partida, f.nombre, f.apellido, f.padreFeligres, f.madreFeligres, " +
-                           "f.nacimiento, f.edadFeligres, f.lugarNacimiento, b.fechaSacramento, b.lugarSacramento, " +
-                           "b.padrino, b.madrina, o.observacion, r.inscritoLibro " +
-                           "FROM feligres f " +
-                           "JOIN bautismo b ON f.idFeligres = b.idFeligres " +
-                           "JOIN registrolibro r ON b.idBautismo = r.bautismo_idBautismo " +
-                           "JOIN observacion o ON b.idBautismo = o.bautismo_idBautismo " +
-                           "WHERE nombre LIKE ? OR apellido LIKE ?";
+            actividad = "Busqueda de Feligres '"+busqueda +"' para edicion";
+            sesion1 = new ConexionDB(SingletonDatosUsuario.getInstance().getDatosUsuario().getNombre(), SingletonDatosUsuario.getInstance().getDatosUsuario().getPass(), actividad);
+            sesion1.iniciarSesion();
+            String query = "SELECT r.libro, r.folio, r.partida, f.nombre, f.apellido, f.padreFeligres, f.madreFeligres, "
+                    + "f.nacimiento, f.edadFeligres, f.lugarNacimiento, b.fechaSacramento, b.lugarSacramento, "
+                    + "b.padrino, b.madrina, o.observacion, r.inscritoLibro "
+                    + "FROM feligres f "
+                    + "JOIN bautismo b ON f.idFeligres = b.idFeligres "
+                    + "JOIN registrolibro r ON b.idBautismo = r.bautismo_idBautismo "
+                    + "JOIN observacion o ON b.idBautismo = o.bautismo_idBautismo "
+                    + "WHERE nombre LIKE ? OR apellido LIKE ?";
             PreparedStatement stmt = connection.prepareStatement(query);
             stmt.setString(1, "%" + busqueda + "%");
             stmt.setString(2, "%" + busqueda + "%");
@@ -205,14 +230,14 @@ public class VistaEdicionBautismoController implements Initializable {
 
             while (rs.next()) {
                 data.add(new FeligresDetalle(
-                    rs.getInt("libro"), rs.getInt("folio"), rs.getInt("partida"),
-                    rs.getString("nombre"), rs.getString("apellido"),
-                    rs.getString("padreFeligres"), rs.getString("madreFeligres"),
-                    rs.getDate("nacimiento").toLocalDate(), rs.getInt("edadFeligres"),
-                    rs.getString("lugarNacimiento"), rs.getDate("fechaSacramento").toLocalDate(),
-                    rs.getString("lugarSacramento"), rs.getString("padrino"),
-                    rs.getString("madrina"), rs.getString("observacion"),
-                    rs.getString("inscritoLibro")
+                        rs.getInt("libro"), rs.getInt("folio"), rs.getInt("partida"),
+                        rs.getString("nombre"), rs.getString("apellido"),
+                        rs.getString("padreFeligres"), rs.getString("madreFeligres"),
+                        rs.getDate("nacimiento").toLocalDate(), rs.getInt("edadFeligres"),
+                        rs.getString("lugarNacimiento"), rs.getDate("fechaSacramento").toLocalDate(),
+                        rs.getString("lugarSacramento"), rs.getString("padrino"),
+                        rs.getString("madrina"), rs.getString("observacion"),
+                        rs.getString("inscritoLibro")
                 ));
             }
 
@@ -239,7 +264,7 @@ public class VistaEdicionBautismoController implements Initializable {
 
     /**
      * Método para regresar a la vista anterior.
-     * 
+     *
      * @throws IOException si ocurre un error de entrada/salida
      */
     @FXML
@@ -249,7 +274,7 @@ public class VistaEdicionBautismoController implements Initializable {
 
     /**
      * Función para mostrar alertas fácilmente.
-     * 
+     *
      * @param title Título de la alerta
      * @param content Contenido de la alerta
      * @param alertType Tipo de alerta
