@@ -13,8 +13,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -171,36 +169,6 @@
                               </image>
                            </ImageView>
                                    
-                                </children>
-                            </AnchorPane>
-                        </content>
-                    </Tab>
-                    <Tab onSelectionChanged="#_mostraDatos" style="-fx-font-weight: bold;" text=" Buscar Sacramento de Bautismo">
-                        <content>
-                            <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                                <children>
-                                    <TableView fx:id="tablaFeligreses" layoutX="14.0" layoutY="77.0" prefHeight="557.0" prefWidth="1275.0" style="-fx-background-color: linear-gradient(to bottom, #c6eaff, #ffffff);">
-                                        <columns>
-                                            <TableColumn fx:id="libroColumn" minWidth="40.0" prefWidth="40.0" style="-fx-alignment: CENTER;" text="Libro" />
-                                            <TableColumn fx:id="folioColumn" minWidth="40.0" prefWidth="40.0" style="-fx-alignment: CENTER;" text="Folio" />
-                                            <TableColumn fx:id="partidaColumn" minWidth="47.0" prefWidth="47.0" style="-fx-alignment: CENTER;" text="Partida" />
-                                            <TableColumn fx:id="nombreColumn" minWidth="150.0" prefWidth="150.0" text="Nombre" />
-                                            <TableColumn fx:id="apellidoColumn" minWidth="150.0" prefWidth="150.0" text="Apellido" />
-                                            <TableColumn fx:id="padreColumn" minWidth="150.0" prefWidth="150.0" text="Padre" />
-                                            <TableColumn fx:id="madreColumn" minWidth="150.0" prefWidth="150.0" text="Madre" />
-                                            <TableColumn fx:id="nacimientoColumn" minWidth="100.0" text="Nacimiento" />
-                                            <TableColumn fx:id="edadColumn" minWidth="40.0" prefWidth="40.0" style="-fx-alignment: CENTER;" text="Edad" />
-                                            <TableColumn fx:id="lugarNacimientoColumn" prefWidth="168.0" text="Lugar Nacimiento" />
-                                            <TableColumn fx:id="fechaSacramentoColumn" prefWidth="168.0" text="FechaSacramento" />
-                                            <TableColumn fx:id="lugarSacramentoColumn" prefWidth="200.0" text="Lugar" />
-                                            <TableColumn fx:id="padrinoColumn" prefWidth="200.0" text="Padrino" />
-                                            <TableColumn fx:id="madrinaColumn" prefWidth="168.0" text="Madrina" />
-                                            <TableColumn fx:id="observacionColumn" prefWidth="200.0" text="Observaciones" />
-                                            <TableColumn fx:id="registradoColumn" prefWidth="168.0" text="¿Registrado?" />
-                                        </columns>
-                                    </TableView>
-                                    <TextField fx:id="txtBusquedaB" layoutX="133.0" layoutY="24.0" prefHeight="23.0" prefWidth="230.0" />
-                                    <Button layoutX="386.0" layoutY="24.0" mnemonicParsing="false" onAction="#_consultaBautismoBusqueda" text="Buscar" />
                                 </children>
                             </AnchorPane>
                         </content>
