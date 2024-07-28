@@ -15,6 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
@@ -34,6 +35,7 @@ public class BautismosVistaController implements Initializable {
     @FXML private TextArea txtAreaObservaciones;
     @FXML private CheckBox boxInscritoB;
     @FXML private DatePicker datePikerFechaB, datePikerFechaNacimientoB;
+    
 
 
 
@@ -113,6 +115,7 @@ public class BautismosVistaController implements Initializable {
                 return;
             }
             if (fechaNacimientoC.isAfter(fechaInscripcion)) {
+                
                 showAlert("Error", "El Sacramento no puede ser antes del nacimiento.", Alert.AlertType.ERROR);
                 return;
             }

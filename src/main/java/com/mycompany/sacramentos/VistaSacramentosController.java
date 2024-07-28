@@ -58,4 +58,9 @@ public class VistaSacramentosController implements Initializable {
         App.setRoot("vistaBautismoConstancia");
     }
 
+    @FXML
+    private void autBautismo() throws IOException {
+        App.setRoot("vistaBautismoAutorizacion");
+    }
+
 }

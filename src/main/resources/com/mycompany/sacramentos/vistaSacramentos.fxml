@@ -82,7 +82,7 @@
                                  <Font size="17.0" />
                               </font>
                            </Hyperlink>
-                           <Hyperlink layoutX="203.0" layoutY="497.0" text="Autorizacion">
+                           <Hyperlink layoutX="203.0" layoutY="497.0" onAction="#autBautismo" text="Autorizacion">
                               <font>
                                  <Font size="17.0" />
                               </font>

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" maxHeight="800.0" maxWidth="1300.0" minHeight="800.0" minWidth="1300.0" prefHeight="800.0" prefWidth="1300.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.sacramentos.VistaBautismoAutorizacionController">
+    <stylesheets>
+        <URL value="@/styles/edicionregistro.css" />
+    </stylesheets>
+    <children>
+          <AnchorPane layoutX="6.0" layoutY="95.0" maxHeight="800.0" maxWidth="1300.0" minHeight="651.0" minWidth="1140.0" prefHeight="704.0" prefWidth="1294.0" style="-fx-background-color: linear-gradient(to bottom, #c6eaff, #ffffff);">
+              <children>
+            <Label layoutX="396.0" layoutY="673.0" text="© 2024 Iglesia Católica - Parroquia Santo Hermano Pedro- Sistema de Gestión de Sacramentos" />
+            <TabPane fx:id="tabpane" layoutX="-2.0" prefHeight="663.0" prefWidth="1300.0" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab text="Solicitud de Documento">
+                     <content>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <Label layoutX="472.0" layoutY="7.0" text="Ingrese los Datos Requeridos">
+                                 <font>
+                                    <Font size="28.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="aparroquia" layoutX="453.0" layoutY="66.0" prefHeight="25.0" prefWidth="400.0" promptText="Parroquia a la que va dirigida la carta" />
+                              <TextField fx:id="padre" layoutX="356.0" layoutY="199.0" prefHeight="25.0" prefWidth="250.0" promptText="Nombre Completo del Padre" />
+                              <TextField fx:id="parroco" layoutX="515.0" layoutY="118.0" prefHeight="25.0" prefWidth="250.0" promptText="Sacerdote a quien va dirigida la carta" />
+                              <TextField fx:id="madre" layoutX="686.0" layoutY="199.0" prefHeight="25.0" prefWidth="250.0" promptText="Nombre Completo de la Madre" />
+                              <TextField fx:id="Lnacimiento" layoutX="502.0" layoutY="317.0" prefHeight="25.0" prefWidth="400.0" promptText="Lugar de Nacimiento" />
+                              <TextField fx:id="nino" layoutX="500.0" layoutY="255.0" prefHeight="25.0" prefWidth="300.0" promptText="Nombre del Niño a Bautizar" />
+                              <DatePicker fx:id="Fnacimiento" layoutX="506.0" layoutY="374.0" prefHeight="25.0" prefWidth="268.0" promptText="Fecha de Nacimiento" />
+                              <TextField fx:id="padrino" layoutX="339.0" layoutY="455.0" prefHeight="25.0" prefWidth="250.0" promptText="Nombre Completo del Padrino" />
+                              <TextField fx:id="madrina" layoutX="691.0" layoutY="455.0" prefHeight="25.0" prefWidth="250.0" promptText="Nombre Completo de la Madrina" />
+                              <TextArea fx:id="obs" layoutX="1031.0" layoutY="188.0" prefHeight="292.0" prefWidth="200.0" />
+                              <TextField layoutX="450.0" layoutY="547.0" prefHeight="25.0" prefWidth="400.0" promptText="Parroco Actual" />
+                              <Label fx:id="_v1" layoutX="362.0" layoutY="69.0" text="A Parroquia">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="443.0" layoutY="121.0" text="Párroco ">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="_v2" layoutX="414.0" layoutY="176.0" text="Nombre del Padre">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="_v3" layoutX="736.0" layoutY="176.0" text="Nombre de la Madre">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="_v4" layoutX="367.0" layoutY="258.0" text="Nombre del Niño(a)">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="364.0" layoutY="320.0" text="Lugar de Nacimiento">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="_v5" layoutX="364.0" layoutY="377.0" text="Fecha de Nacimiento">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="_v6" layoutX="396.0" layoutY="435.0" text="Nombre del Padrino">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="_v7" layoutX="741.0" layoutY="435.0" text="Nombre de la Madrina">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="570.0" layoutY="527.0" text="Nombre del Parroco">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="1086.0" layoutY="166.0" text="Observaciones">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <Button id="guardar" layoutX="1032.0" layoutY="91.0" mnemonicParsing="false" onAction="#guardar" prefHeight="37.0" prefWidth="199.0" stylesheets="@../../../styles/vistabautismoautorizacion.css" text="Guardar Solicitud" />
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                <Tab onSelectionChanged="#consulta" text="Impresion y Edición de Documentos">
+                     <content>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <TableView fx:id="tabla" layoutX="7.0" layoutY="92.0" prefHeight="535.0" prefWidth="1277.0">
+                                <columns>
+                                  <TableColumn fx:id="_id" prefWidth="75.0" text="ID" />
+                                  <TableColumn fx:id="_parroquia" prefWidth="315.0" text="Parroquia Dirigida" />
+                                    <TableColumn fx:id="_parroco" prefWidth="262.0" text="Parroco Dirigido" />
+                                    <TableColumn fx:id="_padre" prefWidth="200.0" text="Nombre del Padre" />
+                                    <TableColumn fx:id="_madre" prefWidth="200.0" text="Nombre de la Madre" />
+                                    <TableColumn fx:id="_nino" prefWidth="250.0" text="Nombre del Niño" />
+                                    <TableColumn fx:id="_Lnacimiento" prefWidth="250.0" text="Lugar de Nacimiento" />
+                                    <TableColumn fx:id="_Fnacimiento" prefWidth="100.0" text="Fecha Nacimiento" />
+                                    <TableColumn fx:id="_padrino" prefWidth="200.0" text="Nombre Padrino" />
+                                    <TableColumn fx:id="_madrina" prefWidth="200.0" text="Nombre Madrina" />
+                                    <TableColumn fx:id="_obs" prefWidth="250.0" text="Observaciones" />
+                                    <TableColumn fx:id="_creacion" prefWidth="250.0" text="Fecha de Creacion" />
+                                    <TableColumn fx:id="_creador" prefWidth="150.0" text="Creador" />
+                                    <TableColumn fx:id="_modificacion" prefWidth="100.0" text="Ultima Modificación" />
+                                    <TableColumn fx:id="_modificador" prefWidth="100.0" text="Modificador" />
+                                </columns>
+                              </TableView>
+                              <Label layoutX="524.0" layoutY="15.0" text="Busqueda de Registro de Autorización">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <ImageView fitHeight="41.0" fitWidth="30.0" layoutX="488.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../img/busquedar.png" />
+                                 </image>
+                              </ImageView>
+                              <Button layoutX="776.0" layoutY="44.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="98.0" style="-fx-background-color: #00c569;" text="Buscar" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="13.0" />
+                                 </font>
+                              </Button>
+                              <TextField fx:id="txtBusqueda" layoutX="535.0" layoutY="45.0" prefHeight="23.0" prefWidth="230.0" promptText="Ingrese Nombre o Apellido" />
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+              </tabs>
+            </TabPane>
+              </children>
+          </AnchorPane>
+          <AnchorPane maxHeight="1300.0" maxWidth="1300.0" minHeight="85.0" minWidth="1300.0" prefHeight="94.0" prefWidth="1300.0" style="-fx-background-color: linear-gradient(to bottom, #c6eaff, #ffffff);">
+              <children>
+                  <Button id="regresar" fx:id="regresar" layoutX="1174.0" layoutY="25.0" mnemonicParsing="false" onAction="#regresar" prefHeight="37.0" prefWidth="112.0" stylesheets="@../../../styles/vistabautismoautorizacion.css" text="Regresar">
+                      <font>
+                          <Font name="System Bold" size="14.0" />
+                      </font>
+                      <cursor>
+                          <Cursor fx:constant="HAND" />
+                      </cursor>
+                  </Button>
+                  <Label layoutX="441.0" layoutY="19.0" text="Autorizaciones de Bautismos">
+                      <font>
+                          <Font size="33.0" />
+                      </font>
+                  </Label>
+            <ImageView fitHeight="76.0" fitWidth="75.0" layoutX="14.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../img/logo1.png" />
+               </image>
+            </ImageView>
+              </children>
+          </AnchorPane>
+    </children>
+</AnchorPane>

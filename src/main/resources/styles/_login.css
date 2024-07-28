@@ -34,7 +34,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 
 /* Estilo base del botón */
 #ingresar {
-    -fx-background-color: #62dd91; /* Color de fondo inicial */
+    -fx-background-color: #43d5f0; /* Color de fondo inicial */
     -fx-text-fill: white; /* Color del texto inicial */
     -fx-border-radius: 5px; /* Borde redondeado */
     -fx-background-radius: 5px; /* Borde redondeado */
@@ -45,7 +45,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 /* Estilo cuando el cursor pasa sobre el botón */
 #ingresar:hover {
     -fx-background-color: white; /* Color de fondo al pasar el cursor */
-    -fx-text-fill: #62dd91; /* Color del texto al pasar el cursor */
-    -fx-border-color: #62dd91; /* Color del borde */
+    -fx-text-fill: #43d5f0; /* Color del texto al pasar el cursor */
+    -fx-border-color: #43d5f0; /* Color del borde */
     -fx-border-width: 2px; /* Ancho del borde */
 }
