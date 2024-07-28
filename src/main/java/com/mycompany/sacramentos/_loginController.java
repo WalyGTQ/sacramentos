@@ -12,10 +12,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
+import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -23,6 +25,8 @@ import javafx.scene.input.KeyCode;
 import javafx.util.Duration;
 
 public class _loginController implements Initializable {
+    
+    @FXML private Button _ingresar;
 
     private LocalDateTime horaInicioSesion;
     public Usuario user;
@@ -45,6 +49,10 @@ public class _loginController implements Initializable {
 
     @Override//Inicializamos para que al presionar enter nos permita ingresar
     public void initialize(URL location, ResourceBundle resources) {
+        
+         applyClickAnimation(_ingresar);
+        
+        
         // Añadir manejador de eventos para el campo de contraseña
         _txtPassword.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
@@ -57,6 +65,21 @@ public class _loginController implements Initializable {
         });
     }
 
+    
+        private void applyClickAnimation(Button button) {
+        // Crear una transición de escala
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(100), button);
+        scaleTransition.setToX(0.95);
+        scaleTransition.setToY(0.95);
+        scaleTransition.setCycleCount(2);
+        scaleTransition.setAutoReverse(true);
+
+        // Aplicar la animación al hacer clic
+        button.setOnMousePressed(event -> scaleTransition.playFromStart());
+    }
+    
+    
+    
     // Implementación de la función para obtener el ID del usuario
     private int obtenerIdUsuario(String UsuarioSesion) {
 

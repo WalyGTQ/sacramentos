@@ -27,7 +27,7 @@
                      <Font size="25.0" />
                   </font>
                </Label>
-               <Button layoutX="1194.0" layoutY="20.0" mnemonicParsing="false" onAction="#regresar" prefHeight="31.0" prefWidth="92.0" style="-fx-background-color: #EB5449;" text="Regresar" textFill="WHITE">
+               <Button id="regresar" layoutX="1194.0" layoutY="20.0" mnemonicParsing="false" onAction="#regresar" prefHeight="31.0" prefWidth="92.0" stylesheets="@../../../styles/vistasacramentos.css" text="Regresar" textFill="WHITE">
                   <font>
                      <Font name="System Bold" size="12.0" />
                   </font>
@@ -77,7 +77,7 @@
                                  <Image url="@../../../img/constancia.png" />
                               </image>
                            </ImageView>
-                           <Hyperlink layoutX="679.0" layoutY="266.0" text="Constancias">
+                           <Hyperlink layoutX="679.0" layoutY="266.0" onAction="#constanciaBautismo" text="Constancias">
                               <font>
                                  <Font size="17.0" />
                               </font>

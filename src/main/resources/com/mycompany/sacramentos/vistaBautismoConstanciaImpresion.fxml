@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" maxHeight="800.0" maxWidth="1300.0" minHeight="800.0" minWidth="1300.0" prefHeight="800.0" prefWidth="1300.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.sacramentos.EdicionRegistroController">
+<AnchorPane id="AnchorPane" maxHeight="800.0" maxWidth="1300.0" minHeight="800.0" minWidth="1300.0" prefHeight="800.0" prefWidth="1300.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.sacramentos.VistaBautismoConstanciaImpresionController">
     <stylesheets>
         <URL value="@/styles/edicionregistro.css" />
     </stylesheets>
@@ -26,32 +26,32 @@
                   <Font size="13.0" />
                </font>
             </Label>
-                  <TextField fx:id="txtFolioB" layoutX="86.0" layoutY="143.0" prefHeight="25.0" prefWidth="40.0" />
+                  <TextField fx:id="txtFolioB" disable="true" layoutX="86.0" layoutY="143.0" prefHeight="25.0" prefWidth="40.0" />
                   <Label layoutX="42.0" layoutY="147.0" text="Folio">
                <font>
                   <Font size="13.0" />
                </font>
             </Label>
-                  <TextField fx:id="txtPartidaB" layoutX="86.0" layoutY="192.0" prefHeight="25.0" prefWidth="40.0" />
-                  <CheckBox fx:id="cbInscritoB" layoutX="50.0" layoutY="329.0" mnemonicParsing="false" text="Inscrito">
+                  <TextField fx:id="txtPartidaB" disable="true" layoutX="86.0" layoutY="192.0" prefHeight="25.0" prefWidth="40.0" />
+                  <CheckBox fx:id="cbInscritoB" disable="true" layoutX="50.0" layoutY="329.0" mnemonicParsing="false" text="Inscrito">
                <font>
                   <Font size="13.0" />
                </font>
             </CheckBox>
-                  <DatePicker fx:id="dpFechaB" layoutX="346.0" layoutY="32.0" prefHeight="25.0" prefWidth="263.0" />
-                  <TextField fx:id="txtLugarB" layoutX="653.0" layoutY="29.0" prefHeight="25.0" prefWidth="290.0" />
+                  <DatePicker fx:id="dpFechaB" disable="true" layoutX="346.0" layoutY="32.0" prefHeight="25.0" prefWidth="263.0" />
+                  <TextField fx:id="txtLugarB" disable="true" layoutX="653.0" layoutY="29.0" prefHeight="25.0" prefWidth="290.0" />
                   <Label layoutX="41.0" layoutY="195.0" text="Partida">
                <font>
                   <Font size="13.0" />
                </font>
             </Label>
-                  <TextField fx:id="txtNombreB" layoutX="379.0" layoutY="94.0" prefHeight="25.0" prefWidth="200.0" />
+                  <TextField fx:id="txtNombreB" disable="true" layoutX="379.0" layoutY="94.0" prefHeight="25.0" prefWidth="200.0" />
                   <Label layoutX="324.0" layoutY="98.0" text="Nombres">
                <font>
                   <Font size="13.0" />
                </font>
             </Label>
-                  <TextField fx:id="txtApellidoB" layoutX="667.0" layoutY="97.0" prefHeight="25.0" prefWidth="200.0" />
+                  <TextField fx:id="txtApellidoB" disable="true" layoutX="667.0" layoutY="97.0" prefHeight="25.0" prefWidth="200.0" />
                   <Label layoutX="606.0" layoutY="101.0" text="Apellidos">
                <font>
                   <Font size="13.0" />
@@ -62,13 +62,13 @@
                   <Font size="13.0" />
                </font>
             </Label>
-                  <DatePicker fx:id="dpNacimientoB" layoutX="399.0" layoutY="141.0" prefHeight="25.0" prefWidth="263.0" />
+                  <DatePicker fx:id="dpNacimientoB" disable="true" layoutX="399.0" layoutY="141.0" prefHeight="25.0" prefWidth="263.0" />
                   <Label layoutX="692.0" layoutY="144.0" text="Edad">
                <font>
                   <Font size="13.0" />
                </font>
             </Label>
-                  <TextField fx:id="txtLugarNacimientoB" layoutX="441.0" layoutY="194.0" prefHeight="25.0" prefWidth="494.0" />
+                  <TextField fx:id="txtLugarNacimientoB" disable="true" layoutX="441.0" layoutY="194.0" prefHeight="25.0" prefWidth="494.0" />
                   <TextField fx:id="txtEdadB" disable="true" layoutX="740.0" layoutY="141.0" prefHeight="25.0" prefWidth="41.0" />
                   <Label layoutX="324.0" layoutY="198.0" text="Lugar Nacimiento">
                <font>
@@ -80,13 +80,13 @@
                   <Font size="13.0" />
                </font>
             </Label>
-                  <TextField fx:id="txtPadreB" layoutX="327.0" layoutY="277.0" prefHeight="25.0" prefWidth="280.0" />
+                  <TextField fx:id="txtPadreB" disable="true" layoutX="327.0" layoutY="277.0" prefHeight="25.0" prefWidth="280.0" />
                   <Label layoutX="327.0" layoutY="249.0" text="Padre">
                <font>
                   <Font size="13.0" />
                </font>
             </Label>
-                  <TextField fx:id="txtMadreB" layoutX="658.0" layoutY="277.0" prefHeight="25.0" prefWidth="280.0" />
+                  <TextField fx:id="txtMadreB" disable="true" layoutX="658.0" layoutY="277.0" prefHeight="25.0" prefWidth="280.0" />
                   <Label layoutX="663.0" layoutY="249.0" text="Madre">
                <font>
                   <Font size="13.0" />
@@ -97,36 +97,21 @@
                   <Font size="13.0" />
                </font>
             </Label>
-                  <TextField fx:id="txtPadrinoB" layoutX="327.0" layoutY="349.0" prefHeight="25.0" prefWidth="280.0" />
+                  <TextField fx:id="txtPadrinoB" disable="true" layoutX="327.0" layoutY="349.0" prefHeight="25.0" prefWidth="280.0" />
                   <Label layoutX="330.0" layoutY="319.0" text="Padrino">
                <font>
                   <Font size="13.0" />
                </font>
             </Label>
-                  <TextField fx:id="txtMadrinaB" layoutX="658.0" layoutY="349.0" prefHeight="25.0" prefWidth="280.0" />
+                  <TextField fx:id="txtMadrinaB" disable="true" layoutX="658.0" layoutY="349.0" prefHeight="25.0" prefWidth="280.0" />
                   <Label layoutX="658.0" layoutY="319.0" text="Madrina">
                <font>
                   <Font size="13.0" />
                </font>
             </Label>
-                  <TextArea fx:id="taObservacionesB" layoutX="320.0" layoutY="422.0" prefHeight="200.0" prefWidth="617.0" />
-                  <Button id="actualizar" layoutX="1126.0" layoutY="172.0" mnemonicParsing="false" onAction="#_actualizarB" prefHeight="34.0" prefWidth="116.0" stylesheets="@../../../styles/edicionregistro.css" text="Actualizar" textFill="#f2f2f2">
-                      <cursor>
-                          <Cursor fx:constant="HAND" />
-                      </cursor>
-                  </Button>
-                  <Button id="eliminar" layoutX="1128.0" layoutY="237.0" mnemonicParsing="false" onAction="#_eliminarRegistroB" prefHeight="40.0" prefWidth="113.0" stylesheets="@../../../styles/edicionregistro.css" text="Eliminar" textFill="WHITE">
-                      <font>
-                          <Font name="System Bold" size="12.0" />
-                      </font>
-                  </Button>
-                  <TextField fx:id="txtLibroB" layoutX="86.0" layoutY="86.0" prefHeight="25.0" prefWidth="40.0" />
+                  <TextArea fx:id="taObservacionesB" disable="true" editable="false" layoutX="320.0" layoutY="422.0" prefHeight="200.0" prefWidth="617.0" />
+                  <TextField fx:id="txtLibroB" disable="true" layoutX="86.0" layoutY="86.0" prefHeight="25.0" prefWidth="40.0" />
             <Label layoutX="396.0" layoutY="673.0" text="© 2024 Iglesia Católica - Parroquia Santo Hermano Pedro- Sistema de Gestión de Sacramentos" />
-            <ImageView fitHeight="112.0" fitWidth="142.0" layoutX="1129.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../img/edicion.png" />
-               </image>
-            </ImageView>
             <Separator layoutX="1073.0" layoutY="44.0" orientation="VERTICAL" prefHeight="317.0" prefWidth="8.0" />
             <Label layoutX="628.0" layoutY="353.0" text="Y">
                <font>
@@ -139,11 +124,23 @@
                </font>
             </Label>
             <Separator layoutX="166.0" layoutY="69.0" orientation="VERTICAL" prefHeight="317.0" prefWidth="8.0" />
+            <Button id="imp1" layoutX="1114.0" layoutY="168.0" mnemonicParsing="false" onAction="#_imprimirB" stylesheets="@../../../styles/vistabautismoconstanciaimpresion.css" text="Imprimir Constancia" />
+            <Button id="imp2" layoutX="1091.0" layoutY="316.0" mnemonicParsing="false" onAction="#_imprimirFicha" stylesheets="@../../../styles/vistabautismoconstanciaimpresion.css" text="Imprimir Ficha de Inscripción" />
+            <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="1148.0" layoutY="72.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../img/informe.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="82.0" fitWidth="75.0" layoutX="1160.0" layoutY="221.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../img/ficha.png" />
+               </image>
+            </ImageView>
               </children>
           </AnchorPane>
           <AnchorPane maxHeight="1300.0" maxWidth="1300.0" minHeight="85.0" minWidth="1300.0" prefHeight="94.0" prefWidth="1300.0" style="-fx-background-color: linear-gradient(to bottom, #c6eaff, #ffffff);">
               <children>
-                  <Button fx:id="regresar" layoutX="1174.0" layoutY="25.0" mnemonicParsing="false" onAction="#_regresar" prefHeight="37.0" prefWidth="112.0" stylesheets="@../../../styles/edicionregistro.css" text="Regresar">
+                  <Button id="regresar" fx:id="regresar" layoutX="1174.0" layoutY="25.0" mnemonicParsing="false" onAction="#regresar" prefHeight="37.0" prefWidth="112.0" stylesheets="@../../../styles/vistabautismoconstanciaimpresion.css" text="Regresar">
                       <font>
                           <Font name="System Bold" size="14.0" />
                       </font>
@@ -151,9 +148,9 @@
                           <Cursor fx:constant="HAND" />
                       </cursor>
                   </Button>
-                  <Label layoutX="408.0" layoutY="14.0" text="Edicion de Registro - Bautismo">
+                  <Label layoutX="321.0" layoutY="19.0" text="Impresión de Ficha o Constancia - Bautismo">
                       <font>
-                          <Font size="34.0" />
+                          <Font size="33.0" />
                       </font>
                   </Label>
             <ImageView fitHeight="76.0" fitWidth="75.0" layoutX="14.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">

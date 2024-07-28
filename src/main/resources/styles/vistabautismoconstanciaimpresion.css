@@ -1,10 +1,3 @@
-/*
- * Empty Stylesheet file.
- */
-
-.mainFxmlClass {
-
-}
 /* Estilo base del botón Regresar*/
 #regresar {
     -fx-background-color: #FF6347; /* Color de fondo inicial */
@@ -14,6 +7,7 @@
     -fx-font-size: 14px; /* Tamaño de la fuente */
 }
 
+
 /* Estilo cuando el cursor pasa sobre el botón */
 #regresar:hover {
     -fx-background-color: white; /* Color de fondo al pasar el cursor */
@@ -22,9 +16,10 @@
     -fx-border-width: 2px; /* Ancho del borde */
 }
 
+
 /* Estilo base del botón Eliminar*/
-#eliminar {
-    -fx-background-color: #FF6347; /* Color de fondo inicial */
+#imp1, #imp2 {
+    -fx-background-color: #a596ff; /* Color de fondo inicial */
     -fx-text-fill: white; /* Color del texto inicial */
     -fx-border-radius: 5px; /* Borde redondeado */
     -fx-background-radius: 5px; /* Borde redondeado */
@@ -32,27 +27,10 @@
 }
 
 /* Estilo cuando el cursor pasa sobre el botón */
-#eliminar:hover {
+#imp1:hover, #imp2:hover {
     -fx-background-color: white; /* Color de fondo al pasar el cursor */
-    -fx-text-fill: #FF6347; /* Color del texto al pasar el cursor */
-    -fx-border-color: #FF6347; /* Color del borde */
-    -fx-border-width: 2px; /* Ancho del borde */
-}
-
-/* Estilo base del botón actualizar*/
-#actualizar {
-    -fx-background-color: #00c569; /* Color de fondo inicial */
-    -fx-text-fill: white; /* Color del texto inicial */
-    -fx-border-radius: 5px; /* Borde redondeado */
-    -fx-background-radius: 5px; /* Borde redondeado */
-    -fx-font-size: 14px; /* Tamaño de la fuente */
-}
-
-/* Estilo cuando el cursor pasa sobre el botón */
-#actualizar:hover {
-    -fx-background-color: white; /* Color de fondo al pasar el cursor */
-    -fx-text-fill: #00c569; /* Color del texto al pasar el cursor */
-    -fx-border-color: #00c569; /* Color del borde */
+    -fx-text-fill: #a596ff; /* Color del texto al pasar el cursor */
+    -fx-border-color: #a596ff; /* Color del borde */
     -fx-border-width: 2px; /* Ancho del borde */
 }
 

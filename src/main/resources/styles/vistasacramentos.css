@@ -1,7 +1,17 @@
-/*
- * Empty Stylesheet file.
- */
+/* Estilo base del botón Regresar*/
+#regresar {
+    -fx-background-color: #FF6347; /* Color de fondo inicial */
+    -fx-text-fill: white; /* Color del texto inicial */
+    -fx-border-radius: 5px; /* Borde redondeado */
+    -fx-background-radius: 5px; /* Borde redondeado */
+    -fx-font-size: 14px; /* Tamaño de la fuente */
+}
 
-.mainFxmlClass {
 
+/* Estilo cuando el cursor pasa sobre el botón */
+#regresar:hover {
+    -fx-background-color: white; /* Color de fondo al pasar el cursor */
+    -fx-text-fill: #FF6347; /* Color del texto al pasar el cursor */
+    -fx-border-color: #FF6347; /* Color del borde */
+    -fx-border-width: 2px; /* Ancho del borde */
 }

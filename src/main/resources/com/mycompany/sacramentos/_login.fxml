@@ -26,7 +26,7 @@
             </Label>
             <Label layoutX="112.0" layoutY="65.0" text="Usuario" />
             <Label layoutX="103.0" layoutY="128.0" text="Contraseña" />
-            <Button fx:id="_ingresar" layoutX="58.0" layoutY="204.0" mnemonicParsing="false" onAction="#_irPrimero" prefHeight="25.0" prefWidth="149.0" style="-fx-background-radius: 15px;" text="Ingresar">
+            <Button id="ingresar" fx:id="_ingresar" layoutX="58.0" layoutY="204.0" mnemonicParsing="false" onAction="#_irPrimero" prefHeight="25.0" prefWidth="149.0" stylesheets="@../../../styles/_login.css" text="Ingresar">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Button>
