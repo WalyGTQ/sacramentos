@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
@@ -44,10 +45,13 @@
                      <Font name="System Bold" size="12.0" />
                   </font>
                </Label>
-               <Button layoutX="1193.0" layoutY="35.0" mnemonicParsing="false" onAction="#regresar" prefHeight="31.0" prefWidth="92.0" style="-fx-background-color: #EB5449;" text="Regresar" textFill="WHITE">
+               <Button fx:id="regresar" layoutX="1193.0" layoutY="35.0" mnemonicParsing="false" onAction="#regresar" prefHeight="31.0" prefWidth="92.0" stylesheets="@../../../styles/vistabautismoreporte.css" text="Regresar" textFill="WHITE">
                   <font>
                      <Font name="System Bold" size="12.0" />
                   </font>
+                  <cursor>
+                     <Cursor fx:constant="HAND" />
+                  </cursor>
                </Button>
             </children>
          </AnchorPane>
@@ -59,26 +63,29 @@
         <StackPane prefHeight="337.0" prefWidth="493.0">
          <AnchorPane prefHeight="727.0" prefWidth="1071.0">
             <children>
-               <AnchorPane layoutY="7.0" prefHeight="660.0" prefWidth="1300.0" />
-               <BarChart fx:id="bcBautismos" layoutX="99.0" layoutY="104.0" prefHeight="509.0" prefWidth="1128.0">
-                  <xAxis>
-                     <CategoryAxis side="TOP" />
-                  </xAxis>
-                  <yAxis>
-                     <NumberAxis side="LEFT" tickLabelRotation="-23.6" />
-                  </yAxis>
-               </BarChart>
-               <ComboBox fx:id="cbFiltroB" layoutX="24.0" layoutY="53.0" prefWidth="150.0" promptText="Selecciona Filtro" />
-               <PieChart fx:id="pcBautismos" layoutX="99.0" layoutY="95.0" prefHeight="516.0" prefWidth="1175.0" />
-               <LineChart fx:id="lcBautismo" layoutX="115.0" layoutY="103.0" prefHeight="500.0" prefWidth="1106.0">
-                  <xAxis>
-                     <CategoryAxis label="Fecha" side="BOTTOM" />
-                  </xAxis>
-                  <yAxis>
-                     <NumberAxis label="Número de bautismos" side="LEFT" />
-                  </yAxis>
-               </LineChart>
-               <PieChart fx:id="pcBautismos2" layoutX="116.0" layoutY="88.0" prefHeight="499.0" prefWidth="1094.0" />
+               <AnchorPane layoutY="7.0" prefHeight="660.0" prefWidth="1300.0">
+                  <children>
+                     <ComboBox fx:id="cbFiltroB" layoutX="554.0" layoutY="14.0" prefHeight="25.0" prefWidth="193.0" promptText="Selecciona Filtro" />
+                     <BarChart fx:id="bcBautismos" layoutX="14.0" layoutY="53.0" prefHeight="525.0" prefWidth="1277.0">
+                        <xAxis>
+                           <CategoryAxis side="TOP" />
+                        </xAxis>
+                        <yAxis>
+                           <NumberAxis side="LEFT" tickLabelRotation="-23.6" />
+                        </yAxis>
+                     </BarChart>
+                     <PieChart fx:id="pcBautismos" layoutX="19.0" layoutY="52.0" prefHeight="539.0" prefWidth="1259.0" />
+                     <LineChart fx:id="lcBautismo" layoutX="15.0" layoutY="59.0" prefHeight="547.0" prefWidth="1265.0">
+                        <xAxis>
+                           <CategoryAxis label="Fecha" side="BOTTOM" />
+                        </xAxis>
+                        <yAxis>
+                           <NumberAxis label="Número de bautismos" side="LEFT" />
+                        </yAxis>
+                     </LineChart>
+                  </children>
+               </AnchorPane>
+               <PieChart fx:id="pcBautismos2" layoutX="22.0" layoutY="73.0" prefHeight="543.0" prefWidth="1248.0" />
             </children></AnchorPane>
         </StackPane>
     </center>
