@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="800.0" maxWidth="1300.0" minHeight="800.0" minWidth="1300.0" prefHeight="800.0" prefWidth="1300.0" style="-fx-background-color: linear-gradient(to bottom, #c6eaff, #ffffff);" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.sacramentos.VistaBautismoReporteController">
+    <stylesheets>
+        <URL value="@/styles/menuprincipal.css" />
+    </stylesheets>
+
+
+    <!-- Encabezado -->
+    <top>
+        <HBox alignment="CENTER" spacing="10">
+         <AnchorPane prefHeight="86.0" prefWidth="1300.0">
+            <children>
+                  <!-- Sección de sacramentos -->
+                  <Label layoutX="455.0" layoutY="14.0" style="-fx-font-weight: bold;" text="Graficas y Reportes de Bautismos">
+                  <font>
+                     <Font size="25.0" />
+                  </font>
+               </Label>
+               <ImageView fitHeight="73.0" fitWidth="75.0" layoutX="14.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../../../img/logo1.png" />
+                  </image>
+               </ImageView>
+               <Label layoutX="558.0" layoutY="50.0" prefHeight="17.0" prefWidth="186.0" text="Sistema De Gestión Parroquial">
+                  <font>
+                     <Font name="System Bold" size="12.0" />
+                  </font>
+               </Label>
+               <Button layoutX="1193.0" layoutY="35.0" mnemonicParsing="false" onAction="#regresar" prefHeight="31.0" prefWidth="92.0" style="-fx-background-color: #EB5449;" text="Regresar" textFill="WHITE">
+                  <font>
+                     <Font name="System Bold" size="12.0" />
+                  </font>
+               </Button>
+            </children>
+         </AnchorPane>
+        </HBox>
+    </top>
+
+    <!-- Contenido principal, este espacio cambia según la opción seleccionada en el menú -->
+    <center>
+        <StackPane prefHeight="337.0" prefWidth="493.0">
+         <AnchorPane prefHeight="727.0" prefWidth="1071.0">
+            <children>
+               <AnchorPane layoutY="7.0" prefHeight="660.0" prefWidth="1300.0" />
+               <BarChart fx:id="bcBautismos" layoutX="99.0" layoutY="104.0" prefHeight="509.0" prefWidth="1128.0">
+                  <xAxis>
+                     <CategoryAxis side="TOP" />
+                  </xAxis>
+                  <yAxis>
+                     <NumberAxis side="LEFT" tickLabelRotation="-23.6" />
+                  </yAxis>
+               </BarChart>
+               <ComboBox fx:id="cbFiltroB" layoutX="24.0" layoutY="53.0" prefWidth="150.0" promptText="Selecciona Filtro" />
+               <PieChart fx:id="pcBautismos" layoutX="99.0" layoutY="95.0" prefHeight="516.0" prefWidth="1175.0" />
+               <LineChart fx:id="lcBautismo" layoutX="115.0" layoutY="103.0" prefHeight="500.0" prefWidth="1106.0">
+                  <xAxis>
+                     <CategoryAxis label="Fecha" side="BOTTOM" />
+                  </xAxis>
+                  <yAxis>
+                     <NumberAxis label="Número de bautismos" side="LEFT" />
+                  </yAxis>
+               </LineChart>
+               <PieChart fx:id="pcBautismos2" layoutX="116.0" layoutY="88.0" prefHeight="499.0" prefWidth="1094.0" />
+            </children></AnchorPane>
+        </StackPane>
+    </center>
+
+    <!-- Pie de página -->
+    <bottom>
+        <HBox alignment="CENTER" prefHeight="46.0" prefWidth="696.0" spacing="10">
+         <children>
+            <AnchorPane prefHeight="46.0" prefWidth="1308.0">
+               <children>
+                  <Label layoutX="399.0" layoutY="15.0" text="© 2024 Iglesia Católica - Parroquia Santo Hermano Pedro- Sistema de Gestión de Sacramentos" />
+               </children>
+            </AnchorPane>
+         </children>
+        </HBox>
+    </bottom>
+</BorderPane>

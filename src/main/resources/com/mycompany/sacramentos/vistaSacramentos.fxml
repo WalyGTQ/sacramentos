@@ -102,7 +102,7 @@
                                  <Font size="17.0" />
                               </font>
                            </Hyperlink>
-                           <Hyperlink layoutX="691.0" layoutY="497.0" text="Reportes">
+                           <Hyperlink layoutX="691.0" layoutY="497.0" onAction="#reporteBautismo" text="Reportes">
                               <font>
                                  <Font size="17.0" />
                               </font>

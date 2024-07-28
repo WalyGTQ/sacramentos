@@ -26,7 +26,7 @@ public class VistaSacramentosController implements Initializable {
         // TODO
     }  
     //MEtodo para regresar
-        @FXML
+    @FXML
     private void regresar() throws IOException {
         App.setRoot("menuPrincipal");
     }
@@ -44,6 +44,10 @@ public class VistaSacramentosController implements Initializable {
             @FXML
     private void EditBautismo() throws IOException {
         App.setRoot("vistaEdicionBautismo");
+    }
+            @FXML
+    private void reporteBautismo() throws IOException {
+        App.setRoot("vistaBautismoReporte");
     }
     
     

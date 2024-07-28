@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package com.mycompany.sacramentos;
 
 import java.io.IOException;
@@ -13,158 +9,38 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.ResourceBundle;
-import javafx.beans.binding.Bindings;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Bounds;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.PieChart;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Tooltip;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 
 /**
- * FXML Controller class
+ * Controlador para la vista de bautismos.
+ * Maneja la interacción del usuario con la interfaz de bautismos.
  *
- * @author walyn
+ * Autor: walyn
  */
 public class BautismosVistaController implements Initializable {
 
-    private String busqueda;
 
-    @FXML
-    private TableView<FeligresDetalle> tablaFeligreses;
-    //Campos para la consulta de Bautismo
-    @FXML
-    private TableColumn<FeligresDetalle, String> nombreColumn;
-    @FXML
-    private TableColumn<FeligresDetalle, String> apellidoColumn;
-    @FXML
-    private TableColumn<FeligresDetalle, Integer> libroColumn;
-    @FXML
-    private TableColumn<FeligresDetalle, Integer> folioColumn;
-    @FXML
-    private TableColumn<FeligresDetalle, Integer> partidaColumn;
-    @FXML
-    private TableColumn<FeligresDetalle, String> padreColumn;
-    @FXML
-    private TableColumn<FeligresDetalle, String> madreColumn;
-    @FXML
-    private TableColumn<FeligresDetalle, LocalDate> nacimientoColumn;
-    @FXML
-    private TableColumn<FeligresDetalle, Integer> edadColumn;
-    @FXML
-    private TableColumn<FeligresDetalle, String> lugarNacimientoColumn;
-    @FXML
-    private TableColumn<FeligresDetalle, LocalDate> fechaSacramentoColumn;
-    @FXML
-    private TableColumn<FeligresDetalle, String> lugarSacramentoColumn;
-    @FXML
-    private TableColumn<FeligresDetalle, String> padrinoColumn;
-    @FXML
-    private TableColumn<FeligresDetalle, String> madrinaColumn;
-    @FXML
-    private TableColumn<FeligresDetalle, String> observacionColumn;
-    @FXML
-    private TableColumn<FeligresDetalle, String> registradoColumn;
 
-    //Campos para el ingreso de datos
-    @FXML
-    private TextField txtLibroB, txtFolioB, txtPartidaB, txtNombreB, txtApellidoB, txtPadreB, txtMadreB, txtPadrinoB, txtMadrinaB, txtLugarBautismo, txtLugarNacimientoB;
-    @FXML
-    private TextArea txtAreaObservaciones;
-    @FXML
-    private CheckBox boxInscritoB;
-    @FXML
-    private DatePicker datePikerFechaB, datePikerFechaNacimientoB;
-    private String check;
-    //Definicion de la variable de Busqueda
-    @FXML
-    private TextField txtBusquedaB;
 
-    private TabPane miTabPaneB;
-    //Para Manejar las Graficas
-    @FXML
-    private BarChart<String, Number> bcBautismos;
-    @FXML
-    private ComboBox<String> cbFiltroB;
+    // Campos para el ingreso de datos
+    @FXML private TextField txtLibroB, txtFolioB, txtPartidaB, txtNombreB, txtApellidoB, txtPadreB, txtMadreB, txtPadrinoB, txtMadrinaB, txtLugarBautismo, txtLugarNacimientoB;
+    @FXML private TextArea txtAreaObservaciones;
+    @FXML private CheckBox boxInscritoB;
+    @FXML private DatePicker datePikerFechaB, datePikerFechaNacimientoB;
 
-    /**
-     * Initializes the controller class.
-     */
+
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        cargarDatosBautismosPorFecha();
-        cargarDatosDistribucionEdades();
-        cargarDatosBautismosPorFecha2();
-
-        pcBautismos.setVisible(false);
-        bcBautismos.setVisible(false);
-        lcBautismo.setVisible(false);
-        pcBautismos2.setVisible(false);
-
-        cbFiltroB.getItems().addAll("Bautismos por Fecha", "Bautismos Por Edades", "por Fecha Barras", "Anotados al Libro");
-        //miTabPaneB.getSelectionModel().select(1);
-        // Agregar el evento de cambio de selección al ComboBox
-        cbFiltroB.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                String opcionSeleccionada = cbFiltroB.getSelectionModel().getSelectedItem();
-
-                // Verificar la opción seleccionada y ejecutar la acción correspondiente
-                if ("Bautismos por Fecha".equals(opcionSeleccionada)) {
-                    pcBautismos2.setVisible(false);
-                    pcBautismos.setVisible(false);
-                    bcBautismos.setVisible(false);
-                    lcBautismo.setVisible(true);
-                    // Ejecutar el método correspondiente
-                    cargarDatosBautismosPorFecha2();
-                } else if ("Bautismos Por Edades".equals(opcionSeleccionada)) {
-                    pcBautismos2.setVisible(false);
-                    pcBautismos.setVisible(true);
-                    bcBautismos.setVisible(false);
-                    lcBautismo.setVisible(false);
-                    cargarDatosDistribucionEdades();
-
-                    // ...
-                } else if ("por Fecha Barras".equals(opcionSeleccionada)) {
-                    pcBautismos2.setVisible(false);
-                    pcBautismos.setVisible(false);
-                    bcBautismos.setVisible(true);
-                    lcBautismo.setVisible(false);
-                    cargarDatosBautismosPorFecha();
-                    // Ejecutar otra acción
-                    // ...
-
-                } else if ("Anotados al Libro".equals(opcionSeleccionada)) {
-                    pcBautismos.setVisible(false);
-                    bcBautismos.setVisible(false);
-                    lcBautismo.setVisible(false);
-                    pcBautismos2.setVisible(true);
-                    cargarDatosInscritosVsNoInscritos();
-                }
-            }
-        });
-
+        // Inicialización del controlador
     }
 
     @FXML
@@ -175,6 +51,7 @@ public class BautismosVistaController implements Initializable {
     @FXML
     private void _guardar() throws IOException, SQLException {
         Integer libro, folio, partida;
+
         // Obteniendo los valores de los campos de texto y otros componentes
         String nombre = txtNombreB.getText();
         String apellido = txtApellidoB.getText();
@@ -197,14 +74,10 @@ public class BautismosVistaController implements Initializable {
         PreparedStatement pstmt4 = null;
         ResultSet rs = null;
 
-        // Verifica primero si los campos libro, folio o partida están vacíos
+        // Verifica primero si los campos libro, folio, partida, nombre o apellido están vacíos
         if (txtLibroB.getText().trim().isEmpty() || txtFolioB.getText().trim().isEmpty() || txtPartidaB.getText().trim().isEmpty() || txtNombreB.getText().trim().isEmpty() || txtApellidoB.getText().trim().isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Validación de Campos");
-            alert.setHeaderText(null);
-            alert.setContentText("Los campos Libro, Folio y Partida no pueden quedar vacíos.");
-            alert.showAndWait();
-            return; // Termina la ejecución del método para no continuar con el proceso
+            showAlert("Validación de Campos", "Los campos Libro, Folio y Partida no pueden quedar vacíos.", Alert.AlertType.WARNING);
+            return;
         }
 
         // Intenta convertir las entradas a Integer y atrapa cualquier NumberFormatException
@@ -213,26 +86,17 @@ public class BautismosVistaController implements Initializable {
             folio = Integer.valueOf(txtFolioB.getText().trim());
             partida = Integer.valueOf(txtPartidaB.getText().trim());
         } catch (NumberFormatException e) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Entrada no válida");
-            alert.setHeaderText(null);
-            alert.setContentText("Por favor, ingresa valores numéricos válidos en los campos Libro, Folio y Partida.");
-            alert.showAndWait();
-            return; // Termina la ejecución del método para no continuar con el proceso
+            showAlert("Entrada no válida", "Por favor, ingresa valores numéricos válidos en los campos Libro, Folio y Partida.", Alert.AlertType.WARNING);
+            return;
         }
 
         // Comprueba si alguna de las cadenas contiene números
         if (nombre.matches(".*\\d.*") || apellido.matches(".*\\d.*") || padre.matches(".*\\d.*") || madre.matches(".*\\d.*")) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Entrada no válida");
-            alert.setHeaderText(null);
-            alert.setContentText("Los campos de nombre, apellido, padre y madre no deben contener números. Por favor, corrija e intente nuevamente.");
-            alert.showAndWait();
-            return; // Termina la ejecución del método para no continuar con el proceso
+            showAlert("Entrada no válida", "Los campos de nombre, apellido, padre y madre no deben contener números. Por favor, corrija e intente nuevamente.", Alert.AlertType.WARNING);
+            return;
         }
 
         try {
-
             // Obtén la fecha de nacimiento del DatePicker
             LocalDate fechaNacimientoC = datePikerFechaNacimientoB.getValue();
             LocalDate fechaInscripcion = datePikerFechaB.getValue();
@@ -243,30 +107,25 @@ public class BautismosVistaController implements Initializable {
             if (fechaNacimientoC.getDayOfYear() > fechaInscripcion.getDayOfYear()) {
                 edad--; // Ajusta la edad si el cumpleaños de este año aún no ha llegado.
             }
-            
-            if(fechaNacimientoC.isAfter(hoy ) ){
-                showAlert("Error", "La fecha de Nacimiento no puede ser despues de hoy ", Alert.AlertType.ERROR);
-                return;
-            } 
-            if(fechaNacimientoC.isAfter( fechaInscripcion) ){
-                showAlert("Error", "El Sacramento no puede ser Antes del Nacimiento", Alert.AlertType.ERROR);
-                return;
-            } 
-            
 
-            // Validadndo el Combo Box
-            if (inscrito) {
-                check = "Si";
-            } else {
-                check = "No";
+            // Validaciones de fechas
+            if (fechaNacimientoC.isAfter(hoy)) {
+                showAlert("Error", "La fecha de Nacimiento no puede ser después de hoy.", Alert.AlertType.ERROR);
+                return;
             }
+            if (fechaNacimientoC.isAfter(fechaInscripcion)) {
+                showAlert("Error", "El Sacramento no puede ser antes del nacimiento.", Alert.AlertType.ERROR);
+                return;
+            }
+
+            // Validando el Combo Box
+            String check = inscrito ? "Si" : "No";
+
             // Obteniendo la conexión utilizando la clase ConexionDB
             conn = ConexionDB.getConexion();
 
-            // Creando la consulta SQL para insertar datos.
+            // Creando la consulta SQL para insertar datos en la tabla feligres
             String sql = "INSERT INTO feligres (nombre, apellido, padreFeligres, madreFeligres, nacimiento, edadFeligres, lugarNacimiento) VALUES (?, ?, ?, ?, ?, ?, ?)";
-
-            // Preparando la consulta SQL
             pstmt1 = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             pstmt1.setString(1, nombre);
             pstmt1.setString(2, apellido);
@@ -275,91 +134,57 @@ public class BautismosVistaController implements Initializable {
             pstmt1.setDate(5, Date.valueOf(fechaNacimiento));
             pstmt1.setInt(6, edad);
             pstmt1.setString(7, lugarNacimiento);
-            // Ejecutando la consulta SQL
             pstmt1.executeUpdate();
 
-            // Obtener el ID generado
+            // Obtener el ID generado para insertar en las demás tablas
             rs = pstmt1.getGeneratedKeys();
             if (rs.next()) {
                 int idGenerado = rs.getInt(1);
-                // Ahora puedes usar idGenerado para las otras consultas como clave foránea
-                //Insertado a la tabla de Reistrodel Sacramento
-                String sql3 = "INSERT INTO bautismo (fechaSacramento, lugarSacramento, padrino, madrina, idFeligres, fechaInscripcion) VALUES ( ?, ?, ?, ?, ?, NOW())";
-                // Preparando la consulta SQL
+
+                // Insertar en la tabla bautismo
+                String sql3 = "INSERT INTO bautismo (fechaSacramento, lugarSacramento, padrino, madrina, idFeligres, fechaInscripcion) VALUES (?, ?, ?, ?, ?, NOW())";
                 pstmt3 = conn.prepareStatement(sql3, Statement.RETURN_GENERATED_KEYS);
                 pstmt3.setDate(1, Date.valueOf(fechaBautismo));
                 pstmt3.setString(2, lugarBautismo);
                 pstmt3.setString(3, padrino);
                 pstmt3.setString(4, madrina);
                 pstmt3.setInt(5, idGenerado);
-                // Ejecutando la consulta SQL
                 pstmt3.executeUpdate();
 
-                // Obtener el ID generado
+                // Obtener el ID generado para insertar en la tabla registrolibro
                 rs = pstmt3.getGeneratedKeys();
                 if (rs.next()) {
                     int idGenerado1 = rs.getInt(1);
-                    //Insertado a la tabla de Reistrodel Sacramento
+
+                    // Insertar en la tabla registrolibro
                     String sql2 = "INSERT INTO registrolibro (libro, folio, partida, inscritoLibro, bautismo_idBautismo) VALUES (?, ?, ?, ?, ?)";
-                    // Preparando la consulta SQL
-                    pstmt2 = conn.prepareStatement(sql2, Statement.RETURN_GENERATED_KEYS);
+                    pstmt2 = conn.prepareStatement(sql2);
                     pstmt2.setInt(1, libro);
                     pstmt2.setInt(2, folio);
                     pstmt2.setInt(3, partida);
                     pstmt2.setString(4, check);
                     pstmt2.setInt(5, idGenerado1);
-                    // Ejecutando la consulta SQL
                     pstmt2.executeUpdate();
 
-                    //Insertado a la tabla de Reistrodel Sacramento
-                    String sql4 = "INSERT INTO observacion (observacion, bautismo_idBautismo) VALUES (?,?)";
-                    // Preparando la consulta SQL
+                    // Insertar en la tabla observacion
+                    String sql4 = "INSERT INTO observacion (observacion, bautismo_idBautismo) VALUES (?, ?)";
                     pstmt4 = conn.prepareStatement(sql4);
                     pstmt4.setString(1, observaciones);
                     pstmt4.setInt(2, idGenerado1);
-                    // Ejecutando la consulta SQL
                     pstmt4.executeUpdate();
-
                 }
-
             }
             limpiarCampos();
-
         } catch (SQLException e) {
             e.printStackTrace();
-            // manejo de errores según necesite
         } finally {
             // Cerrando el PreparedStatement y Connection
-            try {
-                if (pstmt1 != null) {
-                    pstmt1.close();
-                }
-                if (pstmt2 != null) {
-                    pstmt2.close();
-                }
-                if (pstmt3 != null) {
-                    pstmt3.close();
-                }
-                if (pstmt4 != null) {
-                    pstmt4.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
-                if (rs != null) {
-                    rs.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            cerrarRecursos(pstmt1, pstmt2, pstmt3, pstmt4, conn, rs);
         }
-
     }
 
-    //Campos Miselaneos
+    // Método para limpiar los campos del formulario
     public void limpiarCampos() {
-        // Limpiar todos los otros campos
-        // Limpieza de los TextField
         txtLibroB.clear();
         txtFolioB.clear();
         txtPartidaB.clear();
@@ -371,14 +196,8 @@ public class BautismosVistaController implements Initializable {
         txtMadrinaB.clear();
         txtLugarBautismo.clear();
         txtLugarNacimientoB.clear();
-
-        // Limpieza del TextArea
         txtAreaObservaciones.clear();
-
-        // Limpieza del CheckBox
         boxInscritoB.setSelected(false);
-
-        // Limpieza de los DatePicker
         datePikerFechaB.setValue(null);
         datePikerFechaNacimientoB.setValue(null);
     }
@@ -391,191 +210,17 @@ public class BautismosVistaController implements Initializable {
         alert.showAndWait();
     }
 
-    //Manejo de Graficas
-    //Barchar Genera la Consulta pra saber cuantos Bautismos hay por fecha 
-    private Map<LocalDate, Integer> obtenerBautismosPorFecha() throws SQLException {
-        Map<LocalDate, Integer> resultados = new HashMap<>();
-
-        String sql = "SELECT fechaSacramento, COUNT(*) as total FROM bautismo GROUP BY fechaSacramento ORDER BY fechaSacramento";
-
-        try (
-                Connection conn = ConexionDB.getConexion(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
-            while (rs.next()) {
-                resultados.put(rs.getDate("fechaSacramento").toLocalDate(), rs.getInt("total"));
-            }
-        }
-
-        return resultados;
-    }
-
-    //Agrega los Datos obtenidos anteriormente y los muestra
-    @FXML
-    private void cargarDatosBautismosPorFecha() {
-        bcBautismos.getData().clear(); // Limpia las series anteriores
-        XYChart.Series<String, Number> series = new XYChart.Series<>();
+    // Método para cerrar recursos de base de datos
+    private void cerrarRecursos(PreparedStatement pstmt1, PreparedStatement pstmt2, PreparedStatement pstmt3, PreparedStatement pstmt4, Connection conn, ResultSet rs) {
         try {
-            Map<LocalDate, Integer> datos = obtenerBautismosPorFecha();
-
-            for (Map.Entry<LocalDate, Integer> entry : datos.entrySet()) {
-                series.getData().add(new XYChart.Data<>(entry.getKey().toString(), entry.getValue()));
-            }
-
-            bcBautismos.getData().add(series);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            // Aquí puedes manejar el error, quizás mostrar un mensaje al usuario
-        }
-    }
-
-    private Map<String, Integer> obtenerDistribucionEdadesBautismos() throws SQLException {
-        Map<String, Integer> resultados = new HashMap<>();
-
-        String sql = "SELECT \n"
-                + "    CASE \n"
-                + "        WHEN f.edadFeligres BETWEEN 0 AND 7 THEN '0-7 años'\n"
-                + "        ELSE '8+ años'\n"
-                + "    END AS rangoEdad,\n"
-                + "    COUNT(*) as total \n"
-                + "FROM feligres f\n"
-                + "INNER JOIN bautismo b ON f.idFeligres = b.idFeligres \n"
-                + "GROUP BY rangoEdad \n"
-                + "ORDER BY rangoEdad;";
-
-        try (
-                Connection conn = ConexionDB.getConexion(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
-            while (rs.next()) {
-                String edad = rs.getString("rangoEdad");
-                resultados.put(edad, rs.getInt("total"));
-            }
-        }
-
-        return resultados;
-    }
-
-    @FXML
-    private void cargarDistribucionEdadesBautismos() {
-        bcBautismos.getData().clear(); // Limpia las series anteriores
-
-        XYChart.Series<String, Number> series = new XYChart.Series<>();
-        try {
-            Map<String, Integer> datos = obtenerDistribucionEdadesBautismos();
-
-            for (Map.Entry<String, Integer> entry : datos.entrySet()) {
-                series.getData().add(new XYChart.Data<>(entry.getKey(), entry.getValue()));
-            }
-
-            bcBautismos.getData().add(series);
+            if (pstmt1 != null) pstmt1.close();
+            if (pstmt2 != null) pstmt2.close();
+            if (pstmt3 != null) pstmt3.close();
+            if (pstmt4 != null) pstmt4.close();
+            if (conn != null) conn.close();
+            if (rs != null) rs.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-
-    //PieChart que muestra los bautismos por rangos de edad
-    @FXML
-    private PieChart pcBautismos;
-
-    @FXML
-    private void cargarDatosDistribucionEdades() {
-        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
-
-        try {
-            Map<String, Integer> datos = obtenerDistribucionEdadesBautismos();
-
-            for (Map.Entry<String, Integer> entry : datos.entrySet()) {
-                pieChartData.add(new PieChart.Data(entry.getKey(), entry.getValue()));
-            }
-
-            pcBautismos.setData(pieChartData);
-
-            // Si deseas mostrar la cantidad en el PieChart
-            for (PieChart.Data data : pcBautismos.getData()) {
-                data.nameProperty().bind(Bindings.concat(data.getName(), ": ", data.pieValueProperty().asString("%.0f")));
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-//LineChart que muestra los bautismos por fecha
-    @FXML
-    private LineChart<String, Number> lcBautismo;
-
-    @FXML
-    private void cargarDatosBautismosPorFecha2() {
-        XYChart.Series<String, Number> series = new XYChart.Series<>();
-        series.setName("Bautismos");  // Nombre de la serie, opcional.
-
-        try {
-            Map<LocalDate, Integer> datos = obtenerBautismosPorFecha();
-
-            for (Map.Entry<LocalDate, Integer> entry : datos.entrySet()) {
-                series.getData().add(new XYChart.Data<>(entry.getKey().toString(), entry.getValue()));
-            }
-
-            lcBautismo.getData().clear(); // Limpia los datos anteriores
-            lcBautismo.getData().add(series);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    //NUevo PieCHart que muestra los registros inscritos y los que no xD ---------------------------------------
-    @FXML
-    private PieChart pcBautismos2;
-
-    // 1. Consulta para obtener la cantidad de inscritos y no inscritos.
-    private Map<String, Integer> obtenerInscritosVsNoInscritos() throws SQLException {
-        Map<String, Integer> resultados = new HashMap<>();
-
-        String sql = "SELECT r.inscritoLibro, COUNT(*) as total \n"
-                + "FROM registrolibro r \n"
-                + "INNER JOIN bautismo b ON r.bautismo_idBautismo = b.idBautismo \n"
-                + "GROUP BY r.inscritoLibro;";
-
-        try (Connection conn = ConexionDB.getConexion(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
-
-            while (rs.next()) {
-                resultados.put(rs.getString("inscritoLibro"), rs.getInt("total"));
-            }
-        }
-
-        return resultados;
-    }
-
-    @FXML
-    private void cargarDatosInscritosVsNoInscritos() {
-        try {
-            Map<String, Integer> datos = obtenerInscritosVsNoInscritos();
-
-            ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
-
-            for (Map.Entry<String, Integer> entry : datos.entrySet()) {
-                pieChartData.add(new PieChart.Data(entry.getKey(), entry.getValue()));
-            }
-
-            pcBautismos2.setData(pieChartData);
-
-            // Agregar leyenda a los slices del PieChart
-            for (final PieChart.Data data : pcBautismos2.getData()) {
-                data.getNode().addEventHandler(MouseEvent.MOUSE_PRESSED, e -> {
-                    Bounds b1 = data.getNode().getBoundsInLocal();
-                    double newX = (b1.getMaxX() + b1.getMinX()) / 2;
-                    double newY = (b1.getMaxY() + b1.getMinY()) / 2;
-                    System.out.println(newX + " " + newY);
-                    Tooltip t = new Tooltip(data.getPieValue() + "");
-                    Tooltip.install(data.getNode(), t);
-                });
-            }
-            // Si deseas mostrar la cantidad en el PieChart
-            for (PieChart.Data data : pcBautismos2.getData()) {
-                data.nameProperty().bind(Bindings.concat(data.getName(), ": ", data.pieValueProperty().asString("%.0f")));
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
 }
