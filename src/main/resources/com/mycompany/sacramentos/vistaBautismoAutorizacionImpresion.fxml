@@ -3,10 +3,8 @@
 <?import java.net.URL?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -19,128 +17,6 @@
         <URL value="@/styles/edicionregistro.css" />
     </stylesheets>
     <children>
-          <AnchorPane layoutX="6.0" layoutY="95.0" maxHeight="800.0" maxWidth="1300.0" minHeight="651.0" minWidth="1140.0" prefHeight="704.0" prefWidth="1294.0" style="-fx-background-color: linear-gradient(to bottom, #c6eaff, #ffffff);">
-              <children>
-                  <Label layoutX="44.0" layoutY="90.0" text="Libro">
-               <font>
-                  <Font size="13.0" />
-               </font>
-            </Label>
-                  <TextField fx:id="txtFolioB" layoutX="86.0" layoutY="143.0" prefHeight="25.0" prefWidth="40.0" />
-                  <Label layoutX="42.0" layoutY="147.0" text="Folio">
-               <font>
-                  <Font size="13.0" />
-               </font>
-            </Label>
-                  <TextField fx:id="txtPartidaB" layoutX="86.0" layoutY="192.0" prefHeight="25.0" prefWidth="40.0" />
-                  <CheckBox fx:id="cbInscritoB" layoutX="50.0" layoutY="329.0" mnemonicParsing="false" text="Inscrito">
-               <font>
-                  <Font size="13.0" />
-               </font>
-            </CheckBox>
-                  <DatePicker fx:id="dpFechaB" layoutX="346.0" layoutY="32.0" prefHeight="25.0" prefWidth="263.0" />
-                  <TextField fx:id="txtLugarB" layoutX="653.0" layoutY="29.0" prefHeight="25.0" prefWidth="290.0" />
-                  <Label layoutX="41.0" layoutY="195.0" text="Partida">
-               <font>
-                  <Font size="13.0" />
-               </font>
-            </Label>
-                  <TextField fx:id="txtNombreB" layoutX="379.0" layoutY="94.0" prefHeight="25.0" prefWidth="200.0" />
-                  <Label layoutX="324.0" layoutY="98.0" text="Nombres">
-               <font>
-                  <Font size="13.0" />
-               </font>
-            </Label>
-                  <TextField fx:id="txtApellidoB" layoutX="667.0" layoutY="97.0" prefHeight="25.0" prefWidth="200.0" />
-                  <Label layoutX="606.0" layoutY="101.0" text="Apellidos">
-               <font>
-                  <Font size="13.0" />
-               </font>
-            </Label>
-                  <Label layoutX="328.0" layoutY="145.0" text="Nacimiento">
-               <font>
-                  <Font size="13.0" />
-               </font>
-            </Label>
-                  <DatePicker fx:id="dpNacimientoB" layoutX="399.0" layoutY="141.0" prefHeight="25.0" prefWidth="263.0" />
-                  <Label layoutX="692.0" layoutY="144.0" text="Edad">
-               <font>
-                  <Font size="13.0" />
-               </font>
-            </Label>
-                  <TextField fx:id="txtLugarNacimientoB" layoutX="441.0" layoutY="194.0" prefHeight="25.0" prefWidth="494.0" />
-                  <TextField fx:id="txtEdadB" disable="true" layoutX="740.0" layoutY="141.0" prefHeight="25.0" prefWidth="41.0" />
-                  <Label layoutX="324.0" layoutY="198.0" text="Lugar Nacimiento">
-               <font>
-                  <Font size="13.0" />
-               </font>
-            </Label>
-                  <Label layoutX="331.0" layoutY="33.0" text="A">
-               <font>
-                  <Font size="13.0" />
-               </font>
-            </Label>
-                  <TextField fx:id="txtPadreB" layoutX="327.0" layoutY="277.0" prefHeight="25.0" prefWidth="280.0" />
-                  <Label layoutX="327.0" layoutY="249.0" text="Padre">
-               <font>
-                  <Font size="13.0" />
-               </font>
-            </Label>
-                  <TextField fx:id="txtMadreB" layoutX="658.0" layoutY="277.0" prefHeight="25.0" prefWidth="280.0" />
-                  <Label layoutX="663.0" layoutY="249.0" text="Madre">
-               <font>
-                  <Font size="13.0" />
-               </font>
-            </Label>
-                  <Label layoutX="622.0" layoutY="33.0" text="En: ">
-               <font>
-                  <Font size="13.0" />
-               </font>
-            </Label>
-                  <TextField fx:id="txtPadrinoB" layoutX="327.0" layoutY="349.0" prefHeight="25.0" prefWidth="280.0" />
-                  <Label layoutX="330.0" layoutY="319.0" text="Padrino">
-               <font>
-                  <Font size="13.0" />
-               </font>
-            </Label>
-                  <TextField fx:id="txtMadrinaB" layoutX="658.0" layoutY="349.0" prefHeight="25.0" prefWidth="280.0" />
-                  <Label layoutX="658.0" layoutY="319.0" text="Madrina">
-               <font>
-                  <Font size="13.0" />
-               </font>
-            </Label>
-                  <TextArea fx:id="taObservacionesB" layoutX="320.0" layoutY="422.0" prefHeight="200.0" prefWidth="617.0" />
-                  <Button id="actualizar" layoutX="1126.0" layoutY="172.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="116.0" stylesheets="@../../../styles/edicionregistro.css" text="Actualizar" textFill="#f2f2f2">
-                      <cursor>
-                          <Cursor fx:constant="HAND" />
-                      </cursor>
-                  </Button>
-                  <Button id="eliminar" layoutX="1128.0" layoutY="237.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="113.0" stylesheets="@../../../styles/edicionregistro.css" text="Eliminar" textFill="WHITE">
-                      <font>
-                          <Font name="System Bold" size="12.0" />
-                      </font>
-                  </Button>
-                  <TextField fx:id="txtLibroB" layoutX="86.0" layoutY="86.0" prefHeight="25.0" prefWidth="40.0" />
-            <Label layoutX="396.0" layoutY="673.0" text="© 2024 Iglesia Católica - Parroquia Santo Hermano Pedro- Sistema de Gestión de Sacramentos" />
-            <ImageView fitHeight="112.0" fitWidth="142.0" layoutX="1129.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../img/edicion.png" />
-               </image>
-            </ImageView>
-            <Separator layoutX="1073.0" layoutY="44.0" orientation="VERTICAL" prefHeight="317.0" prefWidth="8.0" />
-            <Label layoutX="628.0" layoutY="353.0" text="Y">
-               <font>
-                  <Font size="13.0" />
-               </font>
-            </Label>
-            <Label layoutX="589.0" layoutY="399.0" text="Observaciones">
-               <font>
-                  <Font size="13.0" />
-               </font>
-            </Label>
-            <Separator layoutX="166.0" layoutY="69.0" orientation="VERTICAL" prefHeight="317.0" prefWidth="8.0" />
-              </children>
-          </AnchorPane>
           <AnchorPane maxHeight="1300.0" maxWidth="1300.0" minHeight="85.0" minWidth="1300.0" prefHeight="94.0" prefWidth="1300.0" style="-fx-background-color: linear-gradient(to bottom, #c6eaff, #ffffff);">
               <children>
                   <Button fx:id="regresar" layoutX="1174.0" layoutY="25.0" mnemonicParsing="false" onAction="#regresar" prefHeight="37.0" prefWidth="112.0" stylesheets="@../../../styles/edicionregistro.css" text="Regresar">
@@ -151,7 +27,7 @@
                           <Cursor fx:constant="HAND" />
                       </cursor>
                   </Button>
-                  <Label layoutX="408.0" layoutY="14.0" text="Edicion de Registro - Bautismo">
+                  <Label layoutX="387.0" layoutY="19.0" text="Edicion de Autorizacion - Bautismo">
                       <font>
                           <Font size="34.0" />
                       </font>
@@ -163,5 +39,91 @@
             </ImageView>
               </children>
           </AnchorPane>
+      <AnchorPane layoutY="94.0" prefHeight="705.0" prefWidth="1300.0" style="-fx-background-color: linear-gradient(to bottom, #c6eaff, #ffffff);">
+         <children>
+                  <Button id="actualizar" layoutX="1170.0" layoutY="92.0" mnemonicParsing="false" onAction="#actualizar" prefHeight="34.0" prefWidth="116.0" stylesheets="@../../../styles/edicionregistro.css" text="Actualizar" textFill="#f2f2f2">
+                      <cursor>
+                          <Cursor fx:constant="HAND" />
+                      </cursor>
+                  </Button>
+                  <Button id="eliminar" layoutX="1172.0" layoutY="163.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="113.0" stylesheets="@../../../styles/edicionregistro.css" text="Eliminar" textFill="WHITE">
+                      <font>
+                          <Font name="System Bold" size="12.0" />
+                      </font>
+                  </Button>
+            <Label layoutX="399.0" layoutY="674.0" text="© 2024 Iglesia Católica - Parroquia Santo Hermano Pedro- Sistema de Gestión de Sacramentos" />
+            <Label layoutX="430.0" layoutY="14.0" text="Puede Modificar los Datos Requeridos">
+               <font>
+                  <Font size="28.0" />
+               </font>
+            </Label>
+            <TextField fx:id="aparroquia" layoutX="319.0" layoutY="79.0" prefHeight="25.0" prefWidth="400.0" promptText="Parroquia a la que va dirigida la carta" />
+            <TextField fx:id="padre" layoutX="222.0" layoutY="212.0" prefHeight="25.0" prefWidth="250.0" promptText="Nombre Completo del Padre" />
+            <TextField fx:id="parroco" layoutX="381.0" layoutY="131.0" prefHeight="25.0" prefWidth="250.0" promptText="Sacerdote a quien va dirigida la carta" />
+            <TextField fx:id="madre" layoutX="552.0" layoutY="212.0" prefHeight="25.0" prefWidth="250.0" promptText="Nombre Completo de la Madre" />
+            <TextField fx:id="Lnacimiento" layoutX="368.0" layoutY="330.0" prefHeight="25.0" prefWidth="400.0" promptText="Lugar de Nacimiento" />
+            <TextField fx:id="nino" layoutX="366.0" layoutY="268.0" prefHeight="25.0" prefWidth="300.0" promptText="Nombre del Niño a Bautizar" />
+            <DatePicker fx:id="Fnacimiento" layoutX="372.0" layoutY="387.0" prefHeight="25.0" prefWidth="268.0" promptText="Fecha de Nacimiento" />
+            <TextField fx:id="padrino" layoutX="205.0" layoutY="468.0" prefHeight="25.0" prefWidth="250.0" promptText="Nombre Completo del Padrino" />
+            <TextField fx:id="madrina" layoutX="557.0" layoutY="468.0" prefHeight="25.0" prefWidth="250.0" promptText="Nombre Completo de la Madrina" />
+            <TextArea fx:id="obs" layoutX="897.0" layoutY="201.0" prefHeight="292.0" prefWidth="200.0" />
+            <TextField disable="true" layoutX="316.0" layoutY="560.0" prefHeight="25.0" prefWidth="400.0" promptText="Parroco Actual" />
+            <Label fx:id="_v1" layoutX="228.0" layoutY="82.0" text="A Parroquia">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="309.0" layoutY="134.0" text="Párroco ">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="_v2" layoutX="280.0" layoutY="189.0" text="Nombre del Padre">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="_v3" layoutX="602.0" layoutY="189.0" text="Nombre de la Madre">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="_v4" layoutX="233.0" layoutY="271.0" text="Nombre del Niño(a)">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="230.0" layoutY="333.0" text="Lugar de Nacimiento">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="_v5" layoutX="230.0" layoutY="390.0" text="Fecha de Nacimiento">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="_v6" layoutX="262.0" layoutY="448.0" text="Nombre del Padrino">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="_v7" layoutX="607.0" layoutY="448.0" text="Nombre de la Madrina">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="436.0" layoutY="540.0" text="Nombre del Parroco">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="952.0" layoutY="179.0" text="Observaciones">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
     </children>
 </AnchorPane>
