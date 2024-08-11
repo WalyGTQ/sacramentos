@@ -1,7 +1,18 @@
-/*
- * Empty Stylesheet file.
- */
+/* Estilo base del botón Regresar*/
+#Imprimir{
+    -fx-background-color: #da76c9; /* Color de fondo inicial */
+    -fx-text-fill: white; /* Color del texto inicial */
+    -fx-border-radius: 5px; /* Borde redondeado */
+    -fx-background-radius: 5px; /* Borde redondeado */
+    -fx-font-size: 14px; /* Tamaño de la fuente */
+}
 
-.mainFxmlClass {
 
+
+/* Estilo cuando el cursor pasa sobre el botón */
+#Imprimir:hover {
+    -fx-background-color: white; /* Color de fondo al pasar el cursor */
+    -fx-text-fill: #da76c9; /* Color del texto al pasar el cursor */
+    -fx-border-color: #da76c9; /* Color del borde */
+    -fx-border-width: 2px; /* Ancho del borde */
 }

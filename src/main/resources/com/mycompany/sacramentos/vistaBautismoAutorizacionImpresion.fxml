@@ -46,7 +46,7 @@
                           <Cursor fx:constant="HAND" />
                       </cursor>
                   </Button>
-                  <Button id="eliminar" layoutX="1172.0" layoutY="163.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="113.0" stylesheets="@../../../styles/edicionregistro.css" text="Eliminar" textFill="WHITE">
+                  <Button id="Imprimir" layoutX="1172.0" layoutY="163.0" mnemonicParsing="false" onAction="#mostrarAlerta" prefHeight="40.0" prefWidth="113.0" stylesheets="@../../../styles/vistabautismoautorizacionimpresion.css" text="Imprimir" textFill="WHITE">
                       <font>
                           <Font name="System Bold" size="12.0" />
                       </font>
@@ -66,7 +66,7 @@
             <DatePicker fx:id="Fnacimiento" layoutX="372.0" layoutY="387.0" prefHeight="25.0" prefWidth="268.0" promptText="Fecha de Nacimiento" />
             <TextField fx:id="padrino" layoutX="205.0" layoutY="468.0" prefHeight="25.0" prefWidth="250.0" promptText="Nombre Completo del Padrino" />
             <TextField fx:id="madrina" layoutX="557.0" layoutY="468.0" prefHeight="25.0" prefWidth="250.0" promptText="Nombre Completo de la Madrina" />
-            <TextArea fx:id="obs" layoutX="897.0" layoutY="201.0" prefHeight="292.0" prefWidth="200.0" />
+            <TextArea fx:id="obs" layoutX="897.0" layoutY="201.0" prefHeight="292.0" prefWidth="200.0" text="A la vez se informa que no ha recibido la catequesis Pre-Bautismal correspondiente. " wrapText="true" />
             <TextField disable="true" layoutX="316.0" layoutY="560.0" prefHeight="25.0" prefWidth="400.0" promptText="Parroco Actual" />
             <Label fx:id="_v1" layoutX="228.0" layoutY="82.0" text="A Parroquia">
                <font>

@@ -437,10 +437,10 @@ public class EdicionRegistroCController implements Initializable {
             Image logoCentro = Image.getInstance("C:/Users/walyn/OneDrive/Documentos/NetBeansProjects/Sacramentos/src/main/resources/img/logo1.png");
             logoCentro.setAbsolutePosition(110, 180);
             logoCentro.scaleToFit(400, 400);
-// Configura la opacidad usando PdfGState
+            // Configura la opacidad usando PdfGState
             PdfGState state = new PdfGState();
             state.setFillOpacity(0.15f);  // Ajusta este valor para cambiar la opacidad
-// Agrega la imagen como marca de agua
+            // Agrega la imagen como marca de agua
             PdfContentByte under = writer.getDirectContentUnder();
             under.saveState();
             under.setGState(state);

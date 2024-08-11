@@ -45,7 +45,7 @@
                               <TextField fx:id="padrino" layoutX="339.0" layoutY="455.0" prefHeight="25.0" prefWidth="250.0" promptText="Nombre Completo del Padrino" />
                               <TextField fx:id="madrina" layoutX="691.0" layoutY="455.0" prefHeight="25.0" prefWidth="250.0" promptText="Nombre Completo de la Madrina" />
                               <TextArea fx:id="obs" layoutX="1031.0" layoutY="188.0" prefHeight="292.0" prefWidth="200.0" />
-                              <TextField layoutX="450.0" layoutY="547.0" prefHeight="25.0" prefWidth="400.0" promptText="Parroco Actual" />
+                              <TextField disable="true" layoutX="450.0" layoutY="547.0" prefHeight="25.0" prefWidth="400.0" promptText="Parroco Actual" />
                               <Label fx:id="_v1" layoutX="362.0" layoutY="69.0" text="A Parroquia">
                                  <font>
                                     <Font name="System Bold" size="14.0" />

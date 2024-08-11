@@ -75,14 +75,13 @@ public class ConexionDB {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String formattedDateTime = SingletonDatosUsuario.getInstance().getDatosUsuario().getFechaHoraRegistro().format(formatter);
 
-        String sql = "UPDATE sesion_actividad SET estadoSesion = ?, horaFinSesion = ?, duracion = ? WHERE UsuarioSesion = ? AND idUsuarioSesion = ? AND idRegistro = ?";
+        String sql = "UPDATE sesion_actividad SET estadoSesion = ?, horaFinSesion = ?, duracion = ? WHERE  idUsuarioSesion = ? AND idRegistro = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, estadoSesion);
             preparedStatement.setObject(2, horaFinSesion);
             preparedStatement.setLong(3, duracionEnSegundos);
-            preparedStatement.setString(4, UsuarioSesion);
-            preparedStatement.setInt(5, idUsuarioSesion);
-            preparedStatement.setObject(6, SingletonDatosUsuario.getInstance().getDatosUsuario().getIdentidad());
+            preparedStatement.setInt(4, idUsuarioSesion);
+            preparedStatement.setObject(5, SingletonDatosUsuario.getInstance().getDatosUsuario().getIdentidad());
 
             preparedStatement.executeUpdate();
             System.out.println(SingletonDatosUsuario.getInstance().getDatosUsuario().getFechaHoraRegistro());
