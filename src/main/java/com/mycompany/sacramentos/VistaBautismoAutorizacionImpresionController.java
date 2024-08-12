@@ -257,13 +257,18 @@ public class VistaBautismoAutorizacionImpresionController implements Initializab
     //Impresion de Documento:
     @FXML
     public void imprimirAutorizacion() throws IOException, DocumentException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE dd 'de' MMMM 'del' yyyy", new Locale("es", "ES"));
+        String fechaNacimientoFormatted = SingletonDatosAutorizaciones.getInstance().getDatosAutorizaciones().getFnacimiento().format(formatter);
         // Registrar fuente personalizada
         FontFactory.register("C:/Users/walyn/OneDrive/Documentos/NetBeansProjects/Sacramentos/src/main/resources/fuentes/Cambria.ttf", "CambriaItalic");
         // Usar la fuente personalizada
         Font CambriaIta = FontFactory.getFont("CambriaItalic", BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 14, Font.ITALIC, BaseColor.BLACK);
+        Font CambriaBold = FontFactory.getFont("CambriaItalic", BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 12, Font.BOLD, BaseColor.BLACK);
         Font CambriaItaBold = FontFactory.getFont("CambriaItalic", BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 13, Font.BOLDITALIC, BaseColor.BLACK);
         Font Cambria = FontFactory.getFont("CambriaItalic", BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 14, Font.NORMAL, BaseColor.BLACK);
         Font Cambria14Normal = FontFactory.getFont("CambriaItalic", BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 14, Font.BOLD, BaseColor.BLACK);
+        Font CambriaBKR10 = FontFactory.getFont("CambriaItalic", BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 10, Font.BOLDITALIC, BaseColor.RED);
+        Font CambriaBNR10 = FontFactory.getFont("CambriaItalic", BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 10, Font.ITALIC, BaseColor.RED);
 
         Document document = new Document(PageSize.LETTER);
         PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("C:/Users/walyn/Downloads/Constancia_C.pdf"));
@@ -278,9 +283,6 @@ public class VistaBautismoAutorizacionImpresionController implements Initializab
         Font fontNormalRed = FontFactory.getFont(FontFactory.HELVETICA, 14, BaseColor.RED);
 
         datos = SingletonDatosAutorizaciones.getInstance().getDatosAutorizaciones();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE dd 'de' MMMM 'del' yyyy", new Locale("es", "ES"));
-
-        String fechaNacimientoFormatted = datos.getFnacimiento().format(formatter);
         String fechaActualFormatted = LocalDate.now().format(formatter);
         //Integracion de Logo Iglesia Pequeño
         Image logoP = Image.getInstance("C:/Users/walyn/OneDrive/Documentos/NetBeansProjects/Sacramentos/src/main/resources/img/logo1.png"); //  ruta de  imagen
@@ -328,7 +330,7 @@ public class VistaBautismoAutorizacionImpresionController implements Initializab
         pHeader.setAlignment(Element.ALIGN_CENTER);
         document.add(pHeader);
         //Titulo del DOcumento
-        Paragraph pTitle = new Paragraph("AUTORIZACION DE BAUTISMNO", fontTitle);
+        Paragraph pTitle = new Paragraph("AUTORIZACION DE BAUTISMO", fontTitle);
         pTitle.setAlignment(Element.ALIGN_CENTER);
         pTitle.setSpacingBefore(20);
         document.add(pTitle);
@@ -353,9 +355,37 @@ public class VistaBautismoAutorizacionImpresionController implements Initializab
         phrase1.add(new Chunk("\nFeligreses de esta Parroquia.", Cambria));
         phrase1.add(new Chunk("\nPara que puedan ", Cambria));
         phrase1.add(new Chunk(" BAUTIZAR ", Cambria14Normal));
-        phrase1.add(new Chunk(" a su hijo(a): ", Cambria));
+        phrase1.add(new Chunk(" a su hijo(a) en la parroquia bajo su digno cargo. ", Cambria));
+        phrase1.add(new Chunk("\n\nEl niño(a) se llama:      ", Cambria));
+        phrase1.add(new Chunk(SingletonDatosAutorizaciones.getInstance().getDatosAutorizaciones().getNino(), CambriaItaBold));
+        phrase1.add(new Chunk("\n\nLugar de Nacimiento:   ", Cambria));
+        phrase1.add(new Chunk(SingletonDatosAutorizaciones.getInstance().getDatosAutorizaciones().getLnacimiento(), CambriaItaBold));
+        phrase1.add(new Chunk("\n\nEl dia  :   ", Cambria));
+        phrase1.add(new Chunk(fechaNacimientoFormatted, CambriaItaBold));
+        phrase1.add(new Chunk("\n\nOptan por ser Padrinos  :   ", Cambria));
+        phrase1.add(new Chunk(SingletonDatosAutorizaciones.getInstance().getDatosAutorizaciones().getPadrino() + "  Y  " + SingletonDatosAutorizaciones.getInstance().getDatosAutorizaciones().getMadrina(), CambriaItaBold));
+        phrase1.add(new Chunk("\n\nNota :   ", CambriaBNR10));//<---------------------Aca nos quedamos falta agregar la fuente para las notas
+        phrase1.add(new Chunk(SingletonDatosAutorizaciones.getInstance().getDatosAutorizaciones().getObs(), CambriaBKR10));
+        phrase1.add(new Chunk("\n\nAgradeciendo las consideraciones de la presente y sin otro particular me despido, quedo de usted deferente servidor. ", CambriaIta));
+
         // Añadir el Phrase al documento
         document.add(phrase1); /// Final Phrase 2
+
+        // Fecha y firma
+        Paragraph Fecha = new Paragraph("Chimaltenango, " + fechaActualFormatted, Cambria);
+        Fecha.setAlignment(Element.ALIGN_RIGHT);
+        document.add(Fecha);
+        
+                    // FIrma y Sello
+          Paragraph  firma = new Paragraph("\n\n\n\nFirma del Párroco Y sello Parroquial", CambriaBold);
+            firma.setAlignment(Element.ALIGN_CENTER);
+            document.add(firma);
+            // Nombre del Parroco
+          Paragraph  parroco = new Paragraph("P. Juan Carlos Sochón Cifuentes", CambriaBold);
+            parroco.setAlignment(Element.ALIGN_CENTER);
+            document.add(parroco);
+        
+        
 
         writer.setPageEvent(new EdicionRegistroCController.FooterEvent());//Asociamos el Evento que Genera la Hora Exacta de la Extencion del Documento
 
